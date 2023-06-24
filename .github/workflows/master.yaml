@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    runs-on: [self-hosted, macOS, ARM64, wbi-runner]
+    runs-on: [self-hosted, macOS, ARM64, rpsf-runner]
     # runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -87,8 +87,8 @@ jobs:
 
       - name: 'Deploy to K8s Deployment'
         run: |
-          kubectl -n wbi apply -f ./kube/prod/
+          kubectl -n rpsf apply -f ./kube/prod/
 
       - name: 'Restart Kubernetes Deployment'
         run: |
-          kubectl -n wbi rollout restart deployment wbi
+          kubectl -n rpsf rollout restart deployment rpsf

@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wbi
+  name: rpsf
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: wbi
+      app: rpsf
   template:
     metadata:
       labels:
-        app: wbi
+        app: rpsf
     spec:
       initContainers:
         - name: migrate
-          image: ghcr.io/fourfridays/wagtail-batteries-included:latest
+          image: ghcr.io/fourfridays/rosa-parks-scholarship-foundation:latest
           imagePullPolicy: Always
           command: ["python", "manage.py", "migrate"]
           envFrom:
           - secretRef:
               name: secret
       containers:
-        - image: ghcr.io/fourfridays/wagtail-batteries-included:latest
-          name: wbi
+        - image: ghcr.io/fourfridays/rosa-parks-scholarship-foundation:latest
+          name: rpsf
           resources:
             requests:
               memory: "256Mi"
@@ -39,12 +39,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wbi
+  name: rpsf
   labels:
-    app: wbi
+    app: rpsf
 spec:
   selector:
-    app: wbi
+    app: rpsf
   ports:
     - port: 8088
       targetPort: 8000
@@ -53,37 +53,37 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wbi
+  name: rpsf
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: wbi.fourfridays.com
+    - host: rpsf.fourfridays.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: wbi
+                name: rpsf
                 port:
                   number: 8088
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: wbi-tls
+  name: rpsf-tls
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`wbi.fourfridays.com`)
+      match: Host(`rpsf.fourfridays.com`)
       middlewares:
-        - name: wbi-gzip-compress
+        - name: rpsf-gzip-compress
       services:
-        - name: wbi
+        - name: rpsf
           port: 8088
   tls: # This route uses TLS
     certResolver: le # Uses our certificate resolver to get a certificate automatically!
@@ -92,31 +92,6 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: wbi-gzip-compress
+  name: rpsf-gzip-compress
 spec:
   compress: {}
-
-# Deprecating Ingress Nginx due to performance issues
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: ingress-nginx
-#   annotations:
-#     kubernetes.io/ingress.class: "nginx"
-#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-# spec:
-#   rules:
-#   - host: wbi.fourfridays.com
-#     http:
-#       paths:
-#         - path: /
-#           pathType: Prefix
-#           backend:
-#             service:
-#               name: wbi
-#               port:
-#                 number: 8088
-#   tls:
-#     - hosts:
-#         - wbi.fourfridays.com
-#       secretName: wbi-tls

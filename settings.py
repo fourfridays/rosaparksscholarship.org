@@ -161,7 +161,7 @@ MEDIA_URL = "media/"
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = os.environ.get(
-    "WAGTAIL_SITE_NAME", default="Wagtail Batteries Included"
+    "WAGTAIL_SITE_NAME", default="Rosa Parks Scholarship Foundation"
 )
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
