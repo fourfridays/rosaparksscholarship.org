@@ -40,6 +40,7 @@ COLOR_CHOICES = (
     (COLOR_DARK, "Dark"),
 )
 
+
 class AlignmentBlock(ChoiceBlock):
     choices = [("start", "Left"), ("center", "Center"), ("end", "Right")]
 
@@ -68,7 +69,7 @@ class ButtonBlock(StructBlock):
 
 
 class CodeBlock(StructBlock):
-    code = CodeBlock(label='Code')
+    code = CodeBlock(label="Code")
 
 
 class DocumentBlock(StructBlock):
