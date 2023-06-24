@@ -14,14 +14,14 @@ spec:
     spec:
       initContainers:
         - name: migrate
-          image: ghcr.io/fourfridays/rosa-parks-scholarship-foundation:latest
+          image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
           imagePullPolicy: Always
           command: ["python", "manage.py", "migrate"]
           envFrom:
           - secretRef:
               name: secret
       containers:
-        - image: ghcr.io/fourfridays/rosa-parks-scholarship-foundation:latest
+        - image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
           name: rpsf
           resources:
             requests:
