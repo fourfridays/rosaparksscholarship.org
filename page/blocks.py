@@ -1,5 +1,3 @@
-from django import forms
-
 from wagtail.admin.panels import FieldPanel
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -9,7 +7,6 @@ from wagtail.blocks import (
     CharBlock,
     ChoiceBlock,
     DateBlock,
-    FieldBlock,
     PageChooserBlock,
     RawHTMLBlock,
     RichTextBlock,
