@@ -2,13 +2,13 @@
 
 {% for menuitem in menuitems %}
     <li 
-        class="nav-item{% if menuitem.active %} active{% endif %}
+        class="nav-item btn btn-sm btn-primary me-md-3 my-1 my-md-0{% if menuitem.active %} active{% endif %}
                 {% if menuitem.show_dropdown %} dropdown{% endif %} me-2">
         {% if menuitem.show_dropdown %}
             <a 
-                class="nav-link dropdown-toggle"
+                class="nav-link text-black text-decoration-none fw-bold dropdown-toggle"
                 href="#" id="{{ menuitem.title|lower|cut:' ' }}-navbarDropdown"
-                role="button"
+                role="menuitem"
                 data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">
@@ -17,7 +17,7 @@
             {% top_menu_children parent=menuitem %}
         {% else %}
             <a 
-                class="nav-link dropdown-toggle {% if menuitem.active %}active{% endif %}"
+                class="nav-link text-black text-decoration-none fw-bold{% if menuitem.active %} active{% endif %}"
                 href="{% pageurl menuitem %}"
                 role="menuitem">
                 {{ menuitem.title }}
