@@ -10,17 +10,6 @@
         {% elif child.block_type == 'paragraph' %}
             {{ child.value|richtext }}
 
-        <!-- ALIGNED IMAGE -->
-        {% elif child.block_type == 'image' %}
-            {% image child.value.image fill-900-c100 format-webp as webp_aligned_image %}
-            {% image child.value.image fill-900-c100 as aligned_image %}
-            <figure>
-                <picture>
-                    <source srcset="{{ webp_aligned_image.url }}" type="image/webp">
-                    <img class="img-fluid img-thumbnail{% if child.value.image_alignment != 'center' %} float-{{ child.value.image_alignment }} {% else %} mx-auto d-block{% endif %}" {{ aligned_image.attrs }}>
-                </picture>
-            </figure>
-
         {% else %}
             {{ child }}
         {% endif %}
