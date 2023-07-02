@@ -3,7 +3,7 @@
 <div class="streamfield">
     {% for child in content %}
         <!-- SMALL TEXT -->
-        {% elif child.block_type == 'small_text' %}
+        {% if child.block_type == 'small_text' %}
             <small>{{ child }}</small>
 
         <!-- PARAGRAPH -->
