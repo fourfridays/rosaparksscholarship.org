@@ -5,7 +5,11 @@
 <div class="hero-image card border-0">
     <figure>
         <picture>
-            <source class="img-fluid card-img rounded-0" srcset="{{ webp_heroimage.url }}" type="image/webp">
+            <source
+                class="img-fluid card-img rounded-0"
+                srcset="{{ webp_heroimage.url }}"
+                type="image/webp"
+            >
             <img class="img-fluid card-img rounded-0" {{ heroimage.attrs }}>
         </picture>
         {% if self.hero_heading or self.hero_message %}
