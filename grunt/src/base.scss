@@ -12,6 +12,8 @@ $font-family-base: 'Karla', sans-serif;
 $headings-font-family: 'Rubik', sans-serif;
 $headings-font-weight: 600;
 
+.btn { font-weight: bold !important; }
+
 // Required
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
