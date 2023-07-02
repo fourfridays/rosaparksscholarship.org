@@ -2,25 +2,6 @@
 
 <div class="streamfield">
     {% for child in content %}
-        {% if child.block_type == 'h1' %}
-            <h1>{{ child }}</h1>
-        {% elif child.block_type == 'h2' %}
-            <h2>{{ child }}</h2>
-        {% elif child.block_type == 'h3' %}
-            <h3>{{ child }}</h3>
-        {% elif child.block_type == 'h4' %}
-            <h4>{{ child }}</h4>
-        {% elif child.block_type == 'h5' %}
-            <h5>{{ child }}</h5>
-        {% elif child.block_type == 'h6' %}
-            <h6>{{ child }}</h6>   
-
-        <!-- RAW HTML -->   
-        {% elif child.block_type == 'raw_html' %}
-            <div class="raw-html text-{{ child.value.alignment }}">
-                {{ child.value.html }}
-            </div>
-
         <!-- SMALL TEXT -->
         {% elif child.block_type == 'small_text' %}
             <small>{{ child }}</small>
