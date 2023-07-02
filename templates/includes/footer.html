@@ -1,12 +1,22 @@
+{% load static %}
+
+
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-6">
-            
+        <div class="col-12 col-md-6 text-center text-md-start mb-2">
+            <img 
+                alt="40 for 40 Rosa Parks Scholarship Foundation"
+                class="img-fluid img-thumbnail"
+                src="{% static 'images/rpsf-40-for-40.webp' %}"
+                width="188px"
+            >
         </div>
-        <div class="col-sm-12 col-md-6 text-end">
-            <ul class="list-inline mx-3 p-2">
+        <div class="col-12 col-md-6 text-center text-md-end">
+            <p class="fw-bold">A 501(c)3 non-profit organization</p>
+            <ul class="list-inline">
                 <li class="copyright">Copyright {% now "Y" %} {{ current_site.site_name }}</li>
             </ul>
+            <p>A <a target="_blank" href="https://fourfridays.com"><img alt="fourfridays beta" class="img-fluid" src="https://fourfridays-live-29b11c4083794d5fa58b55-3fbe1ea.divio-media.com/images/fourfridays-wordmark-red-transparent.width-900.png" width="128px"></a> website</p>
         </div>
     </div>
 </div>

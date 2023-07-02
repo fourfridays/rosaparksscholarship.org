@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             dist: {
-                src: ['src/base.js'],
+                src: ['node_modules/@popperjs/core/dist/umd/popper-lite.min.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js', 'src/flinthillsparanormal.js'],
                 dest: 'dist/base.js'
             }
         },

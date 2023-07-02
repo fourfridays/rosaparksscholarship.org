@@ -8,7 +8,6 @@ from wagtail.blocks import (
     ChoiceBlock,
     DateBlock,
     PageChooserBlock,
-    RawHTMLBlock,
     RichTextBlock,
     StreamBlock,
     StructBlock,
@@ -45,14 +44,6 @@ class AlignmentBlock(ChoiceBlock):
     choices = [("start", "Left"), ("center", "Center"), ("end", "Right")]
 
 
-class AlignedRAWHTMLBlock(StructBlock):
-    html = RawHTMLBlock()
-    alignment = AlignmentBlock(default="start")
-
-    class Meta:
-        template = "blocks/aligned_raw_html_block.html"
-
-
 class ButtonBlock(StructBlock):
     alignment = AlignmentBlock(default="start")
     size = ChoiceBlock([("sm", "Small"), ("md", "Medium"), ("lg", "Large")])
@@ -83,15 +74,10 @@ class DocumentBlock(StructBlock):
 class HeroImageBlock(StructBlock):
     hero_image = ImageChooserBlock(required=True)
     hero_heading = CharBlock(
-        required=False, max_length=140, help_text="40 character limit."
+        required=False, max_length=40, help_text="40 character limit."
     )
     hero_message = CharBlock(
-        required=False, max_length=140, help_text="140 character limit."
-    )
-    hero_photo_credit = CharBlock(
-        required=False,
-        max_length=80,
-        help_text="80 character limit. This will show on the bottom right on the image",
+        required=False, max_length=240, help_text="240 character limit."
     )
     hero_cta = CharBlock(
         required=False,
@@ -156,38 +142,11 @@ class ImageGridBlock(StreamBlock):
         template = "blocks/image_grid_block.html"
 
 
-class HeadingBlock(StructBlock):
-    """
-    Custom `StructBlock` that allows the user to select h2 - h6 sizes for headers
-    """
-
-    heading_text = CharBlock(classname="title", required=True)
-    size = ChoiceBlock(
-        choices=[
-            ("", "Select a header size"),
-            ("h2", "H2"),
-            ("h3", "H3"),
-            ("h4", "H4"),
-            ("h5", "H5"),
-            ("h6", "H6"),
-        ],
-        blank=True,
-        required=False,
-    )
-    alignment = AlignmentBlock(default="start", required=False)
-
-    class Meta:
-        icon = "pilcrow"
-        template = "blocks/heading_block.html"
-
-
 # StreamBlocks
 class BaseStreamBlock(StreamBlock):
     """
     Define the custom blocks that `StreamField` will utilize
     """
-
-    heading_block = HeadingBlock()
     paragraph_block = RichTextBlock(
         features=[
             "h2",
@@ -219,7 +178,6 @@ class BaseStreamBlock(StreamBlock):
     )
     table = TableBlock(template="includes/table.html")
     code_block = CodeBlock()
-    raw_html = AlignedRAWHTMLBlock()
 
 
 class SingleColumnBlock(StructBlock):

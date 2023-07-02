@@ -1,7 +1,7 @@
 {
     "name": "Umair Abbasi",
     "version": "1.0.0",
-    "description": "Package file for wagtail batteries inclded website hosted at https://wbi.fourfridays.com",
+    "description": "Package file for wagtail batteries inclded website hosted at https://rpsf.fourfridays.com",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +16,10 @@
         "grunt-contrib-sass": "^1.0.0",
         "grunt-contrib-uglify": "^5.2.2",
         "grunt-contrib-watch": "^1.1.0"
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "bootstrap": "^5.3.0",
+        "bootstrap-icons": "^1.10.5"
     }
 }
