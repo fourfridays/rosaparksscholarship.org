@@ -1,21 +1,15 @@
 {% load navigation_tags static %}
 
 
-<nav 
-    class="navbar navbar-expand-lg p-0 text-uppercase"
-    role="navigation"
->
+<nav class="navbar navbar-expand-md text-uppercase" role="navigation">
     <a 
         class="navbar-brand text-uppercase"
         href="/"
         title="{{ current_site.site_name }}">
         <img
-            class="img-fluid"
+            class="img-fluid bg-secondary ms-2 px-2"
             alt="Rosa Parks Scholarship Foundation"
-            src="{% static 'images/rosa-parks-logo.webp' %}">
-        <span class="bg-secondary text-light fw-bold p-2 p-md-2">
-            {{ current_site.site_name }}
-        </span>
+            src="{% static 'images/rosa-parks-logo.png' %}">
     </a>
     <button class="bg-primary mx-2 navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
