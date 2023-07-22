@@ -3,10 +3,9 @@ kind: ConfigMap
 metadata:
   name: config
 data:
+  DJANGO_DEBUG: "False"
   DOMAIN_ALIASES: "rpsf.fourfridays.com"
   DJANGO_LOGLEVEL: "info"
   WAGTAILADMIN_BASE_URL: "https://rpsf.fourfridays.com"
   WAGTAIL_SITE_NAME: "Rosa Parks Scholarship Foundation"
   CSRF_TRUSTED_ORIGINS: "https://rpsf.fourfridays.com"
-  # Uncomment below line if you would like to turn debug mode on
-  # DJANGO_DEBUG: "True"
