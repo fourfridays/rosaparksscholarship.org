@@ -18,8 +18,10 @@ spec:
           name: rpsf
           resources:
             requests:
+              ephemeral-storage: "2Gi"
               memory: "256Mi"
             limits:
+              ephemeral-storage: "4Gi"
               memory: "512Mi"
           envFrom:
           - secretRef:
@@ -28,6 +30,7 @@ spec:
               name: config
           ports:
             - containerPort: 8000
+
       initContainers:
         - name: migrate
           image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
