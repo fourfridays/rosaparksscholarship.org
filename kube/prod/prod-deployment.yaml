@@ -12,18 +12,10 @@ spec:
       labels:
         app: rpsf
     spec:
-      initContainers:
-        - name: migrate
-          image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
-          imagePullPolicy: Always
-          
-          envFrom:
-          - secretRef:
-              name: secret
       containers:
-        - name: rpsf 
-          image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
+        - image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
           imagePullPolicy: Always
+          name: rpsf
           resources:
             requests:
               memory: "256Mi"
@@ -36,6 +28,14 @@ spec:
               name: config
           ports:
             - containerPort: 8000
+      initContainers:
+        - name: migrate
+          image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
+          imagePullPolicy: Always
+          command: ["python", "manage.py", "migrate"]
+          envFrom:
+          - secretRef:
+              name: secret
 ---
 apiVersion: v1
 kind: Service
