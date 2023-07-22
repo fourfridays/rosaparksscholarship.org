@@ -12,11 +12,18 @@ spec:
       labels:
         app: rpsf
     spec:
+      initContainers:
+        - name: migrate
+          image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
+          imagePullPolicy: Always
+          
+          envFrom:
+          - secretRef:
+              name: secret
       containers:
         - name: rpsf 
           image: ghcr.io/fourfridays/rosaparksscholarship.org:latest
           imagePullPolicy: Always
-          command: ["python", "manage.py", "migrate"]
           resources:
             requests:
               memory: "256Mi"
