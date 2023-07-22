@@ -123,16 +123,17 @@ USE_TZ = True
 AWS_S3_ACCESS_KEY_ID = os.environ.get("AWS_S3_ACCESS_KEY_ID", default=None)
 AWS_S3_SECRET_ACCESS_KEY = os.environ.get("AWS_S3_SECRET_ACCESS_KEY", default=None)
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", default=None)
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_S3_FILE_OVERWRITE = os.environ.get("AWS_S3_FILE_OVERWRITE", default=False)
+AWS_QUERYSTRING_AUTH = os.environ.get("AWS_QUERYSTRING_AUTH", default=False)
+AWS_IS_GZIPPED = os.environ.get("AWS_IS_GZIPPED", default=True)
 AWS_S3_OBJECT_PARAMETERS = {
     "Expires": "Thu, 31 Dec 2099 20:00:00 GMT",
     "CacheControl": "max-age=94608000"
 }
-AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME", default=None)
-AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", default=None)
-AWS_S3_FILE_OVERWRITE = False
-AWS_S3_SIGNATURE_VERSION = os.environ.get("AWS_S3_SIGNATURE_VERSION", default="s3v4")
-AWS_DEFAULT_ACL = "public-read"
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = ["static"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -140,23 +141,30 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
-STATICFILES_DIRS = ["static"]
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-if DEBUG == True:
+if DEBUG == "True":
     storage_backend = "django.core.files.storage.FileSystemStorage"
+    staticfiles_backend = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    STATIC_URL = "/static/"
+    MEDIA_URL = "media/"
+    MEDIA_ROOT = os.path.join("/data/media")
 else:
-    storage_backend = "storages.backends.s3boto3.S3Boto3Storage"
+    # S3 static settings
+    STATIC_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    staticfiles_backend = "page.storage_backends.StaticStorage"
+    # S3 public media settings
+    PUBLIC_MEDIA_LOCATION = "media"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
+    storage_backend = "page.storage_backends.PublicMediaStorage"
+    # S3 private media settings
+    PRIVATE_MEDIA_LOCATION = "private"
+    PRIVATE_FILE_STORAGE = "page.storage_backends.PrivateMediaStorage"
 
 STORAGES = {
     "default": {"BACKEND": storage_backend},
-    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    "staticfiles": {"BACKEND": staticfiles_backend},
 }
-
-# Media files
-MEDIA_ROOT = os.path.join("/data/media")
-MEDIA_URL = "media/"
 
 # Wagtail settings
 
@@ -166,7 +174,7 @@ WAGTAIL_SITE_NAME = os.environ.get(
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = os.environ.get("BASE_URL", default="localhost")
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", default="localhost")
 
 DOMAIN_ALIASES = [
     d.strip() for d in os.environ.get("DOMAIN_ALIASES", "").split(",") if d.strip()
