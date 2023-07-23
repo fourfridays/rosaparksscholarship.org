@@ -6,7 +6,7 @@
             <hr>
             <div class="card-group">
                 {% for child in self %} 
-                    <div class="card me-2">
+                    <div class="card border me-2">
                         {% if child.value.link %}
                             <a class="text-black" href="{% pageurl child.value.link %}">
                         {% endif %}
