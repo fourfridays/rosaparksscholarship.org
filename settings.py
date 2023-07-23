@@ -111,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -131,7 +130,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-if DEBUG == "True":
+if DEBUG is True:
     storage_backend = "django.core.files.storage.FileSystemStorage"
     staticfiles_backend = "django.contrib.staticfiles.storage.StaticFilesStorage"
     STATIC_URL = "/static/"
