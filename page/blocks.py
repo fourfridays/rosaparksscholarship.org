@@ -133,7 +133,8 @@ class ImageGridBlock(StreamBlock):
                     max_length=300, required=False, help_text="300 characters limit"
                 ),
             ),
-            ("link", PageChooserBlock(required=False)),
+            ("internal_link", PageChooserBlock(required=False)),
+            ("external_link", URLBlock(required=False)),
         ]
     )
 
