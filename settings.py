@@ -130,10 +130,11 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+staticfiles_backend = "django.contrib.staticfiles.storage.StaticFilesStorage"
+STATIC_URL = "/static/"
+
 if DEBUG is True:
     storage_backend = "django.core.files.storage.FileSystemStorage"
-    staticfiles_backend = "django.contrib.staticfiles.storage.StaticFilesStorage"
-    STATIC_URL = "/static/"
     MEDIA_URL = "media/"
     MEDIA_ROOT = os.path.join("/data/media")
 else:
@@ -149,9 +150,9 @@ else:
         "CacheControl": "max-age=94608000"
     }
     # S3 static settings
-    STATIC_LOCATION = "static"
-    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-    staticfiles_backend = "page.storage_backends.StaticStorage"
+    # STATIC_LOCATION = "static"
+    # STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    # staticfiles_backend = "page.storage_backends.StaticStorage"
     # S3 public media settings
     PUBLIC_MEDIA_LOCATION = "media"
     MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
@@ -166,7 +167,6 @@ STORAGES = {
 }
 
 # Wagtail settings
-
 WAGTAIL_SITE_NAME = os.environ.get(
     "WAGTAIL_SITE_NAME", default="Rosa Parks Scholarship Foundation"
 )
