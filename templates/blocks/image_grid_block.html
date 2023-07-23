@@ -6,24 +6,23 @@
             <hr>
             <div class="card-group">
                 {% for child in self %} 
-                    <div class="card border mr-2 p-2" style="background-color: #22272e;">
+                    <div class="card me-2">
                         {% if child.value.link %}
                             <a class="text-black" href="{% pageurl child.value.link %}">
                         {% endif %}
-                        <h4 class="text-white p-2 mb-0"><small>{{ child.value.caption }}</small></h4>
-                        {% image child.value.image fill-400x300-c100 format-webp as webp_image_grid %}
-                        {% image child.value.image fill-400x300-c100 as image_grid %}
-                        <figure class="overlay">
-                            <picture>
-                                <source srcset="{{ webp_image_grid.url }}" type="image/webp">
-                                <img class="card-img img-fluid" {{ image_grid.attrs }}>
-                            </picture>
-                        </figure>
+                        {% image child.value.image fill-430x250-c100 format-webp as webp_image_grid %}
+                        {% image child.value.image fill-430x250-c100 as image_grid %}
+                        <source srcset="{{ webp_image_grid.url }}" type="image/webp">
+                        <img class="card-img-top img-fluid" {{ image_grid.attrs }}>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ child.value.caption }}</h5>
+                            {% if child.value.description %}
+                                <p class="card-text">{{ child.value.description }}</p>
+                            {% endif %}
+                        </div>
                         {% if child.value.link %}
                             </a>
-                        {% endif %}
-                        {% if child.value.description %}
-                            <p class="text-white px-3">{{ child.value.description }}</p>
                         {% endif %}
                     </div>
                 {% endfor %}
