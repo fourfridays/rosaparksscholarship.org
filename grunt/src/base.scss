@@ -69,6 +69,12 @@ h1, h2, h3, h4, h5, h6 { text-transform: uppercase; }
 // Hero image as the background to the nav
 nav {
     position: absolute !important;
+
+    @media(min-width: 965px) {
+        #navbarSupportedContent {
+            top: -65px;
+        }
+    }
 }
 // Hero image pushed below the nav so we can add bg to mobile nav
 @media(max-width: 965px) {
