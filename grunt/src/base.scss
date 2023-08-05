@@ -97,14 +97,14 @@ nav {
         background: rgba(40, 71, 93, 0.79);
         position: absolute;
         width:50%;
-        top:195px;
+        top:125px;
         left:150px;
     }
 }
 @media(max-width: 1270px) {
     .hero-image {
         figcaption {
-            top: 120px;
+            top: 80px;
         }
     }
 }
@@ -112,7 +112,6 @@ nav {
     .hero-image {
         figcaption {
             width: 75%;
-            top: 110px;
         }
     }
 }
