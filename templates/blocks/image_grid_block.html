@@ -12,10 +12,14 @@
                         {% elif child.value.external_link %}
                             <a class="text-black" href="{{ child.value.external_link }}">
                         {% endif %}
+                        {% image child.value.image fill-400x300-c100 format-avif as avif_image_grid %}
                         {% image child.value.image fill-430x250-c100 format-webp as webp_image_grid %}
                         {% image child.value.image fill-430x250-c100 as image_grid %}
-                        <source srcset="{{ webp_image_grid.url }}" type="image/webp">
-                        <img class="card-img-top img-fluid" {{ image_grid.attrs }}>
+                        <picture>
+                            <source class="card-img img-fluid" srcset="{{ avif_image_grid.url }}" type="image/avif">
+                            <source class="card-img img-fluid"srcset="{{ webp_image_grid.url }}" type="image/webp">
+                            <img class="card-img-top img-fluid" {{ image_grid.attrs }}>
+                        </picture>
                         
                         <div class="card-body">
                             <h5 class="card-title">{{ child.value.caption }}</h5>

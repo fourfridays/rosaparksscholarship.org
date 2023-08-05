@@ -198,3 +198,9 @@ WAGTAILEMBEDS_FINDERS = [{"class": "wagtail.embeds.finders.oembed"}]
 # wagtailcodeblock
 WAGTAIL_CODE_BLOCK_LINE_NUMBERS = False
 WAGTAIL_CODE_BLOCK_THEME = "tomorrow"
+
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {
+    'avif': 'avif',
+    'bmp': 'jpeg',
+    'webp': 'webp',
+}
