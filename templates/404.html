@@ -1,11 +1,28 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block title %}Page not found{% endblock %}
-
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-    <h1>Page not found</h1>
+    <div class="hero-image card border-0">
+        <figure>
+            <picture>
+                <img 
+                    class="img-fluid card-img rounded-0"
+                    alt="404 number"
+                    src="{% static 'images/404_number.jpg' %}"
+                >
+            </picture>
+        </figure>
+    </div>
 
-    <h2>Sorry, this page could not be found.</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Page not found</h1>
+                <h2>Sorry, this page could not be found.</h2>
+            </div>
+        </div>
+    </div>
 {% endblock %}
