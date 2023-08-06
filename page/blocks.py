@@ -221,3 +221,13 @@ class FourColumnBlock(StructBlock):
     class Meta:
         label = "Four Columns"
         template = "blocks/four_column_block.html"
+
+
+class SponsorBlock(StructBlock):
+    name = CharBlock(max_length=100)
+    image = ImageChooserBlock()
+    link = URLBlock()
+
+    class Meta:
+        label = "Sponsor Block"
+        template = "blocks/sponsor_block.html"

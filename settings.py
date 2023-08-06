@@ -12,6 +12,7 @@ INSTALLED_APPS = [
     "article",
     "page",
     "fontawesomefree",
+    "sponsor",
     "users",
     "wagtailcodeblock",
 
