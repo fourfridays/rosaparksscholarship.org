@@ -35,15 +35,25 @@ EXPOSE 8000
 CMD uwsgi --http=0.0.0.0:8000 --master --module=wsgi \
     --strict \
     --enable-threads \
-    --processes=3 \
-    --threads=2 \
-    --uid=1000 --gid=2000 \
-    --harakiri=60 \
-    --max-requests=5000 \
+    # Delete sockets during shutdown
     --vacuum \
+    --single-interpreter \
+    # Shutdown when receiving SIGTERM (default is respawn)
     --die-on-term \
+    --need-app \
+    # Restart workers after this many requests
+    --max-requests=1000 \
+    # Restart workers after this many seconds
+    --max-worker-lifetime=3600 \
+    # Restart workers after this much resident memory
+    --reload-on-rss=2048 \
+    # How long to wait before forcefully killing workers
+    --worker-reload-mercy=60 \
     --ignore-write-errors \
     --disable-write-exception \
+    # Disable built-in logging 
     --disable-logging \
+    # but log 4xx's anyway
     --log-4xx \
+    # and 5xx's
     --log-5xx
