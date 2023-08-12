@@ -46,7 +46,7 @@ CMD uwsgi --http=0.0.0.0:8000 --master --module=wsgi \
     # if root, uwsgi can drop privileges from djangoproject.com
     --uid=1000 --gid=2000 \
     # respawn processes taking more than 20 seconds
-    --harakiri=20 \
+    --harakiri=50 \
     # Restart workers after this many requests
     --max-requests=5000 \
     # set cheaper algorithm to use, if not set default will be used
