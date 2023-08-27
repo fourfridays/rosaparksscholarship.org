@@ -34,3 +34,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     objects = UserManager()
+
+    def __str__(self):
+        return self.email
