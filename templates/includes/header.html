@@ -2,41 +2,44 @@
 
 
 <nav class="navbar navbar-expand-md text-uppercase" role="navigation">
-    <a 
-        class="navbar-brand text-uppercase"
-        href="/"
-        title="{{ current_site.site_name }}">
-        <img
-            class="img-fluid bg-secondary ms-2 px-2"
-            alt="Rosa Parks Scholarship Foundation"
-            src="{% static 'images/rosa-parks-logo.png' %}">
-    </a>
-    <button class="bg-primary mx-2 navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <img
-            width="22px"
-            height="22px"
-            alt="Menu Icon"
-            src="{% static 'images/menu-icon.svg' %}"
-        />
-    </button>
+    <div class="container-fluid">
+        <a 
+            class="navbar-brand text-uppercase"
+            href="/"
+            title="{{ current_site.site_name }}">
+            <img
+                class="img-fluid"
+                alt="Rosa Parks Scholarship Foundation"
+                width="134px"
+                src="{% static 'images/rosa-parks-logo.webp' %}">
+        </a>
+        <button class="bg-primary navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <img
+                width="22px"
+                height="22px"
+                alt="Menu Icon"
+                src="{% static 'images/menu-icon.svg' %}"
+            />
+        </button>
 
-    {% block main_navigation %}
-    <div
-        id="navbarSupportedContent"
-        class="collapse navbar-collapse position-relative"
-        role="navigation"
-        aria-label="Primary site navigation"
-    >
-        <ul class="navbar-nav me-auto text-center text-md-left">
-            <li class="nav-item btn btn-sm btn-primary me-md-3 my-1 my-md-0">
-                <a class="nav-link text-black text-decoration-none" href="/" role="menuitem">Home</a>
-            </li>
-            {# main_menu is defined in pages/templatetags/navigation_tags.py #}
-            {% get_site_root as site_root %}
-            {% top_menu parent=site_root calling_page=self %}
-        </ul>
+        {% block main_navigation %}
+        <div
+            id="navbarSupportedContent"
+            class="collapse navbar-collapse position-relative"
+            role="navigation"
+            aria-label="Primary site navigation"
+        >
+            <ul class="navbar-nav me-auto text-center text-md-left">
+                <li class="nav-item me-md-3 my-1 my-md-0">
+                    <a class="nav-link text-black text-decoration-none" href="/" role="menuitem">Home</a>
+                </li>
+                {# main_menu is defined in pages/templatetags/navigation_tags.py #}
+                {% get_site_root as site_root %}
+                {% top_menu parent=site_root calling_page=self %}
+            </ul>
+        </div>
+        {% endblock %}
     </div>
-    {% endblock %}
 </nav>

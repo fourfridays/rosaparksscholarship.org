@@ -60,34 +60,13 @@ $headings-font-weight: 600;
 // Utilities
 @import "../node_modules/bootstrap/scss/utilities/api";
 
-
 p { font-size: 1.1rem; }
 h1, h2, h3, h4, h5, h6 { text-transform: uppercase; }
 
-
-/* HEADER */
-// Hero image as the background to the nav
+/* NAVBAR */
 nav {
-    position: absolute !important;
-
-    @media(min-width: 965px) {
-        #navbarSupportedContent {
-            top: -65px;
-        }
-    }
-}
-// Hero image pushed below the nav so we can add bg to mobile nav
-@media(max-width: 965px) {
-    nav {
-        position: relative !important;
-        background: $secondary;
-    }
-}
-@media(max-width: 768px) {
-    nav {
-        span {
-            font-size: 15px;
-        }
+    .navbar-brand {
+        margin-right: 0;
     }
 }
 
