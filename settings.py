@@ -1,6 +1,7 @@
-from pathlib import Path
 import os
 import dj_database_url
+
+from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -9,13 +10,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 
 INSTALLED_APPS = [
+    "anymail",
     "article",
     "page",
     "fontawesomefree",
     "sponsor",
     "users",
     "wagtailcodeblock",
-
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.routable_page",
@@ -217,6 +218,15 @@ WAGTAILIMAGES_FORMAT_CONVERSIONS = {
     'avif': 'avif',
     'bmp': 'jpeg',
     'webp': 'webp',
+
+# DJANGO ANYMAIL
+ANYMAIL = {
+    "MAILGUN_API_KEY": os.getenv("MAILGUN_API_KEY", default=""),
+    "MAILGUN_SENDER_DOMAIN": os.getenv("MAILGUN_SENDER_DOMAIN", default=""),
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", default="")
+SERVER_EMAIL = os.getenv("SERVER_EMAIL", default="")
 
 # ALLAUTH
 ACCOUNT_AUTHENTICATION_METHOD = "email"
