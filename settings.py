@@ -162,7 +162,7 @@ else:
     AWS_IS_GZIPPED = os.environ.get("AWS_IS_GZIPPED", default=True)
     AWS_S3_OBJECT_PARAMETERS = {
         "Expires": "Thu, 31 Dec 2099 20:00:00 GMT",
-        "CacheControl": "max-age=94608000"
+        "CacheControl": "max-age=94608000",
     }
     # S3 static settings
     # STATIC_LOCATION = "static"
@@ -215,9 +215,10 @@ WAGTAIL_CODE_BLOCK_LINE_NUMBERS = False
 WAGTAIL_CODE_BLOCK_THEME = "tomorrow"
 
 WAGTAILIMAGES_FORMAT_CONVERSIONS = {
-    'avif': 'avif',
-    'bmp': 'jpeg',
-    'webp': 'webp',
+    "avif": "avif",
+    "bmp": "jpeg",
+    "webp": "webp",
+}
 
 # DJANGO ANYMAIL
 ANYMAIL = {
