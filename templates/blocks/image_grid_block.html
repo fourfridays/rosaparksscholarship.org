@@ -16,8 +16,8 @@
                         {% image child.value.image fill-430x250-c100 format-webp as webp_image_grid %}
                         {% image child.value.image fill-430x250-c100 as image_grid %}
                         <picture>
-                            <source class="card-img img-fluid" srcset="{{ avif_image_grid.url }}" type="image/avif">
-                            <source class="card-img img-fluid"srcset="{{ webp_image_grid.url }}" type="image/webp">
+                            <source srcset="{{ avif_image_grid.url }}" type="image/avif">
+                            <source srcset="{{ webp_image_grid.url }}" type="image/webp">
                             <img class="card-img-top img-fluid" {{ image_grid.attrs }}>
                         </picture>
                         
