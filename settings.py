@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     "wagtail",
     "modelcluster",
     "taggit",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,6 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # django-allauth
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
 ]
 
 MIDDLEWARE = [
@@ -111,6 +114,16 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+# Required for django.contrib.sites for django-allauth
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -204,4 +217,25 @@ WAGTAILIMAGES_FORMAT_CONVERSIONS = {
     'avif': 'avif',
     'bmp': 'jpeg',
     'webp': 'webp',
+
+# ALLAUTH
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 180
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 Day
+ACCOUNT_MAX_EMAIL_ADDRESSES = 1
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_FORMS = {
+    "signup": "users.forms.CustomSignupForm",
 }

@@ -1,0 +1,84 @@
+{% load navigation_tags static wagtailcore_tags wagtailuserbar %}
+{% wagtail_site as current_site %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+            {% block title_suffix %}{% if current_site and current_site.site_name %} | {{ current_site.site_name }}{% endif %}{% endblock %}
+        </title>
+        {% if self.search_description %}
+        <meta name="description" content="{{ self.search_description }}" />{% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% block extra_meta %}{% endblock %}
+
+        {% if self.seo_title == 'Home' %}
+        <link rel="canonical" href="{{ page.full_url }}" />{% endif %}
+
+        <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
+        {# Global stylesheets #}
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&display=swap" rel="stylesheet">
+
+        <!-- Custom Styles -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base.min.css' %}" media="none" onload="media='all'">
+        <noscript>
+            <link rel="stylesheet" type="text/css" href="{% static 'css/base.min.css' %}">
+        </noscript {% block head-extra %}{% endblock head-extra %}
+    </head>
+
+    <body class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}">
+        {% wagtailuserbar %}
+
+        <header class="position-relative" style="z-index: 9999;">
+            {% block header %}
+                {# Header contains the main_navigation block #}
+                {% include "includes/header.html" with parent=site_root calling_page=self %}
+            {% endblock header %}
+        </header>
+
+        <main class="mb-4" role="main">
+            {% block body %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            {% if messages %}
+                                <div>
+                                    <strong>Messages:</strong>
+                                    <ul>
+                                        {% for message in messages %}
+                                            <li>{{message}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            <div>
+                                <strong>Menu:</strong>
+                                <ul>
+                                    {% if user.is_authenticated %}
+                                        <li><a href="{% url 'account_email' %}">Change Email</a></li>
+                                        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+            {% block extra_body %}{% endblock %}
+    </body>
+</html>
