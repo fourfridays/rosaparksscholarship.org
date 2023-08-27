@@ -1,5 +1,4 @@
 name: MASTER
-run-name: Deployment
 
 on:
   push:
