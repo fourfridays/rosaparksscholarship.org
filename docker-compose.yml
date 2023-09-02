@@ -4,13 +4,14 @@
 #
 # See our Developer Handbook for more information:
 # http://docs.divio.com/en/latest/reference/docker-docker-compose.html
-version: "2.4"
+version: "3.8"
 
 services:
   # The web container is an instance of exactly the same Docker image as your
   # Cloud application container.
   web:
     build: "."
+    container_name: rpsf-web
     links:
       - "db:postgres"
     # Change the port if you'd like to expose your project locally on a
@@ -33,6 +34,7 @@ services:
   # replicate it in a Docker container called "db".
   db:
     image: postgres:15.3-alpine
+    container_name: rpsf-postgres
     environment:
       POSTGRES_DB: "db"
       POSTGRES_HOST_AUTH_METHOD: "trust"
