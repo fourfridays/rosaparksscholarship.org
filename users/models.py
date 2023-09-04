@@ -6,24 +6,15 @@ from django.utils.translation import gettext_lazy as _
 
 class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = "email"
-    USERNAME_FIELD = "username"
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [
-        "email",
         "first_name",
         "last_name",
     ]
 
-    username = models.CharField(
-        max_length=15,
-        help_text=_("Required"),
-        unique=True,
-        error_messages={
-            "unique": _("A user with that username already exists."),
-        },
-    )
     first_name = models.CharField(max_length=254, blank=False)
     last_name = models.CharField(max_length=254, blank=False)
-    email = models.EmailField(_("email address"), blank=False)
+    email = models.EmailField(_("email address"), unique=True, blank=False)
     is_staff = models.BooleanField(
         default=False,
         help_text=_(
