@@ -27,15 +27,17 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla&family=Rubik:wght@700&display=swap">
 
     <!-- Custom Styles -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.min.css' %}" media="none" onload="media='all'">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.min.css' %}">
     <noscript>
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.min.css' %}">
-    </noscript {% block head-extra %}{% endblock head-extra %} </head>
+    </noscript>
+    {% block extra_head %}{% endblock extra_head %}
+</head>
 
-<body class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}">
+<body class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}" style="opacity: 0">
     {% wagtailuserbar %}
 
     <header class="d-md-flex justify-content-md-center" style="z-index: 9999;">
@@ -58,6 +60,12 @@
     <script type="text/javascript" src="{% static 'js/base.min.js' %}" async></script>
 
     {% block extra_js %}{% endblock %}
+
+    <style>
+        body {
+            opacity: 1 !important;
+        }
+    </style>
 </body>
 
 </html>
