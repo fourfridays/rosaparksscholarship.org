@@ -18,7 +18,7 @@
                         <picture>
                             <source srcset="{{ avif_image_grid.url }}" type="image/avif">
                             <source srcset="{{ webp_image_grid.url }}" type="image/webp">
-                            <img class="card-img-top img-fluid" {{ image_grid.attrs }}>
+                            <img class="card-img-top img-fluid" {{ image_grid.attrs }} loading="lazy">
                         </picture>
                         
                         <div class="card-body">
