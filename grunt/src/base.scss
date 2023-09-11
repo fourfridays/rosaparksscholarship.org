@@ -1,6 +1,6 @@
 /* Boostrap Custom Colors */
-$primary: #ea8024;
-$secondary: #28475d;
+$primary: rgb(40, 71, 93);
+$secondary: #ea8024;
 $success: #0E8F00;
 $danger: #B31945;
 $warning: #F2CD5D;
@@ -60,6 +60,7 @@ $headings-font-weight: 700;
 // Utilities
 @import "../node_modules/bootstrap/scss/utilities/api";
 
+body { color: rgb(40, 71, 93); }
 p { font-size: 1.1rem; }
 h1, h2, h3, h4, h5, h6 { text-transform: uppercase; }
 
