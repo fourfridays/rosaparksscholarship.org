@@ -177,7 +177,9 @@ class BaseStreamBlock(StreamBlock):
     image_grid_block = ImageGridBlock()
     document_block = DocumentBlock()
     embed_block = EmbedBlock(
-        help_text="Insert an embed URL e.g https://www.youtube.com/embed/SGJFWirQ3ks",
+        max_width=400,
+        max_height=300,
+        help_text="Insert an embed URL e.g https://www.youtube.com/watch?v=SGJFWirQ3ks",
         icon="code",
         template="blocks/embed_block.html",
     )
