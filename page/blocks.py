@@ -44,6 +44,10 @@ class AlignmentBlock(ChoiceBlock):
     choices = [("start", "Left"), ("center", "Center"), ("end", "Right")]
 
 
+class VerticalAlignmentBlock(ChoiceBlock):
+    choices = [("start", "Left"), ("center", "Center"), ("end", "Right")]
+
+
 class ButtonBlock(StructBlock):
     alignment = AlignmentBlock(default="start")
     size = ChoiceBlock([("sm", "Small"), ("md", "Medium"), ("lg", "Large")])
@@ -184,6 +188,7 @@ class BaseStreamBlock(StreamBlock):
 class SingleColumnBlock(StructBlock):
     column = BaseStreamBlock()
     alignment = AlignmentBlock(default="start", required=False)
+    vertical_alignment = VerticalAlignmentBlock(required=False)
 
     class Meta:
         label = "Single Column"
@@ -194,6 +199,7 @@ class TwoColumnBlock(StructBlock):
     left_column = BaseStreamBlock()
     right_column = BaseStreamBlock()
     alignment = AlignmentBlock(default="start", required=False)
+    vertical_alignment = VerticalAlignmentBlock(required=False)
 
     class Meta:
         label = "Two Columns"
@@ -205,6 +211,7 @@ class ThreeColumnBlock(StructBlock):
     middle_column = BaseStreamBlock()
     right_column = BaseStreamBlock()
     alignment = AlignmentBlock(default="start", required=False)
+    vertical_alignment = VerticalAlignmentBlock(required=False)
 
     class Meta:
         label = "Three Columns"
@@ -217,6 +224,7 @@ class FourColumnBlock(StructBlock):
     right_column_1 = BaseStreamBlock()
     right_column_2 = BaseStreamBlock()
     alignment = AlignmentBlock(default="start", requirement=False)
+    vertical_alignment = VerticalAlignmentBlock(required=False)
 
     class Meta:
         label = "Four Columns"
