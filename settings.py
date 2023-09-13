@@ -220,6 +220,8 @@ WAGTAILIMAGES_FORMAT_CONVERSIONS = {
     "webp": "webp",
 }
 
+WAGTAIL_PAGES_IS_CREATABLE = os.environ.get("WAGTAIL_PAGES_IS_CREATABLE", False)
+
 # DJANGO ANYMAIL
 ANYMAIL = {
     "MAILGUN_API_KEY": os.getenv("MAILGUN_API_KEY", default=""),

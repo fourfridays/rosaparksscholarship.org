@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}{{ self.slug }} style="overflow-x: hidden;"{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .responsive-video-embed {
+            position: relative;
+            /* falls back to 16/9, but otherwise uses ratio from HTML */
+            padding-bottom: calc(var(--aspect-ratio, .5625) * 100%); 
+            padding-top: 25px;
+        }
+
+        .responsive-video-embed .caption {
+            position: absolute;
+            width:50%;
+            top:125px;
+            left:150px;
+        }
+
+        .responsive-video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: calc(100vw/1.77777778);
+        }
+
+        .responsive-video-embed .caption {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 50%;
+            text-align: center;
+            z-index: 999;
+        }
+
+        .responsive-video-embed .background {
+            background-color: #000000;
+            opacity: 0.88;
+            transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="responsive-video-embed">
+        <div class="caption">
+            <h2 class="display-5 fw-bold text-white">Inspiring Youth to Reach their Highest Potential</h2>
+        </div>
+
+        <div class="background">
+            <iframe width="560" height="315" src="//www.youtube.com/embed/vaEp5bvYxGw?mute=1&autoplay=1&autohide=1&rel=0&showinfo=0&controls=0&disablekb=1&enablejsapi=1&iv_load_policy=3&loop=1&playsinline=1&fs=0" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- BODY -->
+    {% for block in page.body %}
+        {{ block }}
+    {% endfor %}
+{% endblock %}
