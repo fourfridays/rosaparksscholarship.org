@@ -9,3 +9,4 @@ data:
   WAGTAILADMIN_BASE_URL: "https://rpsf.fourfridays.com"
   WAGTAIL_SITE_NAME: "Rosa Parks Scholarship Foundation"
   CSRF_TRUSTED_ORIGINS: "https://rpsf.fourfridays.com"
+  WAGTAIL_PAGES_IS_CREATABLE: "True"
