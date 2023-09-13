@@ -1,13 +1,13 @@
 <article class="text-center {% if self.alignment != 'center' %}text-sm-{{ self.alignment }} {% endif %}">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4{% if self.vertical_alignment %} d-flex align-items-center{% endif %}">
                 {% include "includes/streamfield.html" with content=self.left_column only %}
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4{% if self.vertical_alignment %} d-flex align-items-center{% endif %}">
                 {% include "includes/streamfield.html" with content=self.middle_column only %}
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4{% if self.vertical_alignment %} d-flex align-items-center{% endif %}">
                 {% include "includes/streamfield.html" with content=self.right_column only %}
             </div>
         </div>
