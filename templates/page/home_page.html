@@ -1,33 +1,41 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}{{ self.slug }} style="overflow-x: hidden;"{% endblock %}
 
 {% block extra_head %}
     <style>
-        .responsive-video-embed {
+        .home-video-embed {
             position: relative;
             /* falls back to 16/9, but otherwise uses ratio from HTML */
             padding-bottom: calc(var(--aspect-ratio, .5625) * 100%); 
             padding-top: 25px;
+            
+            /* below attempts to hide the bar on hover over */
+            /* See https://stackoverflow.com/questions/18342536/how-to-hide-the-bar-at-the-top-of-youtube-even-when-mouse-hovers-over-it */
+            overflow: hidden;
+            width: 100%;
+            /* Keep it the right aspect-ratio */
+            aspect-ratio: 16/9;
+            /* No clicking/hover effects */
+            pointer-events: none;
         }
 
-        .responsive-video-embed .caption {
-            position: absolute;
-            width:50%;
-            top:125px;
-            left:150px;
-        }
-
-        .responsive-video-embed iframe {
+        .home-video-embed iframe {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: calc(100vw/1.77777778);
+
+            /* below attempts to hide the bar on hover over */
+            /* See https://stackoverflow.com/questions/18342536/how-to-hide-the-bar-at-the-top-of-youtube-even-when-mouse-hovers-over-it */
+            /* Extend it beyond the viewport... */
+            width: 300%;
+            height: 100%;
+            /* ...and bring it back again */
+            margin-left: -100%;
         }
 
-        .responsive-video-embed .caption {
+        .home-video-embed .caption {
             position: absolute;
             width: 100%;
             left: 0;
@@ -36,7 +44,7 @@
             z-index: 999;
         }
 
-        .responsive-video-embed .background {
+        .home-video-embed .video-opacity {
             background-color: #000000;
             opacity: 0.88;
             transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
@@ -45,18 +53,78 @@
 {% endblock %}
 
 {% block content %}
-    <div class="responsive-video-embed">
+    <div class="home-video-embed">
         <div class="caption">
             <h2 class="display-5 fw-bold text-white">Inspiring Youth to Reach their Highest Potential</h2>
         </div>
 
-        <div class="background">
-            <iframe width="560" height="315" src="//www.youtube.com/embed/vaEp5bvYxGw?mute=1&autoplay=1&autohide=1&rel=0&showinfo=0&controls=0&disablekb=1&enablejsapi=1&iv_load_policy=3&loop=1&playsinline=1&fs=0" frameborder="0" allowfullscreen></iframe>
+        <div class="video-opacity">
+            <iframe width="560" height="315" src="//www.youtube.com/embed/vaEp5bvYxGw?autoplay=1&loop=1&mute=1&playsinline=1&enablejsapi=1&playlist=vaEp5bvYxGw" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- BODY -->
-    {% for block in page.body %}
-        {{ block }}
-    {% endfor %}
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-12 col-md-6 d-flex align-items-center">
+                <div class="streamfield">
+                    <p data-block-key="wg5jr">The Rosa Parks Scholarship Foundation has awarded more than $2 million in scholarships to more than 1,000 high school seniors since its founding by The Detroit News and Detroit Public Schools in 1980.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center">
+                <figure>
+                    <picture>
+                        <source srcset="/media/images/rosa-parks-with-grad.width-900.format-avif_OixoQ0j.avif" type="image/avif">
+                        <source srcset="/media/images/rosa-parks-with-grad.width-900.format-webp.webp" type="image/webp">
+                        <img class="img-fluid  float-start" alt="Rosa Park with Grad" height="323" src="/media/images/rosa-parks-with-grad.width-900.png" width="540" loading="lazy">
+                    </picture>
+                </figure> 
+            </div>
+        </div>
+
+
+        <div class="row my-4">
+            <div class="col-12 col-md-6">
+                <div class="text-center text-md-end">
+                    <p>
+                        <a class="btn btn-lg btn-secondary" href="https://survey.alchemer.com/s3/7135462/RP-Application-2023">Apply Now</a>
+                    </p>
+                </div> 
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="text-center text-md-start">
+                    <p>
+                        <a class="btn btn-lg btn-secondary" href="https://www.paypal.com/donate/?hosted_button_id=XFGKDGXH5BDZ4">Donate Now</a>
+                    </p>
+                </div> 
+            </div>
+        </div>          
+              
+        <div class="row bg-light p-4 my-4">
+            <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end mb-2">
+                <video width="320" height="240" controls>
+                    <source src="{% static '/videos/rosa_parks_2023_v2.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center text-center text-md-start">
+                <h3>We host an annual scholarship luncheon. Check our our 2023 event</h3>
+            </div>
+        </div>
+
+        <div class="row my-4">
+            <div class="col-12 col-md-6 text-center text-md-end">
+                <h3>Alumni Spotlight</h3>
+                <p><b>Name</b>: Monice Mitchell Simms</p>
+                <p><b>Scholarship Class</b>: 1989</p>
+                <p><b>High School</b>: Martin Luther King Jr. High School, Detroit, Mich.</p>
+                <p>
+                    <a class="btn btn-md btn-primary" href="/about/alumni-spotlight/">Read More</a>
+                </p>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <picture>
+                    <img class="img-fluid rounded-circle" alt="Monice Mitchell" src="/media/images/alum-monice-mitchell-simms-square.original.webp" width="293" height="293" loading="lazy">
+                </picture>
+            </div>
+        </div>
+    </div>
 {% endblock %}
