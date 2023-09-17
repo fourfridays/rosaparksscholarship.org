@@ -2,6 +2,7 @@
 /* Boostrap Custom Colors */
 .btn {
   font-weight: bold !important;
+  text-transform: uppercase;
 }
 
 :root,

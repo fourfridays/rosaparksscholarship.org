@@ -12,7 +12,10 @@ $font-family-base: 'Signika', sans-serif;
 $headings-font-family: 'Signika', sans-serif;
 $headings-font-weight: 700;
 
-.btn { font-weight: bold !important; }
+.btn { 
+    font-weight: bold !important;
+    text-transform: uppercase;
+}
 
 // Required
 @import "../node_modules/bootstrap/scss/functions";
