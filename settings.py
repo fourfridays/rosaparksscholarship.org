@@ -206,8 +206,9 @@ AUTH_USER_MODEL = "users.User"
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Make low-quality but small images
-WAGTAILIMAGES_JPEG_QUALITY = 40
-WAGTAILIMAGES_WEBP_QUALITY = 45
+WAGTAILIMAGES_AVIF_QUALITY = 60
+WAGTAILIMAGES_JPEG_QUALITY = 60
+WAGTAILIMAGES_WEBP_QUALITY = 65
 WAGTAIL_ENABLE_WHATS_NEW_BANNER = False
 WAGTAILEMBEDS_FINDERS = [
     # Fetches YouTube videos but puts ``?scheme=https`` in the GET parameters
