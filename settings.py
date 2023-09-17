@@ -2,6 +2,7 @@ import os
 import dj_database_url
 
 from pathlib import Path
+from wagtail.embeds.oembed_providers import youtube
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -208,7 +209,20 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 WAGTAILIMAGES_JPEG_QUALITY = 40
 WAGTAILIMAGES_WEBP_QUALITY = 45
 WAGTAIL_ENABLE_WHATS_NEW_BANNER = False
-WAGTAILEMBEDS_FINDERS = [{"class": "wagtail.embeds.finders.oembed"}]
+WAGTAILEMBEDS_FINDERS = [
+    # Fetches YouTube videos but puts ``?scheme=https`` in the GET parameters
+    # when calling YouTube's oEmbed endpoint
+    {
+        "class": "wagtail.embeds.finders.oembed",
+        "providers": [youtube],
+        "options": {"scheme": "https"}
+    },
+    # Handles all other oEmbed providers the default way
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+    }
+]
+WAGTAILEMBEDS_RESPONSIVE_HTML = True
 
 # wagtailcodeblock
 WAGTAIL_CODE_BLOCK_LINE_NUMBERS = False
