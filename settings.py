@@ -13,9 +13,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 INSTALLED_APPS = [
     "anymail",
     "article",
-    "formtools",
     "page",
-    "scholarship",
     "fontawesomefree",
     "sponsor",
     "users",
