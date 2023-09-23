@@ -13,6 +13,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 INSTALLED_APPS = [
     "anymail",
     "article",
+    "captcha",
     "page",
     "fontawesomefree",
     "sponsor",
@@ -20,8 +21,7 @@ INSTALLED_APPS = [
     "wagtailcodeblock",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
-    "wagtail.contrib.routable_page",
-    "wagtail.contrib.styleguide",
+    "wagtail.contrib.routable_page",    "wagtail.contrib.styleguide",
     "wagtail.contrib.table_block",
     "wagtail.embeds",
     "wagtail.sites",
@@ -268,3 +268,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_FORMS = {
     "signup": "users.forms.CustomSignupForm",
 }
+
+# GOOGLE RECAPTCHA
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY", default="")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY", default="")

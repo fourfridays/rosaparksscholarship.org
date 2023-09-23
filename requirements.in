@@ -18,3 +18,4 @@ Willow>=1.6.1,<2.0.0
 git+https://github.com/fourfridays/wagtailcodeblock.git@d6b4f3ba51b9ac3f1eaac9a8fe9ac12565eb8e37#egg=wagtailcodeblock
 
 django-allauth==0.55.0
+django-recaptcha==3.0.0

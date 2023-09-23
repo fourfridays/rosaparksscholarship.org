@@ -44,6 +44,7 @@ django==4.2.4
     #   django-filter
     #   django-modelcluster
     #   django-permissionedforms
+    #   django-recaptcha
     #   django-storages
     #   django-taggit
     #   django-treebeard
@@ -59,6 +60,8 @@ django-modelcluster==6.0
     # via wagtail
 django-permissionedforms==0.1
     # via wagtail
+django-recaptcha==3.0.0
+    # via -r requirements.in
 django-storages==1.13.2
     # via -r requirements.in
 django-taggit==4.0.0
