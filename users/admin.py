@@ -36,6 +36,19 @@ class CustomUserAdmin(UserAdmin):
         (None, {"fields": ("email", "password")}),
         ("Personal info", {"fields": ("first_name", "last_name")}),
         (
+            "Address",
+            {
+                "fields": 
+                    (
+                        "address1",
+                        "address2",
+                        "city",
+                        "state",
+                        "zip_code",
+                    )
+            }
+        ),
+        (
             "Permissions",
             {
                 "fields": (
