@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     "article",
     "captcha",
     "page",
+    "phonenumber_field",
     "fontawesomefree",
     "sponsor",
     "users",

@@ -1,7 +1,11 @@
+import datetime
+
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 from constants import CONTIGUOUS_STATES_CHOICES
 
@@ -42,6 +46,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         "ZIP",
         max_length=12,
     )
+    phone_number = PhoneNumberField(region="US")
+    dob = models.DateField()
     is_staff = models.BooleanField(
         default=False,
         help_text=_(
