@@ -7,6 +7,8 @@ from constants import CONTIGUOUS_STATES_CHOICES
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    is_student = models.BooleanField('is student', default=True)
+    is_judge = models.BooleanField('is judge', default=False)
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [

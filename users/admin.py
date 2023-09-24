@@ -13,6 +13,8 @@ class CustomUserAdmin(UserAdmin):
         "email",
         "first_name",
         "last_name",
+        "is_student",
+        "is_judge",
         "is_staff",
     ]
     search_fields = ("email", "first_name", "last_name")
@@ -38,7 +40,7 @@ class CustomUserAdmin(UserAdmin):
         (
             "Address",
             {
-                "fields": 
+                "fields":
                     (
                         "address1",
                         "address2",
@@ -53,6 +55,8 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": (
                     "is_active",
+                    "is_student",
+                    "is_judge",
                     "is_staff",
                     "is_superuser",
                     "groups",
