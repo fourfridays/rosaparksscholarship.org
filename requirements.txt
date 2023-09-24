@@ -41,6 +41,7 @@ django==4.2.4
     #   dj-database-url
     #   django-allauth
     #   django-anymail
+    #   django-braces
     #   django-filter
     #   django-modelcluster
     #   django-permissionedforms
@@ -53,6 +54,8 @@ django==4.2.4
 django-allauth==0.55.0
     # via -r requirements.in
 django-anymail[mailgun]==10.1
+    # via -r requirements.in
+django-braces==1.15.0
     # via -r requirements.in
 django-filter==22.1
     # via wagtail

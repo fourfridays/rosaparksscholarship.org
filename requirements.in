@@ -19,3 +19,4 @@ git+https://github.com/fourfridays/wagtailcodeblock.git@d6b4f3ba51b9ac3f1eaac9a8
 
 django-allauth==0.55.0
 django-recaptcha==3.0.0
+django-braces==1.15.0
