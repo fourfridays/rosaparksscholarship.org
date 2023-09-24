@@ -13,10 +13,17 @@ class CustomUserAdmin(UserAdmin):
         "email",
         "first_name",
         "last_name",
+        "is_active",
         "is_student",
         "is_judge",
         "is_staff",
     ]
+    list_filter = (
+        "is_active",
+        "is_student",
+        "is_judge",
+        "is_staff",
+    )
     search_fields = ("email", "first_name", "last_name")
     ordering = ("email",)
     add_fieldsets = (
