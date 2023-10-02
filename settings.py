@@ -8,7 +8,7 @@ from wagtail.embeds.oembed_providers import youtube
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Doing this boolean check against str values. Can't set boolean values in configmap
-DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
+DEBUG = "False"
 
 INSTALLED_APPS = [
     "anymail",
@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "formtools",
     "page",
     "phonenumber_field",
+    "scholarship",
     "fontawesomefree",
     "sponsor",
     "users",
