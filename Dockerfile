@@ -8,6 +8,7 @@ ENV PYTHONUNBUFFERED=1
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
     build-essential \
+    libmagic1 \
     libpq-dev \
     libjpeg62-turbo-dev \
     zlib1g-dev \
@@ -21,7 +22,7 @@ WORKDIR /app
 COPY . /app
 COPY requirements.* /app/
 
-RUN pip install -U pip pip-tools wheel \
+RUN pip install -U pip pip-tools wheel python-magic \
     && pip install -r requirements.txt
 
 RUN python manage.py collectstatic --noinput --clear
