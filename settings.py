@@ -14,6 +14,9 @@ INSTALLED_APPS = [
     "anymail",
     "article",
     "captcha",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "formtools",
     "page",
     "phonenumber_field",
     "fontawesomefree",
@@ -29,8 +32,7 @@ INSTALLED_APPS = [
     "wagtail.users",
     "wagtail.snippets",
     "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
+    "wagtail.images",    "wagtail.search",
     "wagtail.admin",
     "wagtail",
     "modelcluster",
@@ -276,3 +278,6 @@ ACCOUNT_FORMS = {
 # GOOGLE RECAPTCHA
 RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY", default="")
 RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY", default="")
+# CRISPY FORMS
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

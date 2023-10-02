@@ -25,6 +25,8 @@ cffi==1.15.1
     # via cryptography
 charset-normalizer==3.1.0
     # via requests
+crispy-bootstrap5==0.7
+    # via -r requirements.in
 cryptography==40.0.2
     # via
     #   django-anymail
@@ -38,11 +40,14 @@ dj-database-url==2.0.0
 django==4.2.4
     # via
     #   -r requirements.in
+    #   crispy-bootstrap5
     #   dj-database-url
     #   django-allauth
     #   django-anymail
     #   django-braces
+    #   django-crispy-forms
     #   django-filter
+    #   django-formtools
     #   django-modelcluster
     #   django-permissionedforms
     #   django-phonenumber-field
@@ -58,8 +63,12 @@ django-anymail[mailgun]==10.1
     # via -r requirements.in
 django-braces==1.15.0
     # via -r requirements.in
+django-crispy-forms==2.0
+    # via crispy-bootstrap5
 django-filter==22.1
     # via wagtail
+django-formtools==2.4.1
+    # via -r requirements.in
 django-modelcluster==6.0
     # via wagtail
 django-permissionedforms==0.1
