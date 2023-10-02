@@ -5,7 +5,7 @@ from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
 from phonenumber_field.formfields import PhoneNumberField
 
-from .models import User
+from users.models import User
 from constants import CONTIGUOUS_STATES_CHOICES
 
 
