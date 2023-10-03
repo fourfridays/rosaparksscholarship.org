@@ -4,9 +4,9 @@ metadata:
   name: config
 data:
   DJANGO_DEBUG: "False"
-  DOMAIN_ALIASES: "rpsf.fourfridays.com"
+  DOMAIN_ALIASES: "rosaparksscholarship.org"
   DJANGO_LOGLEVEL: "info"
-  WAGTAILADMIN_BASE_URL: "https://rpsf.fourfridays.com"
+  WAGTAILADMIN_BASE_URL: "https://rosaparksscholarship.org"
   WAGTAIL_SITE_NAME: "Rosa Parks Scholarship Foundation"
-  CSRF_TRUSTED_ORIGINS: "https://rpsf.fourfridays.com"
+  CSRF_TRUSTED_ORIGINS: "https://rosaparksscholarship.org"
   WAGTAIL_PAGES_IS_CREATABLE: "True"

@@ -61,7 +61,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-    - host: rpsf.fourfridays.com
+    - host: rosaparksscholarship.org
       http:
         paths:
           - path: /
@@ -81,7 +81,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`rpsf.fourfridays.com`)
+      match: Host(`rosaparksscholarship.org`)
       middlewares:
         - name: rpsf-gzip-compress
       services:
