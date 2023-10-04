@@ -29,7 +29,7 @@ class CustomSignupForm(SignupForm):
     address1 = forms.CharField(max_length=1024, label="Address line 1")
     address2 = forms.CharField(max_length=1024, label="Address line 2", required=False)
     city = forms.CharField(max_length=1024)
-    state = forms.ChoiceField(choices=CONTIGUOUS_STATES_CHOICES)
+    state = forms.ChoiceField(choices=CONTIGUOUS_STATES_CHOICES, initial="MI")
     zip_code = forms.CharField(max_length=12)
     captcha = ReCaptchaField(widget=ReCaptchaV3)
 
