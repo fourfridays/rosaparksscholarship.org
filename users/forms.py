@@ -25,11 +25,16 @@ class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=60, label="First Name")
     last_name = forms.CharField(max_length=60, label="Last Name")
     phone_number = PhoneNumberField(region="US")
-    dob = forms.DateField(widget=forms.DateInput(
+    dob = forms.DateField(
+        widget=forms.DateInput(
             attrs={
-                'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)',
-                'class': 'form-control'
-            }), label="Date of Birth")
+                "type": "date",
+                "placeholder": "yyyy-mm-dd (DOB)",
+                "class": "form-control",
+            }
+        ),
+        label="Date of Birth",
+    )
     address1 = forms.CharField(max_length=1024, label="Address line 1")
     address2 = forms.CharField(max_length=1024, label="Address line 2", required=False)
     city = forms.CharField(max_length=1024)
