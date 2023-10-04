@@ -8,6 +8,15 @@
 <html class="no-js" lang="en"> <!--<![endif]-->
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB7PSS58ME"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-BB7PSS58ME');
+    </script>
     <meta charset="utf-8" />
     <title>
         {% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
