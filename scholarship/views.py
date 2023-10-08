@@ -40,3 +40,21 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             self.storage.set_step_data(form.step, self.process_step(form))
 
         return HttpResponse("Form Submitted")
+
+    def get(self, *args, **kwargs):
+        current_step = '0'
+
+        print("Current Step", current_step, self.get_form_kwargs(current_step))
+
+        step0_data = self.storage.get_step_data(current_step)
+        print("Step Data", step0_data)
+
+        if step0_data:
+            new_form = self.get_form(
+                current_step,
+                data=self.storage.get_step_data(current_step),
+                files=self.storage.get_step_files(current_step),
+            )
+            return self.render(new_form, **kwargs)
+
+        return super().get(*args, **kwargs)
