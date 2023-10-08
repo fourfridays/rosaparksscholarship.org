@@ -43,20 +43,7 @@ class CustomUserAdmin(UserAdmin):
     )
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        ("Personal info", {"fields": ("first_name", "last_name", "phone_number", "dob")}),
-        (
-            "Address",
-            {
-                "fields":
-                    (
-                        "address1",
-                        "address2",
-                        "city",
-                        "state",
-                        "zip_code",
-                    )
-            }
-        ),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
         (
             "Permissions",
             {

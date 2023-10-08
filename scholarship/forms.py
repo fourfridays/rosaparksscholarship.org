@@ -1,23 +1,43 @@
+import datetime
+
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
-from scholarship.models import EmploymentHistory
-from scholarship.validators import file_size, validate_document_file_extension
+from dateutil.relativedelta import relativedelta
+
+from scholarship.models import PersonalInformation, EmploymentHistory, FamilyInformation
 
 
-class EmploymentHistoryForm(forms.ModelForm):
-    employer_name = forms.CharField(max_length=160)
-    job_title = forms.CharField(max_length=40)
-    hours_per_week = forms.IntegerField()
-    reference_letter_1 = forms.FileField(
-        validators=[file_size, validate_document_file_extension],
-        help_text="Only PDF or DOC formats. Maximum file size is 2MiB."
-    )
-    reference_letter_2 = forms.FileField(
-        required=False,
-        validators=[file_size, validate_document_file_extension],
-        help_text="Only PDF or DOC formats. Maximum file size is 2MiB."
+def date_minus_18_years():
+    """Return 18 years from today"""
+    now = datetime.datetime.now()
+    return now - relativedelta(years=18)
+
+
+class PersonalInformationForm(forms.ModelForm):
+    dob = forms.DateField(
+        initial=date_minus_18_years(),
+        widget=forms.DateInput(
+            attrs={
+                "class": "form-control",
+                "type": "date",
+            },
+        ),
+        label="Date of Birth"
     )
 
     class Meta:
+        model = PersonalInformation
+        exclude = ["user"]
+
+
+class EmploymentHistoryForm(forms.ModelForm):
+    class Meta:
         model = EmploymentHistory
-        fields = ["employer_name", "job_title", "hours_per_week", "reference_letter_1", "reference_letter_2"]
+        exclude = ["user"]
+
+
+class FamilyInformationForm(forms.ModelForm):
+    class Meta:
+        model = FamilyInformation
+        exclude = ["user"]

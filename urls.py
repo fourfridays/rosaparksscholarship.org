@@ -9,12 +9,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
 from page.views import wagtail_admin_login
-from scholarship.views import ScholarshipView
+from scholarship.views import ScholarshipView, PersonalInformationForm, EmploymentHistoryForm, FamilyInformationForm
 
 urlpatterns = [
     re_path(r'^robots\.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     re_path(r'^sitemap\.xml$', sitemap),
-    path('scholarship/', ScholarshipView.as_view(), name="scholarship-view"),
+    path('scholarship/', ScholarshipView.as_view([PersonalInformationForm, EmploymentHistoryForm, FamilyInformationForm]), name="scholarship-view"),
     path('documents/', include(wagtaildocs_urls)),
     path('', include('allauth.urls')),
     # Override the Wagtail admin login URL
