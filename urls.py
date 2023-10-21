@@ -15,6 +15,7 @@ urlpatterns = [
     re_path(r'^robots\.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     re_path(r'^sitemap\.xml$', sitemap),
     path('scholarship/', ScholarshipView.as_view([PersonalInformationForm, EmploymentHistoryForm, FamilyInformationForm]), name="scholarship-view"),
+    path("__debug__/", include("debug_toolbar.urls")),
     path('documents/', include(wagtaildocs_urls)),
     path('', include('allauth.urls')),
     # Override the Wagtail admin login URL

@@ -1,6 +1,7 @@
 import os
 import dj_database_url
 
+from distutils.util import strtobool
 from pathlib import Path
 from wagtail.embeds.oembed_providers import youtube
 
@@ -284,3 +285,16 @@ RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY", default="")
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# DJANGO DEBUG TOOLBAR
+def show_toolbar(request=None):
+    return bool(strtobool(os.environ.get("DEBUG", "True")))
+
+if show_toolbar():
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+        'SHOW_COLLAPSED': True,
+    }
