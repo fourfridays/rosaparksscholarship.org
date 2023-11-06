@@ -24,8 +24,11 @@
                         {% endif %}
                     </table>
                     {% if wizard.steps.prev %}
-                        <button name="wizard_goto_step" class="btn btn-primary btn-sm" type="submit" value="{{ wizard.steps.first }}">Next</button>
-                        <button name="wizard_goto_step" class="btn btn-primary btn-sm" type="submit" value="{{ wizard.steps.prev }}">Previous</button>
+                        <button name="wizard_goto_step" class="btn btn-primary btn-sm" type="submit" value="{{ wizard.steps.first }}" formnovalidate>First Step</button>
+                        <button name="wizard_goto_step" class="btn btn-primary btn-sm" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>Previous Step</button>
+                    {% endif %}
+                    {% if wizard.steps.next %}
+                        <button class="btn  btn-sm btn-primary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.next }}">next step</button>
                     {% endif %}
                     <input type="submit" value="submit"/>
                 </form>
