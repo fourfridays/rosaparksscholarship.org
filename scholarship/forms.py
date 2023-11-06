@@ -5,7 +5,13 @@ from django.utils.translation import gettext_lazy as _
 
 from dateutil.relativedelta import relativedelta
 
-from scholarship.models import PersonalInformation, EmploymentHistory, FamilyInformation
+from scholarship.models import (
+    PersonalInformation,
+    EmploymentHistory,
+    Parent1,
+    Parent2,
+    Household,
+)
 
 
 def date_minus_18_years():
@@ -37,7 +43,19 @@ class EmploymentHistoryForm(forms.ModelForm):
         exclude = ["user"]
 
 
-class FamilyInformationForm(forms.ModelForm):
+class Parent1Form(forms.ModelForm):
     class Meta:
-        model = FamilyInformation
+        model = Parent1
+        exclude = ["user"]
+
+
+class Parent2Form(forms.ModelForm):
+    class Meta:
+        model = Parent2
+        exclude = ["user"]
+
+
+class HouseholdForm(forms.ModelForm):
+    class Meta:
+        model = Household
         exclude = ["user"]

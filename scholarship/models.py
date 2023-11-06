@@ -38,7 +38,9 @@ class PersonalInformation(models.Model):
     )
     phone_number = PhoneNumberField(region="US")
     dob = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    high_school = models.CharField(max_length=120, default="None")
+    high_school_city = models.CharField(max_length=40, default="None")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
         verbose_name_plural = "Personal Information"
@@ -51,7 +53,15 @@ class EmploymentHistory(models.Model):
     employer_name = models.CharField(max_length=120)
     job_title = models.CharField(max_length=40)
     hours_per_week = models.PositiveSmallIntegerField()
-    reference_letter_1 = models.FileField(
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+
+    class Meta:
+        verbose_name_plural = "Employment History"
+
+    def __str__(self):
+        return f"{self.user.email}"
+
+        """    reference_letter_1 = models.FileField(
         upload_to=get_user_file_path,
         storage=PrivateMediaStorage(),
     )
@@ -61,15 +71,10 @@ class EmploymentHistory(models.Model):
         blank=True,
         null=True,
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name_plural = "Employment History"
-
-    def __str__(self):
-        return self.user.email
-
-
+        Returns:
+            _type_: _description_
+        """
 # Delete reference attachments from AWS S3 upon deletion of scholarship application
 @receiver(models.signals.post_delete, sender=EmploymentHistory)
 def remove_file_from_s3(sender, instance, using, **kwargs):
@@ -77,81 +82,111 @@ def remove_file_from_s3(sender, instance, using, **kwargs):
     instance.reference_letter_2.delete(save=False)
 
 
-class FamilyInformation(models.Model):
-    parent_1_full_name = models.CharField(max_length=40)
-    parent_1_email = models.EmailField("email address", blank=False)
-    parent_1_address1 = models.CharField(
+class Parent1(models.Model):
+    full_name = models.CharField(max_length=40)
+    email = models.EmailField("email address", blank=False)
+    address1 = models.CharField(
         "Address line 1",
         max_length=35,
     )
-    parent_1_address2 = models.CharField(
+    address2 = models.CharField(
         "Address line 2",
         max_length=35,
         null=True,
         blank=True,
     )
-    parent_1_city = models.CharField(
+    city = models.CharField(
         "City",
         max_length=30,
     )
-    parent_1_state = models.CharField(
+    state = models.CharField(
         max_length=20,
         choices=CONTIGUOUS_STATES_CHOICES,
         default="MI",
     )
-    parent_1_zip_code = models.CharField(
+    zip_code = models.CharField(
         "ZIP",
         max_length=12,
     )
-    parent_1_phone_number = PhoneNumberField(region="US")
-    parent_1_place_of_employment = models.CharField(max_length=120)
-    parent_1_job_title = models.CharField(max_length=40)
-    parent_2_full_name = models.CharField(max_length=40)
-    parent_2_email = models.EmailField("email address", null=True, blank=True)
-    parent_2_address1 = models.CharField(
+    phone_number = PhoneNumberField(region="US")
+    place_of_employment = models.CharField(max_length=120)
+    job_title = models.CharField(max_length=40)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+
+    class Meta:
+        verbose_name_plural = "Parent 1 Information"
+
+    def __str__(self):
+        return f"{self.user.email}"
+
+
+class Parent2(models.Model):
+    full_name = models.CharField(max_length=40)
+    email = models.EmailField("email address", null=True, blank=True)
+    address1 = models.CharField(
         "Address line 1", max_length=35, null=True, blank=True
     )
-    parent_2_address2 = models.CharField(
+    address2 = models.CharField(
         "Address line 2",
         max_length=35,
         null=True,
         blank=True,
     )
-    parent_2_city = models.CharField(
+    city = models.CharField(
         "City",
         max_length=30,
         null=True,
         blank=True,
     )
-    parent_2_state = models.CharField(
+    state = models.CharField(
         max_length=20,
         choices=CONTIGUOUS_STATES_CHOICES,
         default="MI",
         null=True,
         blank=True,
     )
-    parent_2_zip_code = models.CharField(
+    zip_code = models.CharField(
         "ZIP",
         max_length=12,
         null=True,
         blank=True,
     )
-    parent_2_phone_number = PhoneNumberField(region="US", null=True, blank=True)
-    parent_2_place_of_employment = models.CharField(
+    phone_number = PhoneNumberField(region="US", null=True, blank=True)
+    place_of_employment = models.CharField(
         max_length=120, null=True, blank=True
     )
-    parent_2_job_title = models.CharField(max_length=120, null=True, blank=True)
+    job_title = models.CharField(max_length=120, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+
+    class Meta:
+        verbose_name_plural = "Parent 2 Information"
+
+    def __str__(self):
+        return f"{self.user.email}"
+
+
+class Household(models.Model):
     total_household_income = models.CharField(
         max_length=20,
         choices=HOUSEHOLD_INCOME_CHOICES
     )
     siblings = models.CharField(max_length=140)
-    high_school = models.CharField(max_length=120)
-    high_school_city = models.CharField(max_length=40)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
-        verbose_name_plural = "Family Information"
+        verbose_name_plural = "Household"
 
     def __str__(self):
-        return self.user.email
+        return f"{self.user.email}"
+
+
+class TemporaryStorage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    step = models.CharField(max_length=50)
+    data = models.JSONField()
+
+    class Meta:
+        verbose_name_plural = "Temporary Storage"
+
+    def __str__(self):
+        return f"{self.user.email}, {self.step}"

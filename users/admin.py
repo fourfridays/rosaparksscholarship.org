@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.sessions.models import Session
 
 from users.forms import CustomUserCreationForm, CustomUserChangeForm
-from users.models import User
+from users.models import User, UserSession
 
 
 class CustomUserAdmin(UserAdmin):
@@ -14,13 +15,11 @@ class CustomUserAdmin(UserAdmin):
         "first_name",
         "last_name",
         "is_active",
-        "is_student",
         "is_judge",
         "is_staff",
     ]
     list_filter = (
         "is_active",
-        "is_student",
         "is_judge",
         "is_staff",
     )
@@ -49,7 +48,6 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": (
                     "is_active",
-                    "is_student",
                     "is_judge",
                     "is_staff",
                     "is_superuser",
@@ -62,4 +60,14 @@ class CustomUserAdmin(UserAdmin):
     )
 
 
+class SessionAdmin(admin.ModelAdmin):
+    def _session_data(self, obj):
+        return obj.get_decoded()
+    
+    list_display = ['session_key', 'expire_date']
+    readonly_fields = ['_session_data',]
+    ordering = ("-expire_date",)
+
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Session, SessionAdmin)
+admin.site.register(UserSession)

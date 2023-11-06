@@ -1,13 +1,12 @@
-import datetime
-
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.sessions.models import Session
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    is_student = models.BooleanField('is student', default=True)
     is_judge = models.BooleanField('is judge', default=False)
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
@@ -32,3 +31,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class UserSession(models.Model):
+    """
+    Associating Django users with their sessions. Associates logged-in users only.
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    session = models.ForeignKey(
+        Session,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return f"{self.user} - {self.session}"
