@@ -76,10 +76,10 @@ class EmploymentHistory(models.Model):
             _type_: _description_
         """
 # Delete reference attachments from AWS S3 upon deletion of scholarship application
-@receiver(models.signals.post_delete, sender=EmploymentHistory)
-def remove_file_from_s3(sender, instance, using, **kwargs):
-    instance.reference_letter_1.delete(save=False)
-    instance.reference_letter_2.delete(save=False)
+# @receiver(models.signals.post_delete, sender=EmploymentHistory)
+# def remove_file_from_s3(sender, instance, using, **kwargs):
+#     instance.reference_letter_1.delete(save=False)
+#     instance.reference_letter_2.delete(save=False)
 
 
 class Parent1(models.Model):
