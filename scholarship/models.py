@@ -189,4 +189,4 @@ class TemporaryStorage(models.Model):
         verbose_name_plural = "Temporary Storage"
 
     def __str__(self):
-        return f"{self.user.email}, {self.step}"
+        return f"{self.user.email}, Step {int(self.step)+1}"
