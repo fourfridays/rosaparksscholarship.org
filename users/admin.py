@@ -1,9 +1,6 @@
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.sessions.models import Session
 
 from users.forms import CustomUserCreationForm, CustomUserChangeForm
-from users.models import User, UserSession
 
 
 class CustomUserAdmin(UserAdmin):
@@ -58,16 +55,3 @@ class CustomUserAdmin(UserAdmin):
         ),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
-
-
-class SessionAdmin(admin.ModelAdmin):
-    def _session_data(self, obj):
-        return obj.get_decoded()
-    
-    list_display = ['session_key', 'expire_date']
-    readonly_fields = ['_session_data',]
-    ordering = ("-expire_date",)
-
-admin.site.register(User, CustomUserAdmin)
-admin.site.register(Session, SessionAdmin)
-admin.site.register(UserSession)

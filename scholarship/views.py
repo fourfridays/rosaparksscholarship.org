@@ -25,7 +25,6 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     ]
     template_name = "scholarship/index.html"
     file_storage = PrivateMediaStorage()
-    session_key = "my_wizard_view_data"
 
     def get_form(self, step=None, data=None, files=None):
         if step is None:
@@ -89,7 +88,5 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         #for form in form_list:
         #    self.storage.set_step_data(form.step, self.process_step(form))
 
-        self.request.session[self.session_key] = self.get_all_cleaned_data()
-        self.request.session.save()
 
         return super().done(form_list, **kwargs)
