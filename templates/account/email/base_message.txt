@@ -4,4 +4,6 @@
 
 {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Thank you for using {{ site_name }}!
 {{ site_domain }}{% endblocktrans %}
+
+This email inbox is not monitored. Please do not reply.
 {% endautoescape %}
