@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    is_judge = models.BooleanField('is judge', default=False)
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [
@@ -17,6 +16,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=254, blank=False)
     last_name = models.CharField(max_length=254, blank=False)
     email = models.EmailField(_("email address"), unique=True, blank=False)
+    is_active = models.BooleanField(default=True)
+    has_submitted_application = models.BooleanField(
+        'has submitted application',
+        default=False
+    )
+    is_judge = models.BooleanField('is judge', default=False)
     is_staff = models.BooleanField(
         default=False,
         help_text=_(
@@ -24,7 +29,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             "Controls whether the user can log into this admin site."
         ),
     )
-    is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     objects = UserManager()
 

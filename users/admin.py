@@ -1,6 +1,7 @@
 from django.contrib.auth.admin import UserAdmin
 
 from users.forms import CustomUserCreationForm, CustomUserChangeForm
+from users.models import User
 
 
 class CustomUserAdmin(UserAdmin):
@@ -12,11 +13,13 @@ class CustomUserAdmin(UserAdmin):
         "first_name",
         "last_name",
         "is_active",
+        "has_submitted_application",
         "is_judge",
         "is_staff",
     ]
     list_filter = (
         "is_active",
+        "has_submitted_application",
         "is_judge",
         "is_staff",
     )
@@ -45,6 +48,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 "fields": (
                     "is_active",
+                    "has_submitted_application",
                     "is_judge",
                     "is_staff",
                     "is_superuser",

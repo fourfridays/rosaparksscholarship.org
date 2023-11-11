@@ -29,6 +29,7 @@ urlpatterns = [
         Parent2Form,
         HouseholdForm,
     ]), name="scholarship-application"),
+    path("scholarship-application/success/", TemplateView.as_view(template_name="scholarship/success.html"), name="scholarship-success"),
     path("__debug__/", include("debug_toolbar.urls")),
     path('documents/', include(wagtaildocs_urls)),
     path('', include('allauth.urls')),

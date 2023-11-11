@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views import View
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 from braces.views import LoginRequiredMixin
 
@@ -13,6 +13,7 @@ from scholarship.forms import (
 )
 from page.storage_backends import PrivateMediaStorage
 from scholarship.models import TemporaryStorage
+from users.models import User
 
 
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
@@ -25,6 +26,13 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     ]
     template_name = "scholarship/index.html"
     file_storage = PrivateMediaStorage()
+
+    def get(self, request, *args, **kwargs):
+        user_profile = User.objects.get(email=request.user)
+        if user_profile.has_submitted_application:
+            return redirect('scholarship-success')
+        
+        return super().get(request, *args, **kwargs)
 
     def get_form(self, step=None, data=None, files=None):
         if step is None:
@@ -79,14 +87,20 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             parent_2.user = self.request.user
             parent_2.save()
 
+
         household_form = form_list[4]
         if household_form.cleaned_data:
             household = household_form.save(commit=False)
             household.user = self.request.user
             household.save()
 
-        #for form in form_list:
-        #    self.storage.set_step_data(form.step, self.process_step(form))
+        # Set the has_submitted_form flag in the user model to True
+        user_profile = User.objects.get(email=self.request.user)
+        user_profile.has_submitted_application = True
+        user_profile.save()
 
+        # Delete the TemporaryStorage records for the current user
+        TemporaryStorage.objects.filter(user=self.request.user).delete()
 
-        return super().done(form_list, **kwargs)
+        # Redirect the user to a success page
+        return HttpResponseRedirect('/scholarship-application/success/')
