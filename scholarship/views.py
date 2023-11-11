@@ -28,8 +28,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     file_storage = PrivateMediaStorage()
 
     def get(self, request, *args, **kwargs):
-        user_profile = User.objects.get(email=request.user)
-        if user_profile.has_submitted_application:
+        if self.request.user.has_submitted_application:
             return redirect('scholarship-success')
         
         return super().get(request, *args, **kwargs)
@@ -39,12 +38,19 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             step = self.steps.current
 
         # Retrieve any existing data for this step
+        temp_data = {}
         try:
             temp_storage = TemporaryStorage.objects.get(step=step, user=self.request.user)
-            data = temp_storage.data
+            temp_data = temp_storage.data
+            print(temp_data, data)
+            # Merge the POST data and the TemporaryStorage data
+            if data is not None:
+                data = data
+            else:
+                data = temp_data
         except TemporaryStorage.DoesNotExist:
             pass
-
+            
         return super().get_form(step, data, files)
 
     def process_step(self, form):        
@@ -87,7 +93,6 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             parent_2.user = self.request.user
             parent_2.save()
 
-
         household_form = form_list[4]
         if household_form.cleaned_data:
             household = household_form.save(commit=False)
@@ -95,9 +100,8 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             household.save()
 
         # Set the has_submitted_form flag in the user model to True
-        user_profile = User.objects.get(email=self.request.user)
-        user_profile.has_submitted_application = True
-        user_profile.save()
+        self.request.user.has_submitted_application = True
+        self.request.user.save()
 
         # Delete the TemporaryStorage records for the current user
         TemporaryStorage.objects.filter(user=self.request.user).delete()
