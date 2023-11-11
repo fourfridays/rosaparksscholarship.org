@@ -21,6 +21,8 @@ def date_minus_18_years():
 
 
 class PersonalInformationForm(forms.ModelForm):
+    title = "Personal Information Form"
+    
     dob = forms.DateField(
         initial=date_minus_18_years(),
         widget=forms.DateInput(
@@ -38,24 +40,32 @@ class PersonalInformationForm(forms.ModelForm):
 
 
 class EmploymentHistoryForm(forms.ModelForm):
+    title = "Employment History Form"
+    
     class Meta:
         model = EmploymentHistory
         exclude = ["user"]
 
 
 class Parent1Form(forms.ModelForm):
+    title = "Parent 1 Form"
+    
     class Meta:
         model = Parent1
         exclude = ["user"]
 
 
 class Parent2Form(forms.ModelForm):
+    title = "Parent 2 Form"
+    
     class Meta:
         model = Parent2
         exclude = ["user"]
 
 
 class HouseholdForm(forms.ModelForm):
+    title = "Household Form"
+    
     class Meta:
         model = Household
         exclude = ["user"]
