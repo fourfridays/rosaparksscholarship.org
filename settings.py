@@ -295,7 +295,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # DJANGO DEBUG TOOLBAR
 def show_toolbar(request=None):
-    return bool(strtobool(os.environ.get("DEBUG", "True")))
+    return bool(strtobool(os.environ.get("DJANGO_DEBUG", "True")))
 
 if show_toolbar():
     INSTALLED_APPS += ['debug_toolbar']
