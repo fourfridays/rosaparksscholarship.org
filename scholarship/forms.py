@@ -76,6 +76,25 @@ class Parent2Form(forms.ModelForm):
 class HouseholdForm(forms.ModelForm):
     title = "Household Form"
     
+    siblings_under_18 = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "0",
+            },
+        ),
+        label="Number of siblings under 18",
+    )
+    siblings_over_18 = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "0",
+            },
+        ),
+        label="Number of siblings over 18",
+    )
+    
     class Meta:
         model = Household
         exclude = ["user"]

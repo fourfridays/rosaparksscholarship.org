@@ -169,7 +169,8 @@ class Household(models.Model):
         max_length=20,
         choices=HOUSEHOLD_INCOME_CHOICES
     )
-    siblings = models.CharField(max_length=140)
+    siblings_under_18 = models.PositiveSmallIntegerField()
+    siblings_over_18 = models.PositiveSmallIntegerField()
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
