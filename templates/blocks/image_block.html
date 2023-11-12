@@ -1,11 +1,9 @@
 {% load wagtailimages_tags %}
 
 <figure>
-    {% image self.image width-900 format-avif as avif_theimage %}
     {% image self.image width-900 format-webp as webp_theimage %}
     {% image self.image width-900 as theimage %}
         <picture>
-            <source srcset="{{ avif_theimage.url }}" type="image/avif">
             <source srcset="{{ webp_theimage.url }}" type="image/webp">
             <img class="img-fluid {% if self.border == True %}img-thumbnail{% endif %}{% if self.alignment != 'center' %} float-{{ self.alignment }}{% else %} mx-auto d-block{% endif %}" {{ theimage.attrs }} loading="lazy" />
         </picture>

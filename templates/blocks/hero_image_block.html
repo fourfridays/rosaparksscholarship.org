@@ -1,15 +1,10 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% image self.hero_image fill-2400x758-c100 format-avif as avif_heroimage %}
 {% image self.hero_image fill-2400x758-c100 format-webp as webp_heroimage %}
 {% image self.hero_image fill-2400x758-c100 as heroimage %}
 <div class="hero-image card border-0">
     <figure>
         <picture>
-            <source 
-                srcset="{{ avif_heroimage.url }}"
-                type="image/avif"
-            >
             <source
                 srcset="{{ webp_heroimage.url }}"
                 type="image/webp"
