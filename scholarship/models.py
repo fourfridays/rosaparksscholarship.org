@@ -49,9 +49,9 @@ class PersonalInformation(models.Model):
 
 
 class StudentEmploymentHistory(models.Model):
-    employer_name = models.CharField(max_length=120)
-    job_title = models.CharField(max_length=40)
-    hours_per_week = models.PositiveSmallIntegerField()
+    employer_name = models.CharField("Student Employer Name", max_length=120)
+    job_title = models.CharField("Student Job Title", max_length=40)
+    hours_per_week = models.PositiveSmallIntegerField("Student Hours Per Week",)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
