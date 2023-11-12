@@ -48,7 +48,7 @@ class PersonalInformation(models.Model):
         return self.user.email
 
 
-class EmploymentHistory(models.Model):
+class StudentEmploymentHistory(models.Model):
     employer_name = models.CharField(max_length=120)
     job_title = models.CharField(max_length=40)
     hours_per_week = models.PositiveSmallIntegerField()

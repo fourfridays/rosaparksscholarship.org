@@ -6,7 +6,7 @@ from braces.views import LoginRequiredMixin
 from formtools.wizard.views import SessionWizardView
 from scholarship.forms import (
     PersonalInformationForm,
-    EmploymentHistoryForm,
+    StudentEmploymentHistoryForm,
     Parent1Form,
     Parent2Form,
     HouseholdForm,
@@ -19,7 +19,7 @@ from users.models import User
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     form_list = [
         PersonalInformationForm,
-        EmploymentHistoryForm,
+        StudentEmploymentHistoryForm,
         Parent1Form,
         Parent2Form,
         HouseholdForm,
@@ -75,11 +75,11 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             personal_information.user = self.request.user
             personal_information.save()
 
-        employment_history_form = form_list[1]
-        if employment_history_form.cleaned_data:
-            employment_history = employment_history_form.save(commit=False)
-            employment_history.user = self.request.user
-            employment_history.save()
+        student_employment_history_form = form_list[1]
+        if student_employment_history_form.cleaned_data:
+            student_employment_history = student_employment_history_form.save(commit=False)
+            student_employment_history.user = self.request.user
+            student_employment_history.save()
 
         parent_1_form = form_list[2]
         if parent_1_form.cleaned_data:
