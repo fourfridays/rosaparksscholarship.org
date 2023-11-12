@@ -29,7 +29,6 @@ class PersonalInformation(models.Model):
     )
     state = models.CharField(
         max_length=20,
-        choices=CONTIGUOUS_STATES_CHOICES,
         default="MI",
     )
     zip_code = models.CharField(
