@@ -7,8 +7,7 @@ from formtools.wizard.views import SessionWizardView
 from scholarship.forms import (
     PersonalInformationForm,
     StudentEmploymentHistoryForm,
-    Parent1Form,
-    Parent2Form,
+    ParentForm,
     HouseholdForm,
 )
 from page.storage_backends import PrivateMediaStorage
@@ -20,8 +19,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     form_list = [
         PersonalInformationForm,
         StudentEmploymentHistoryForm,
-        Parent1Form,
-        Parent2Form,
+        ParentForm,
         HouseholdForm,
     ]
     template_name = "scholarship/index.html"
@@ -81,19 +79,13 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             student_employment_history.user = self.request.user
             student_employment_history.save()
 
-        parent_1_form = form_list[2]
-        if parent_1_form.cleaned_data:
-            parent_1 = parent_1_form.save(commit=False)
-            parent_1.user = self.request.user
-            parent_1.save()
+        parent_form = form_list[2]
+        if parent_form.cleaned_data:
+            parent = parent_form.save(commit=False)
+            parent.user = self.request.user
+            parent.save()
 
-        parent_2_form = form_list[3]
-        if parent_2_form.cleaned_data:
-            parent_2 = parent_2_form.save(commit=False)
-            parent_2.user = self.request.user
-            parent_2.save()
-
-        household_form = form_list[4]
+        household_form = form_list[3]
         if household_form.cleaned_data:
             household = household_form.save(commit=False)
             household.user = self.request.user

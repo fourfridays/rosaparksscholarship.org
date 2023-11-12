@@ -81,84 +81,74 @@ class StudentEmploymentHistory(models.Model):
 #     instance.reference_letter_2.delete(save=False)
 
 
-class Parent1(models.Model):
-    full_name = models.CharField(max_length=40)
-    email = models.EmailField("email address", blank=False)
-    address1 = models.CharField(
-        "Address line 1",
+class Parent(models.Model):
+    parent_1_full_name = models.CharField("Parent 1 Full Name", max_length=40)
+    parent_1_email = models.EmailField("Parent 1 Email Address", blank=False)
+    parent_1_address1 = models.CharField(
+        "Parent 1 Address line 1",
         max_length=35,
     )
-    address2 = models.CharField(
-        "Address line 2",
+    parent_1_address2 = models.CharField(
+        "Parent 1 Address line 2",
         max_length=35,
         null=True,
         blank=True,
     )
-    city = models.CharField(
-        "City",
+    parent_1_city = models.CharField(
+        "Parent 1 City",
         max_length=30,
     )
-    state = models.CharField(
+    parent_1_state = models.CharField(
+        "Parent 1 State",
         max_length=20,
         choices=CONTIGUOUS_STATES_CHOICES,
         default="MI",
     )
-    zip_code = models.CharField(
-        "ZIP",
+    parent_1_zip_code = models.CharField(
+        "Parent 1 Zip Code",
         max_length=12,
     )
-    phone_number = PhoneNumberField(region="US")
-    place_of_employment = models.CharField(max_length=120)
-    job_title = models.CharField(max_length=40)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
-
-    class Meta:
-        verbose_name_plural = "Parent 1 Information"
-
-    def __str__(self):
-        return f"{self.user.email}"
-
-
-class Parent2(models.Model):
-    full_name = models.CharField(max_length=40)
-    email = models.EmailField("email address", null=True, blank=True)
-    address1 = models.CharField(
-        "Address line 1", max_length=35, null=True, blank=True
+    parent_1_phone_number = PhoneNumberField("Parent 1 Phone Number", region="US")
+    parent_1_place_of_employment = models.CharField("Parent 1 Place of Employment", max_length=120)
+    parent_1_job_title = models.CharField("Parent 1 Job Title", max_length=40)
+    
+    parent_2_full_name = models.CharField("Parent 2 Full Name (if applicable)", max_length=40,  null=True, blank=True)
+    parent_2_email = models.EmailField("Parent 2 Email Address (if applicable)", null=True, blank=True)
+    parent_2_address1 = models.CharField(
+        "Parent 2 Address line 1 (if applicable)", max_length=35, null=True, blank=True
     )
-    address2 = models.CharField(
-        "Address line 2",
+    parent_2_address2 = models.CharField(
+        "Parent 2 Address line 2 (if applicable)",
         max_length=35,
         null=True,
         blank=True,
     )
-    city = models.CharField(
-        "City",
+    parent_2_city = models.CharField(
+        "Parent 2 City (if applicable)",
         max_length=30,
         null=True,
         blank=True,
     )
-    state = models.CharField(
+    parent_2_state = models.CharField(
+        "Parent 2 State (if applicable)",
         max_length=20,
         choices=CONTIGUOUS_STATES_CHOICES,
         default="MI",
         null=True,
         blank=True,
     )
-    zip_code = models.CharField(
-        "ZIP",
+    parent_2_zip_code = models.CharField(
+        "Parent 2 Zip Code (if applicable)",
         max_length=12,
         null=True,
         blank=True,
     )
-    phone_number = PhoneNumberField(region="US", null=True, blank=True)
-    place_of_employment = models.CharField(
-        max_length=120, null=True, blank=True
+    parent_2_phone_number = PhoneNumberField("Parent 2 Phone Number (if applicable)", region="US", null=True, blank=True)
+    parent_2_place_of_employment = models.CharField(
+        "Parent 2 Place of Employment (if applicable)", max_length=120, null=True, blank=True
     )
-    job_title = models.CharField(max_length=120, null=True, blank=True)
+    parent_2_job_title = models.CharField("Parent 2 Job Title (if applicable)", max_length=120, null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
-
-    class Meta:
-        verbose_name_plural = "Parent 2 Information"
 
     def __str__(self):
         return f"{self.user.email}"

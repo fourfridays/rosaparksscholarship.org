@@ -8,8 +8,7 @@ from dateutil.relativedelta import relativedelta
 from scholarship.models import (
     PersonalInformation,
     StudentEmploymentHistory,
-    Parent1,
-    Parent2,
+    Parent,
     Household,
 )
 
@@ -57,19 +56,11 @@ class StudentEmploymentHistoryForm(forms.ModelForm):
         exclude = ["user"]
 
 
-class Parent1Form(forms.ModelForm):
-    title = "Parent 1 Form"
+class ParentForm(forms.ModelForm):
+    title = "Parent Form"
     
     class Meta:
-        model = Parent1
-        exclude = ["user"]
-
-
-class Parent2Form(forms.ModelForm):
-    title = "Parent 2 Form"
-    
-    class Meta:
-        model = Parent2
+        model = Parent
         exclude = ["user"]
 
 

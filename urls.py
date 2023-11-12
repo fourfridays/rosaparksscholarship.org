@@ -13,8 +13,7 @@ from scholarship.views import ScholarshipView
 from scholarship.forms import (
     PersonalInformationForm,
     StudentEmploymentHistoryForm,
-    Parent1Form,
-    Parent2Form,
+    ParentForm,
     HouseholdForm,
 )
 
@@ -25,8 +24,7 @@ urlpatterns = [
     path('scholarship-application/', ScholarshipView.as_view([
         PersonalInformationForm,
         StudentEmploymentHistoryForm,
-        Parent1Form,
-        Parent2Form,
+        ParentForm,
         HouseholdForm,
     ]), name="scholarship-application"),
     path("scholarship-application/success/", TemplateView.as_view(template_name="scholarship/success.html"), name="scholarship-success"),
