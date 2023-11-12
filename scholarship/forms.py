@@ -7,6 +7,7 @@ from dateutil.relativedelta import relativedelta
 
 from scholarship.models import (
     PersonalInformation,
+    HighSchool,
     StudentEmploymentHistory,
     Parent,
     Household,
@@ -45,6 +46,33 @@ class PersonalInformationForm(forms.ModelForm):
 
     class Meta:
         model = PersonalInformation
+        exclude = ["user"]
+
+
+class HighSchoolForm(forms.ModelForm):
+    title = "High School Information"
+    
+    graduation_date = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                "class": "form-control",
+                "type": "date",
+            },
+        ),
+        label="High School Graduation Date",
+    )
+    gpa = forms.DecimalField(
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "0.00",
+            },
+        ),
+        label="High School GPA",
+    )
+    
+    class Meta:
+        model = HighSchool
         exclude = ["user"]
 
 

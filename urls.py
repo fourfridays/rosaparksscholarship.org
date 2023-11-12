@@ -12,6 +12,7 @@ from page.views import wagtail_admin_login
 from scholarship.views import ScholarshipView
 from scholarship.forms import (
     PersonalInformationForm,
+    HighSchoolForm,
     StudentEmploymentHistoryForm,
     ParentForm,
     HouseholdForm,
@@ -23,6 +24,7 @@ urlpatterns = [
     re_path(r'^sitemap\.xml$', sitemap),
     path('scholarship-application/', ScholarshipView.as_view([
         PersonalInformationForm,
+        HighSchoolForm,
         StudentEmploymentHistoryForm,
         ParentForm,
         HouseholdForm,

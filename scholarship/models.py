@@ -42,8 +42,6 @@ class PersonalInformation(models.Model):
         default="MI",
         choices=CONTIGUOUS_STATES_CHOICES,
     )
-    high_school = models.CharField(max_length=120, default="None")
-    high_school_city = models.CharField(max_length=40, default="None")
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
@@ -51,6 +49,37 @@ class PersonalInformation(models.Model):
 
     def __str__(self):
         return self.user.email
+
+
+class HighSchool(models.Model):
+    name = models.CharField(
+        "High School Name",
+        max_length=120,
+        default="None"
+    )
+    city = models.CharField(
+        "High School City",
+        max_length=40,
+        default="None"
+    )
+    graduation_date = models.DateField("High School Graduation Date")
+    gpa = models.DecimalField(
+        "High School GPA",
+        max_digits=3,
+        decimal_places=2
+    )
+    major = models.CharField(
+        "High School Major",
+        max_length=120,
+        default="None"
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+
+    class Meta:
+        verbose_name_plural = "High School"
+
+    def __str__(self):
+        return f"{self.user.email}"
 
 
 class StudentEmploymentHistory(models.Model):
