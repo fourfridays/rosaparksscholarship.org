@@ -37,6 +37,11 @@ class PersonalInformation(models.Model):
     )
     phone_number = PhoneNumberField(region="US")
     dob = models.DateField()
+    place_of_bith = models.CharField(
+        max_length=20,
+        default="MI",
+        choices=CONTIGUOUS_STATES_CHOICES,
+    )
     high_school = models.CharField(max_length=120, default="None")
     high_school_city = models.CharField(max_length=40, default="None")
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
