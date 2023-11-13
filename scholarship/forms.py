@@ -8,6 +8,8 @@ from dateutil.relativedelta import relativedelta
 from scholarship.models import (
     PersonalInformation,
     HighSchool,
+    AcademicCounselor,
+    HonorOrAward,
     StudentEmploymentHistory,
     Parent,
     Household,
@@ -73,6 +75,38 @@ class HighSchoolForm(forms.ModelForm):
     
     class Meta:
         model = HighSchool
+        exclude = ["user"]
+
+
+class AcademicCounselorForm(forms.ModelForm):
+    title = "Academic Counselor Form"
+    
+    class Meta:
+        model = AcademicCounselor
+        exclude = ["user"]
+
+
+class HonorOrAwardForm(forms.ModelForm):
+    title = "Honor or Award Information"
+
+    year_received_1_date = forms.DateField(
+        input_formats=['%Y'], 
+        widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
+        required=False,
+    )
+    year_received_2_date = forms.DateField(
+        input_formats=['%Y'], 
+        widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
+        required=False,
+    )
+    year_received_3_date = forms.DateField(
+        input_formats=['%Y'], 
+        widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
+        required=False,
+    )
+    
+    class Meta:
+        model = HonorOrAward
         exclude = ["user"]
 
 

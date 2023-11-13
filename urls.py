@@ -13,6 +13,8 @@ from scholarship.views import ScholarshipView
 from scholarship.forms import (
     PersonalInformationForm,
     HighSchoolForm,
+    AcademicCounselorForm,
+    HonorOrAwardForm,
     StudentEmploymentHistoryForm,
     ParentForm,
     HouseholdForm,
@@ -25,6 +27,8 @@ urlpatterns = [
     path('scholarship-application/', ScholarshipView.as_view([
         PersonalInformationForm,
         HighSchoolForm,
+        AcademicCounselorForm,
+        HonorOrAwardForm,
         StudentEmploymentHistoryForm,
         ParentForm,
         HouseholdForm,

@@ -7,6 +7,8 @@ from formtools.wizard.views import SessionWizardView
 from scholarship.forms import (
     PersonalInformationForm,
     HighSchoolForm,
+    AcademicCounselorForm,
+    HonorOrAwardForm,
     StudentEmploymentHistoryForm,
     ParentForm,
     HouseholdForm,
@@ -20,6 +22,8 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     form_list = [
         PersonalInformationForm,
         HighSchoolForm,
+        AcademicCounselorForm,
+        HonorOrAwardForm,
         StudentEmploymentHistoryForm,
         ParentForm,
         HouseholdForm,
@@ -80,20 +84,32 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             high_school = high_school_form.save(commit=False)
             high_school.user = self.request.user
             high_school.save()
+        
+        academic_counselor_form = form_list[2]
+        if academic_counselor_form.cleaned_data:
+            academic_counselor = academic_counselor_form.save(commit=False)
+            academic_counselor.user = self.request.user
+            academic_counselor.save()
+        
+        honor_or_award_form = form_list[3]
+        if honor_or_award_form.cleaned_data:
+            honor_or_award = honor_or_award_form.save(commit=False)
+            honor_or_award.user = self.request.user
+            honor_or_award.save()
 
-        student_employment_history_form = form_list[2]
+        student_employment_history_form = form_list[4]
         if student_employment_history_form.cleaned_data:
             student_employment_history = student_employment_history_form.save(commit=False)
             student_employment_history.user = self.request.user
             student_employment_history.save()
 
-        parent_form = form_list[3]
+        parent_form = form_list[5]
         if parent_form.cleaned_data:
             parent = parent_form.save(commit=False)
             parent.user = self.request.user
             parent.save()
 
-        household_form = form_list[4]
+        household_form = form_list[6]
         if household_form.cleaned_data:
             household = household_form.save(commit=False)
             household.user = self.request.user

@@ -82,6 +82,30 @@ class HighSchool(models.Model):
         return f"{self.user.email}"
 
 
+class AcademicCounselor(models.Model):
+    name = models.CharField("Academic Counselor Name", max_length=120)
+    phone_number = PhoneNumberField("Academic Counselor Phone Number", region="US")
+    email = models.EmailField("Academic Counselor Email Address")
+    
+    class Meta:
+        verbose_name_plural = "Academic Counselor"
+    
+    def __str__(self):
+        return f"{self.user.email}"
+
+
+class HonorOrAward(models.Model):
+    honor_or_award_1 = models.CharField("Honor or Award", max_length=120, blank=True)
+    year_received_1_date = models.DateField("Year Received", blank=True, null=True)
+    description_1 = models.TextField("Description", blank=True)
+    honor_or_award_2 = models.CharField("Honor or Award", max_length=120, blank=True)
+    year_received_2_date = models.DateField("Year Received", blank=True, null=True)
+    description_2 = models.TextField("Description", blank=True)
+    honor_or_award_3 = models.CharField("Honor or Award", max_length=120, blank=True)
+    year_received_3_date = models.DateField("Year Received", blank=True, null=True)
+    description_3 = models.TextField("Description", blank=True)
+
+
 class StudentEmploymentHistory(models.Model):
     employer_name = models.CharField("Student Employer Name", max_length=120)
     job_title = models.CharField("Student Job Title", max_length=40)
