@@ -106,6 +106,27 @@ class HonorOrAward(models.Model):
     description_3 = models.TextField("Description", blank=True)
 
 
+class ExtraCurricular(models.Model):
+    activity_1 = models.CharField("Activity", max_length=120, blank=True)
+    year_participated_1_date = models.DateField("Year Participated", blank=True, null=True)
+    hours_per_week_1 = models.PositiveSmallIntegerField("Hours Per Week", blank=True, null=True)
+    description_1 = models.TextField("Description", blank=True)
+    activity_2 = models.CharField("Activity", max_length=120, blank=True)
+    year_participated_2_date = models.DateField("Year Participated", blank=True, null=True)
+    hours_per_week_2 = models.PositiveSmallIntegerField("Hours Per Week", blank=True, null=True)
+    description_2 = models.TextField("Description", blank=True)
+    activity_3 = models.CharField("Activity", max_length=120, blank=True)
+    year_participated_3_date = models.DateField("Year Participated", blank=True, null=True)
+    hours_per_week_3 = models.PositiveSmallIntegerField("Hours Per Week", blank=True, null=True)
+    description_3 = models.TextField("Description", blank=True)
+    
+    class Meta:
+        verbose_name_plural = "Extra Curricular"
+        
+    def __str__(self):
+        return f"{self.user.email}"
+
+
 class StudentEmploymentHistory(models.Model):
     employer_name = models.CharField("Student Employer Name", max_length=120)
     job_title = models.CharField("Student Job Title", max_length=40)

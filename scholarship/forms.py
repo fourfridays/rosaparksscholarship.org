@@ -10,6 +10,7 @@ from scholarship.models import (
     HighSchool,
     AcademicCounselor,
     HonorOrAward,
+    ExtraCurricular,
     StudentEmploymentHistory,
     Parent,
     Household,
@@ -24,7 +25,6 @@ def date_minus_18_years():
 
 class PersonalInformationForm(forms.ModelForm):
     title = "Personal Information Form"
-    
     state = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -53,7 +53,6 @@ class PersonalInformationForm(forms.ModelForm):
 
 class HighSchoolForm(forms.ModelForm):
     title = "High School Information"
-    
     graduation_date = forms.DateField(
         widget=forms.DateInput(
             attrs={
@@ -88,7 +87,6 @@ class AcademicCounselorForm(forms.ModelForm):
 
 class HonorOrAwardForm(forms.ModelForm):
     title = "Honor or Award Information"
-
     year_received_1_date = forms.DateField(
         input_formats=['%Y'], 
         widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
@@ -110,6 +108,29 @@ class HonorOrAwardForm(forms.ModelForm):
         exclude = ["user"]
 
 
+class ExtraCurricularForm(forms.ModelForm):
+    title = "Extra Curricular Information"
+    year_participated_1_date = forms.DateField(
+        input_formats=['%Y'], 
+        widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
+        required=False,
+    )
+    year_participated_2_date = forms.DateField(
+        input_formats=['%Y'], 
+        widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
+        required=False,
+    )
+    year_participated_3_date = forms.DateField(
+        input_formats=['%Y'], 
+        widget=forms.DateInput(format='%Y', attrs={'placeholder': 'YYYY'}),
+        required=False,
+    )
+    
+    class Meta:
+        model = ExtraCurricular
+        exclude = ["user"]
+
+
 class StudentEmploymentHistoryForm(forms.ModelForm):
     title = "Student Employment History Form"
     
@@ -128,7 +149,6 @@ class ParentForm(forms.ModelForm):
 
 class HouseholdForm(forms.ModelForm):
     title = "Household Form"
-    
     siblings_under_18 = forms.IntegerField(
         widget=forms.NumberInput(
             attrs={
