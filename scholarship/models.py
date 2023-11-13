@@ -108,16 +108,40 @@ class HonorOrAward(models.Model):
 
 class ExtraCurricular(models.Model):
     activity_1 = models.CharField("Activity", max_length=120, blank=True)
-    year_participated_1_date = models.DateField("Year Participated", blank=True, null=True)
-    hours_per_week_1 = models.PositiveSmallIntegerField("Hours Per Week", blank=True, null=True)
+    year_participated_1_date = models.DateField(
+        "Year Participated",
+        blank=True,
+        null=True
+    )
+    hours_per_week_1 = models.PositiveSmallIntegerField(
+        "Hours Per Week",
+        blank=True,
+        null=True
+    )
     description_1 = models.TextField("Description", blank=True)
     activity_2 = models.CharField("Activity", max_length=120, blank=True)
-    year_participated_2_date = models.DateField("Year Participated", blank=True, null=True)
-    hours_per_week_2 = models.PositiveSmallIntegerField("Hours Per Week", blank=True, null=True)
+    year_participated_2_date = models.DateField(
+        "Year Participated",
+        blank=True,
+        null=True
+    )
+    hours_per_week_2 = models.PositiveSmallIntegerField(
+        "Hours Per Week",
+        blank=True,
+        null=True
+    )
     description_2 = models.TextField("Description", blank=True)
     activity_3 = models.CharField("Activity", max_length=120, blank=True)
-    year_participated_3_date = models.DateField("Year Participated", blank=True, null=True)
-    hours_per_week_3 = models.PositiveSmallIntegerField("Hours Per Week", blank=True, null=True)
+    year_participated_3_date = models.DateField(
+        "Year Participated",
+        blank=True,
+        null=True
+    )
+    hours_per_week_3 = models.PositiveSmallIntegerField(
+        "Hours Per Week",
+        blank=True,
+        null=True
+    )
     description_3 = models.TextField("Description", blank=True)
     
     class Meta:
@@ -188,13 +212,28 @@ class Parent(models.Model):
         max_length=12,
     )
     parent_1_phone_number = PhoneNumberField("Parent 1 Phone Number", region="US")
-    parent_1_place_of_employment = models.CharField("Parent 1 Place of Employment", max_length=120)
+    parent_1_place_of_employment = models.CharField(
+        "Parent 1 Place of Employment",
+        max_length=120
+    )
     parent_1_job_title = models.CharField("Parent 1 Job Title", max_length=40)
     
-    parent_2_full_name = models.CharField("Parent 2 Full Name (if applicable)", max_length=40,  null=True, blank=True)
-    parent_2_email = models.EmailField("Parent 2 Email Address (if applicable)", null=True, blank=True)
+    parent_2_full_name = models.CharField(
+        "Parent 2 Full Name (if applicable)",
+        max_length=40,
+        null=True,
+        blank=True
+    )
+    parent_2_email = models.EmailField(
+        "Parent 2 Email Address (if applicable)",
+        null=True,
+        blank=True
+    )
     parent_2_address1 = models.CharField(
-        "Parent 2 Address line 1 (if applicable)", max_length=35, null=True, blank=True
+        "Parent 2 Address line 1 (if applicable)",
+        max_length=35,
+        null=True,
+        blank=True
     )
     parent_2_address2 = models.CharField(
         "Parent 2 Address line 2 (if applicable)",
@@ -222,11 +261,24 @@ class Parent(models.Model):
         null=True,
         blank=True,
     )
-    parent_2_phone_number = PhoneNumberField("Parent 2 Phone Number (if applicable)", region="US", null=True, blank=True)
-    parent_2_place_of_employment = models.CharField(
-        "Parent 2 Place of Employment (if applicable)", max_length=120, null=True, blank=True
+    parent_2_phone_number = PhoneNumberField(
+        "Parent 2 Phone Number (if applicable)",
+        region="US",
+        null=True,
+        blank=True
     )
-    parent_2_job_title = models.CharField("Parent 2 Job Title (if applicable)", max_length=120, null=True, blank=True)
+    parent_2_place_of_employment = models.CharField(
+        "Parent 2 Place of Employment (if applicable)",
+        max_length=120,
+        null=True,
+        blank=True
+    )
+    parent_2_job_title = models.CharField(
+        "Parent 2 Job Title (if applicable)",
+        max_length=120,
+        null=True,
+        blank=True
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     def __str__(self):
@@ -238,8 +290,16 @@ class Household(models.Model):
         max_length=20,
         choices=HOUSEHOLD_INCOME_CHOICES
     )
-    siblings_under_18 = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
-    siblings_over_18 = models.PositiveSmallIntegerField(default=0, blank=True, null=True)
+    siblings_under_18 = models.PositiveSmallIntegerField(
+        default=0,
+        blank=True,
+        null=True
+    )
+    siblings_over_18 = models.PositiveSmallIntegerField(
+        default=0,
+        blank=True,
+        null=True
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
