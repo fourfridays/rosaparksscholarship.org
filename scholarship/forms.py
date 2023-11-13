@@ -157,6 +157,7 @@ class HouseholdForm(forms.ModelForm):
             },
         ),
         label="Number of siblings under 18",
+        required=False,
     )
     siblings_over_18 = forms.IntegerField(
         widget=forms.NumberInput(
@@ -166,6 +167,7 @@ class HouseholdForm(forms.ModelForm):
             },
         ),
         label="Number of siblings over 18",
+        required=False,
     )
     
     class Meta:
