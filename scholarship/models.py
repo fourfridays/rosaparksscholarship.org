@@ -85,6 +85,7 @@ class AcademicCounselor(models.Model):
     name = models.CharField("Academic Counselor Name", max_length=120)
     phone_number = PhoneNumberField("Academic Counselor Phone Number", region="US")
     email = models.EmailField("Academic Counselor Email Address")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
     
     class Meta:
         verbose_name_plural = "Academic Counselor"
