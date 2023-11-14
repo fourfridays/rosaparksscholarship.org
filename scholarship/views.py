@@ -8,8 +8,6 @@ from scholarship.forms import (
     PersonalInformationForm,
     HighSchoolForm,
     AcademicCounselorForm,
-    HonorOrAwardForm,
-    ExtraCurricularForm,
     CurrentEmploymentForm,
     ParentForm,
     HouseholdForm,
@@ -24,8 +22,6 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         PersonalInformationForm,
         HighSchoolForm,
         AcademicCounselorForm,
-        HonorOrAwardForm,
-        ExtraCurricularForm,
         CurrentEmploymentForm,
         ParentForm,
         HouseholdForm,
@@ -92,32 +88,20 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             academic_counselor = academic_counselor_form.save(commit=False)
             academic_counselor.user = self.request.user
             academic_counselor.save()
-        
-        honor_or_award_form = form_list[3]
-        if honor_or_award_form.cleaned_data:
-            honor_or_award = honor_or_award_form.save(commit=False)
-            honor_or_award.user = self.request.user
-            honor_or_award.save()
-        
-        extra_curricular_form = form_list[4]
-        if extra_curricular_form.cleaned_data:
-            extra_curricular = extra_curricular_form.save(commit=False)
-            extra_curricular.user = self.request.user
-            extra_curricular.save()
 
-        current_employment_form = form_list[5]
+        current_employment_form = form_list[3]
         if current_employment_form.cleaned_data:
             current_employment = current_employment_form.save(commit=False)
             current_employment.user = self.request.user
             current_employment.save()
 
-        parent_form = form_list[6]
+        parent_form = form_list[4]
         if parent_form.cleaned_data:
             parent = parent_form.save(commit=False)
             parent.user = self.request.user
             parent.save()
 
-        household_form = form_list[7]
+        household_form = form_list[5]
         if household_form.cleaned_data:
             household = household_form.save(commit=False)
             household.user = self.request.user
