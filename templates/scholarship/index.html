@@ -9,9 +9,68 @@
         <div class="row">
             <div class="col-12">
                 <h1>Scholarship Application</h1>
+
+                {% if wizard.steps.step1 == 1 %}
+                    <h2>DEADLINE EXTENDED ADDITIONAL 24 HOURS - MIDNIGHT, MARCH 3, 2023</h2>
+
+                    <p>The Rosa Parks Scholarship Foundation was established in 1980 to honor civil rights legend and longtime Michigander Rosa L. Parks’ history-making stand against racial prejudice that launched the seminal Montgomery Bus Boycott. The foundation awards non-renewable, $2,000 (now $2,500) scholarships to Michigan high school seniors who hold close to Mrs. Parks’ lifelong commitment to social justice and community service while maintaining a stellar academic record and demonstrating financial need.</p>
+
+                    <p>The equal-opportunity scholarship is to be applied to tuition, books and/or fees for the first year of college only.</p>
+
+                    <p>The funds cannot be applied to room/board or other expenses. The foundation respectfully suggests that applicants who expect to receive full tuition scholarships from other sources not apply for the Rosa Parks Scholarship,</p>
+
+                    <h2>APPLICANTS MUST:</h2>
+
+                    <ul>
+                        <li>Graduate by spring 2024 with plans to enroll full-time in a higher education program in the fall of 2024.*</li>
+                        <li>Have a GPA of 2.5 or above.</li>
+                        <li>Complete the application form, including a short, 200-300 word essay. The essay topic is: “Segregation was the defining social issue when Rosa Parks took her historic stand. Describe a social issue that you think should be addressed today. How will YOU use the principles of Rosa Parks to address it?”</li>
+                        <li>Describe financial need.</li>
+                        <li>Document honors received and community service record</li>
+                        <li>Provide official copies of high school transcript.</li>
+                        <li>Provide two letters of recommendation. (At least one should come from a school representative. Also suggested is a member of the clergy or a community or civic representative.</li>
+                    </ul>
+
+                    <p>*Participants in an Early College Program (with a 13th year of high school) are not eligible (in 12th year) for consideration.  Student can only apply during the actual year of graduation.</p>
+
+                    <p><strong>NOTE:</strong> Students may begin and save the essay at any time within the application period.</p>
+
+                    <p><strong>ALL REQUIREMENTS MUST BE MET OR YOUR APPLICATION WILL NOT BE CONSIDERED.</strong></p>
+
+                    <h2>DEADLINE</h2>
+                    <p>FRIDAY, MARCH 1, 2024 (11:59 p.m.)</p>
+
+                    <h2>TIPS AND RECOMMENDATIONS</h2>
+
+                    <p>Applications are reviewed and evaluated in various categories/areas -- on a weighted average (points awarded in each category). Failure to complete any portion of the application greatly reduces a student’s chance of being awarded a scholarship. For example, failure to list community service activities will lower overall points – possibly enough to eliminate an application. Among the categories being measured:  Application (complete); Scholastic Achievement; Financial Need; Community Service; Academic honors; Support Letters, and Essay.</p>
+
+                    <h2>Other Suggestions</h2>
+
+                    <ul>
+                        <li>Have a third-party proofread your application and essay before submission, assuring a better impression on the judges.</li>
+                        <li>The applicant’s cumulative grade point average should appear on the official transcript.</li>
+                        <li>Submit only materials requested. Do not include copies of awards, certificates, etc.</li>
+                        <li>The Foundation reserves the right to contact applicants via email throughout the screening process.</li>
+                    </ul>
+
+                    <p>Applicants are advised to add RosaParksScholarship.org and info@rosaparksscholarship.org to your contact lists as notices, reminders and other communications from the Foundation can end up as “junk mail.”</p>
+
+                    <p>Scholarship winners will be notified and listed on the Rosa Parks Scholarship Foundation website, possibly in early-June.</p>
+
+                    <h2>IMPORTANT NOTE ABOUT SAVING YOUR APPLICATION</h2>
+
+                    <p>At any time while completing this application, students can stop, save the draft and return to the form later. Students are advised to select the option at the top of the page that says "Save/Continue." Drafts will then be sent to the student via email. Upon its receipt, the student should enlist assistance in reviewing the application. Once a student hits the "submit" button, the application cannot be retrieved.</p>
+
+                    <p><strong>Warning:</strong>  DO NOT use the "arrow" in the upper left corner of your computer (next to browser) to backup or return to this page once you have moved to the application.  Use the "Back" button at the bottom of the application.  Also, do not close your application without doing the "Save/Continue". Doing so will result in the loss of all data already entered.</p>
+
+                    <p>Concerns, problems and questions about the application should be submitted via email to: <a href="mailto:info@rosaparksscholarship.org">info@rosaparksscholarship.org</a>.</p>
+                {% endif %}
+
                 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}<br>
                     <span class="fw-bold">{{ form.title }}</span><br>
-                    <span class="small">* required fields</span></p>
+                    <span class="small">* required fields</span>
+                </p>
+
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <table>
