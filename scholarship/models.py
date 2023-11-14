@@ -1,5 +1,5 @@
 from django.db import models
-from django.dispatch import receiver
+from django.core.validators import MaxValueValidator
 
 from users.models import User
 from page.storage_backends import PrivateMediaStorage
@@ -69,7 +69,8 @@ class HighSchool(models.Model):
     gpa = models.DecimalField(
         "High School GPA",
         max_digits=3,
-        decimal_places=2
+        decimal_places=2,
+        validators=[MaxValueValidator(5)]
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
