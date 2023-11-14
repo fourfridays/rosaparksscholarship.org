@@ -274,6 +274,21 @@ class College(models.Model):
         return f"{self.user.email}"
 
 
+class Other(models.Model):
+    foster_care = models.BooleanField(default=False, help_text="Are you in the foster care system, or are you an emancipated minor? If so, please indicate yes (This answer does not impact the judging process. If this doesn't apply, please select no).")
+    challenges = models.TextField(null=True, blank=True, help_text="If you answered yes to the last question, please briefly describe the challenges you have faced in your educational journey because of your experiences in foster care or as an emancipated minor.")
+    other_scholarships = models.TextField(null=True, blank=True, help_text="Other scholarships you have applied for")
+    other_scholarships_awarded = models.TextField(null=True, blank=True, help_text="Scholarships/grants you have already been awarded (name, amount and period of time covered)")
+    plan_to_pay = models.TextField(help_text="If granted this award, how do you plan to pay for the rest of your educational costs?")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    
+    class Meta:
+        verbose_name_plural = "Other"
+    
+    def __str__(self):
+        return f"{self.user.email}"
+
+
 class TemporaryStorage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     step = models.CharField(max_length=50)

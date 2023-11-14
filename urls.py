@@ -18,6 +18,7 @@ from scholarship.forms import (
     ParentForm,
     HouseholdForm,
     CollegeForm,
+    OtherForm,
 )
 
 
@@ -32,6 +33,7 @@ urlpatterns = [
         ParentForm,
         HouseholdForm,
         CollegeForm,
+        OtherForm,
     ]), name="scholarship-application"),
     path("scholarship-application/success/", TemplateView.as_view(template_name="scholarship/success.html"), name="scholarship-success"),
     path("__debug__/", include("debug_toolbar.urls")),
