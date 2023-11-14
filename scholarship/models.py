@@ -4,7 +4,11 @@ from django.dispatch import receiver
 from users.models import User
 from page.storage_backends import PrivateMediaStorage
 from phonenumber_field.modelfields import PhoneNumberField
-from constants import HOUSEHOLD_INCOME_CHOICES, CONTIGUOUS_STATES_CHOICES
+from constants import (
+    HOUSEHOLD_INCOME_CHOICES,
+    CONTIGUOUS_STATES_CHOICES,
+    COUNTRY_CHOICES,
+)
 
 
 # This will return the user email for folder name in S3
@@ -37,10 +41,9 @@ class PersonalInformation(models.Model):
     )
     phone_number = PhoneNumberField(region="US")
     dob = models.DateField()
-    place_of_bith = models.CharField(
-        max_length=20,
-        default="MI",
-        choices=CONTIGUOUS_STATES_CHOICES,
+    place_of_birth = models.CharField(
+        default="United States of America",
+        choices=COUNTRY_CHOICES,
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 

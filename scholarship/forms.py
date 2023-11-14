@@ -15,6 +15,9 @@ from scholarship.models import (
     Parent,
     Household,
 )
+from constants import (
+    COUNTRY_CHOICES,
+)
 
 
 def date_minus_18_years():
@@ -44,6 +47,14 @@ class PersonalInformationForm(forms.ModelForm):
             },
         ),
         label="Date of Birth"
+    )
+    place_of_birth = forms.ChoiceField(
+        choices=COUNTRY_CHOICES,
+        initial="US",
+        widget=forms.Select(attrs={
+            "class": "form-control",
+        }),
+        label="Place of Birth"
     )
 
     class Meta:
