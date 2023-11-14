@@ -63,7 +63,8 @@ class HighSchool(models.Model):
     city = models.CharField(
         "High School City",
         max_length=40,
-        default="None"
+        default="None",
+        help_text="City where High School is Located",
     )
     graduation_date = models.DateField("High School Graduation Date")
     gpa = models.DecimalField(
@@ -82,9 +83,9 @@ class HighSchool(models.Model):
 
 
 class AcademicCounselor(models.Model):
-    name = models.CharField("Academic Counselor Name", max_length=120)
-    phone_number = PhoneNumberField("Academic Counselor Phone Number", region="US")
-    email = models.EmailField("Academic Counselor Email Address")
+    name = models.CharField("Academic Counselor Name", max_length=120, help_text="Enter name of counselor who can verify academic information")
+    phone_number = PhoneNumberField("Academic Counselor Phone Number", region="US", help_text="Enter phone number of counselor who can verify academic information")
+    email = models.EmailField("Academic Counselor Email Address", help_text="Enter email address of counselor who can verify academic information")
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
     
     class Meta:
