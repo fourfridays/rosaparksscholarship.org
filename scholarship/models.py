@@ -264,7 +264,7 @@ class College(models.Model):
     applied_for_3 = models.CharField(max_length=60, blank=True, null=True, help_text="College/University you have applied to")
     plan_to_attend = models.CharField(max_length=60, help_text="College/University you plan to attend")
     savings = models.IntegerField(default=0, help_text="How much have you saved for college")
-    savings_guardian = models.IntegerField(default=0, help_text="How much have others (parents, grandparents, etc.) saved for your education")
+    savings_by_guardian = models.IntegerField(default=0, help_text="How much have others (parents, grandparents, etc.) saved for your education")
     financial_need = models.TextField(help_text="Describe your financial need for scholarship funds (very important - be very specific)")
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
