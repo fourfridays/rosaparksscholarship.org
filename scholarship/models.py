@@ -71,11 +71,6 @@ class HighSchool(models.Model):
         max_digits=3,
         decimal_places=2
     )
-    major = models.CharField(
-        "High School Major",
-        max_length=120,
-        default="None"
-    )
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
