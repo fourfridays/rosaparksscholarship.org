@@ -10,7 +10,7 @@ from scholarship.forms import (
     AcademicCounselorForm,
     HonorOrAwardForm,
     ExtraCurricularForm,
-    StudentEmploymentHistoryForm,
+    CurrentEmploymentForm,
     ParentForm,
     HouseholdForm,
 )
@@ -26,7 +26,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         AcademicCounselorForm,
         HonorOrAwardForm,
         ExtraCurricularForm,
-        StudentEmploymentHistoryForm,
+        CurrentEmploymentForm,
         ParentForm,
         HouseholdForm,
     ]
@@ -105,11 +105,11 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             extra_curricular.user = self.request.user
             extra_curricular.save()
 
-        student_employment_history_form = form_list[5]
-        if student_employment_history_form.cleaned_data:
-            student_employment_history = student_employment_history_form.save(commit=False)
-            student_employment_history.user = self.request.user
-            student_employment_history.save()
+        current_employment_form = form_list[5]
+        if current_employment_form.cleaned_data:
+            current_employment = current_employment_form.save(commit=False)
+            current_employment.user = self.request.user
+            current_employment.save()
 
         parent_form = form_list[6]
         if parent_form.cleaned_data:

@@ -150,14 +150,14 @@ class ExtraCurricular(models.Model):
         return f"{self.user.email}"
 
 
-class StudentEmploymentHistory(models.Model):
-    employer_name = models.CharField("Student Employer Name", max_length=120)
-    job_title = models.CharField("Student Job Title", max_length=40)
-    hours_per_week = models.PositiveSmallIntegerField("Student Hours Per Week",)
+class CurrentEmployment(models.Model):
+    employer_name = models.CharField("Employer Name", max_length=120)
+    job_title = models.CharField("Job Title", max_length=40)
+    hours_per_week = models.PositiveSmallIntegerField("Hours Per Week",)
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
-        verbose_name_plural = "Employment History"
+        verbose_name_plural = "Current Emploument"
 
     def __str__(self):
         return f"{self.user.email}"
@@ -213,7 +213,9 @@ class Parent(models.Model):
     parent_1_phone_number = PhoneNumberField("Parent 1 Phone Number", region="US")
     parent_1_place_of_employment = models.CharField(
         "Parent 1 Place of Employment",
-        max_length=120
+        max_length=120,
+        blank=True,
+        null=True,
     )
     parent_1_job_title = models.CharField("Parent 1 Job Title", max_length=40)
     
@@ -270,7 +272,7 @@ class Parent(models.Model):
         "Parent 2 Place of Employment (if applicable)",
         max_length=120,
         null=True,
-        blank=True
+        blank=True,
     )
     parent_2_job_title = models.CharField(
         "Parent 2 Job Title (if applicable)",

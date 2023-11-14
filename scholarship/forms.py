@@ -11,7 +11,7 @@ from scholarship.models import (
     AcademicCounselor,
     HonorOrAward,
     ExtraCurricular,
-    StudentEmploymentHistory,
+    CurrentEmployment,
     Parent,
     Household,
 )
@@ -142,11 +142,11 @@ class ExtraCurricularForm(forms.ModelForm):
         exclude = ["user"]
 
 
-class StudentEmploymentHistoryForm(forms.ModelForm):
-    title = "Student Employment History Form"
+class CurrentEmploymentForm(forms.ModelForm):
+    title = "Current Employment Information"
     
     class Meta:
-        model = StudentEmploymentHistory
+        model = CurrentEmployment
         exclude = ["user"]
 
 

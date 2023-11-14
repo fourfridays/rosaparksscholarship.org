@@ -16,7 +16,7 @@ from scholarship.forms import (
     AcademicCounselorForm,
     HonorOrAwardForm,
     ExtraCurricularForm,
-    StudentEmploymentHistoryForm,
+    CurrentEmploymentForm,
     ParentForm,
     HouseholdForm,
 )
@@ -31,7 +31,7 @@ urlpatterns = [
         AcademicCounselorForm,
         HonorOrAwardForm,
         ExtraCurricularForm,
-        StudentEmploymentHistoryForm,
+        CurrentEmploymentForm,
         ParentForm,
         HouseholdForm,
     ]), name="scholarship-application"),
