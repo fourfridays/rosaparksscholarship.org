@@ -12,6 +12,7 @@ from scholarship.models import (
     CurrentEmployment,
     Parent,
     Household,
+    College,
 )
 from constants import (
     COUNTRY_CHOICES,
@@ -136,3 +137,12 @@ class HouseholdForm(forms.ModelForm):
     class Meta:
         model = Household
         exclude = ["user"]
+
+
+class CollegeForm(forms.ModelForm):
+    title = "College Information"
+    
+    class Meta:
+        model = College
+        exclude = ["user"]
+

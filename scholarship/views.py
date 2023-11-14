@@ -11,6 +11,7 @@ from scholarship.forms import (
     CurrentEmploymentForm,
     ParentForm,
     HouseholdForm,
+    CollegeForm,
 )
 from page.storage_backends import PrivateMediaStorage
 from scholarship.models import TemporaryStorage
@@ -25,6 +26,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         CurrentEmploymentForm,
         ParentForm,
         HouseholdForm,
+        CollegeForm,
     ]
     template_name = "scholarship/index.html"
     file_storage = PrivateMediaStorage()
@@ -106,6 +108,13 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             household = household_form.save(commit=False)
             household.user = self.request.user
             household.save()
+        
+        college_form = form_list[6]
+        if college_form.cleaned_data:
+            college = college_form.save(commit=False)
+            college.user = self.request.user
+            college.save()
+        
 
         # Set the has_submitted_form flag in the user model to True
         self.request.user.has_submitted_application = True
