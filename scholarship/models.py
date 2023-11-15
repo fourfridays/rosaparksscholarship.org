@@ -102,7 +102,7 @@ class CurrentEmployment(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
 
     class Meta:
-        verbose_name_plural = "Current Emploument"
+        verbose_name_plural = "Current Employment"
 
     def __str__(self):
         return f"{self.user.email}"
