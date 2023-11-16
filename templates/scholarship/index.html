@@ -85,13 +85,17 @@
                         {% endif %}
                     </table>
                     {% if wizard.steps.prev %}
-                        <button name="wizard_goto_step" class="btn btn-primary btn-sm" type="submit" value="{{ wizard.steps.first }}" formnovalidate>First Step</button>
-                        <button name="wizard_goto_step" class="btn btn-primary btn-sm" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>Previous Step</button>
+                        <button name="wizard_goto_step" class="btn btn-secondary btn-sm" type="submit" value="{{ wizard.steps.first }}" formnovalidate>First Step</button>
+                        <button name="wizard_goto_step" class="btn btn-secondary btn-sm" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>Previous Step</button>
                     {% endif %}
                     {% if wizard.steps.next %}
-                        <button class="btn  btn-sm btn-primary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.next }}" formnovalidate>next step</button>
+                        <button class="btn btn-sm btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.next }}" formnovalidate>next step</button>
                     {% endif %}
-                    <input type="submit" value="submit"/>
+                    {% if wizard.steps.step1 == wizard.steps.count %}
+                        <button class="btn btn-sm btn-primary" type="submit" value="submit">submit form</button>
+                    {% else %}
+                        <button class="btn btn-sm btn-primary" type="submit" value="submit">save current step</button>
+                    {% endif %}
                 </form>
             </div>
         </div>
