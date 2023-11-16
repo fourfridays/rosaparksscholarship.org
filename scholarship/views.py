@@ -37,7 +37,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     def get(self, request, *args, **kwargs):
         if self.request.user.has_submitted_application:
             return redirect("scholarship-application-attachments")
-        
+
         return super().get(request, *args, **kwargs)
 
     def get_form(self, step=None, data=None, files=None):
@@ -47,7 +47,9 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         # Retrieve any existing data for this step
         temp_data = {}
         try:
-            temp_storage = TemporaryStorage.objects.get(step=step, user=self.request.user)
+            temp_storage = TemporaryStorage.objects.get(
+                step=step, user=self.request.user
+            )
             temp_data = temp_storage.data
             print(temp_data, data)
             # Merge the POST data and the TemporaryStorage data
@@ -57,20 +59,18 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
                 data = temp_data
         except TemporaryStorage.DoesNotExist:
             pass
-            
+
         return super().get_form(step, data, files)
 
-    def process_step(self, form):        
+    def process_step(self, form):
         if form.is_valid():
             data = form.data
-        
+
         if data is None:
             data = {}
 
         TemporaryStorage.objects.update_or_create(
-            step=self.steps.current,
-            user=self.request.user,
-            defaults={'data': data}
+            step=self.steps.current, user=self.request.user, defaults={"data": data}
         )
 
         return super().process_step(form)
@@ -87,7 +87,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             high_school = high_school_form.save(commit=False)
             high_school.user = self.request.user
             high_school.save()
-        
+
         academic_counselor_form = form_list[2]
         if academic_counselor_form.cleaned_data:
             academic_counselor = academic_counselor_form.save(commit=False)
@@ -111,13 +111,13 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
             household = household_form.save(commit=False)
             household.user = self.request.user
             household.save()
-        
+
         college_form = form_list[6]
         if college_form.cleaned_data:
             college = college_form.save(commit=False)
             college.user = self.request.user
             college.save()
-        
+
         other_form = form_list[7]
         if other_form.cleaned_data:
             other = other_form.save(commit=False)
@@ -140,15 +140,14 @@ class AttachmentView(LoginRequiredMixin, CreateView):
     model = Attachments
     form_class = AttachmentForm
     success_url = "/scholarship-application/attachments/success/"
-    
+
     def get(self, request, *args, **kwargs):
-        if (not self.request.user.has_submitted_application):
+        if not self.request.user.has_submitted_application:
             return redirect("scholarship-application")
-        elif (not self.request.user.has_submitted_attachments):
+        elif not self.request.user.has_submitted_attachments:
             return super().get(request, *args, **kwargs)
         else:
             return redirect("scholarship-application-success")
-        
 
     def form_valid(self, form):
         form.instance.user = self.request.user

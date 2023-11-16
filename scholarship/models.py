@@ -41,7 +41,11 @@ class PersonalInformation(models.Model):
         default="United States of America",
         choices=COUNTRY_CHOICES,
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     class Meta:
         verbose_name_plural = "Personal Information"
@@ -51,11 +55,7 @@ class PersonalInformation(models.Model):
 
 
 class HighSchool(models.Model):
-    name = models.CharField(
-        "High School Name",
-        max_length=120,
-        default="None"
-    )
+    name = models.CharField("High School Name", max_length=120, default="None")
     city = models.CharField(
         "High School City",
         max_length=40,
@@ -67,9 +67,13 @@ class HighSchool(models.Model):
         "High School GPA",
         max_digits=3,
         decimal_places=2,
-        validators=[MaxValueValidator(5)]
+        validators=[MaxValueValidator(5)],
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     class Meta:
         verbose_name_plural = "High School"
@@ -79,14 +83,29 @@ class HighSchool(models.Model):
 
 
 class AcademicCounselor(models.Model):
-    name = models.CharField("Academic Counselor Name", max_length=120, help_text="Enter name of counselor who can verify academic information")
-    phone_number = PhoneNumberField("Academic Counselor Phone Number", region="US", help_text="Enter phone number of counselor who can verify academic information")
-    email = models.EmailField("Academic Counselor Email Address", help_text="Enter email address of counselor who can verify academic information")
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
-    
+    name = models.CharField(
+        "Academic Counselor Name",
+        max_length=120,
+        help_text="Enter name of counselor who can verify academic information",
+    )
+    phone_number = PhoneNumberField(
+        "Academic Counselor Phone Number",
+        region="US",
+        help_text="Enter phone number of counselor who can verify academic information",
+    )
+    email = models.EmailField(
+        "Academic Counselor Email Address",
+        help_text="Enter email address of counselor who can verify academic information",
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
     class Meta:
         verbose_name_plural = "Academic Counselor"
-    
+
     def __str__(self):
         return f"{self.user.email}"
 
@@ -94,8 +113,14 @@ class AcademicCounselor(models.Model):
 class CurrentEmployment(models.Model):
     employer_name = models.CharField("Employer Name", max_length=120)
     job_title = models.CharField("Job Title", max_length=40)
-    hours_per_week = models.PositiveSmallIntegerField("Hours Per Week",)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    hours_per_week = models.PositiveSmallIntegerField(
+        "Hours Per Week",
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     class Meta:
         verbose_name_plural = "Current Employment"
@@ -139,23 +164,15 @@ class Parent(models.Model):
         null=True,
     )
     parent_1_job_title = models.CharField("Parent 1 Job Title", max_length=40)
-    
+
     parent_2_full_name = models.CharField(
-        "Parent 2 Full Name (if applicable)",
-        max_length=40,
-        null=True,
-        blank=True
+        "Parent 2 Full Name (if applicable)", max_length=40, null=True, blank=True
     )
     parent_2_email = models.EmailField(
-        "Parent 2 Email Address (if applicable)",
-        null=True,
-        blank=True
+        "Parent 2 Email Address (if applicable)", null=True, blank=True
     )
     parent_2_address1 = models.CharField(
-        "Parent 2 Address line 1 (if applicable)",
-        max_length=35,
-        null=True,
-        blank=True
+        "Parent 2 Address line 1 (if applicable)", max_length=35, null=True, blank=True
     )
     parent_2_address2 = models.CharField(
         "Parent 2 Address line 2 (if applicable)",
@@ -184,10 +201,7 @@ class Parent(models.Model):
         blank=True,
     )
     parent_2_phone_number = PhoneNumberField(
-        "Parent 2 Phone Number (if applicable)",
-        region="US",
-        null=True,
-        blank=True
+        "Parent 2 Phone Number (if applicable)", region="US", null=True, blank=True
     )
     parent_2_place_of_employment = models.CharField(
         "Parent 2 Place of Employment (if applicable)",
@@ -196,12 +210,13 @@ class Parent(models.Model):
         blank=True,
     )
     parent_2_job_title = models.CharField(
-        "Parent 2 Job Title (if applicable)",
-        max_length=120,
-        null=True,
-        blank=True
+        "Parent 2 Job Title (if applicable)", max_length=120, null=True, blank=True
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     def __str__(self):
         return f"{self.user.email}"
@@ -209,20 +224,19 @@ class Parent(models.Model):
 
 class Household(models.Model):
     total_household_income = models.CharField(
-        max_length=20,
-        choices=HOUSEHOLD_INCOME_CHOICES
+        max_length=20, choices=HOUSEHOLD_INCOME_CHOICES
     )
     siblings_under_18 = models.PositiveSmallIntegerField(
-        default=0,
-        blank=True,
-        null=True
+        default=0, blank=True, null=True
     )
     siblings_over_18 = models.PositiveSmallIntegerField(
-        default=0,
-        blank=True,
-        null=True
+        default=0, blank=True, null=True
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     class Meta:
         verbose_name_plural = "Household"
@@ -234,15 +248,42 @@ class Household(models.Model):
 class College(models.Model):
     goal = models.TextField(help_text="Educational Goal")
     major = models.CharField(max_length=120, help_text="College Major")
-    career = models.CharField(max_length=120, help_text="Career/Profession (teacher, musician, lawyer, etc.)")
-    applied_for_1 = models.CharField(max_length=60, help_text="College/University you have applied to")
-    applied_for_2 = models.CharField(max_length=60, blank=True, null=True, help_text="College/University you have applied to")
-    applied_for_3 = models.CharField(max_length=60, blank=True, null=True, help_text="College/University you have applied to")
-    plan_to_attend = models.CharField(max_length=60, help_text="College/University you plan to attend")
-    savings = models.IntegerField(default=0, help_text="How much have you saved for college")
-    savings_by_guardian = models.IntegerField(default=0, help_text="How much have others (parents, grandparents, etc.) saved for your education")
-    financial_need = models.TextField(help_text="Describe your financial need for scholarship funds (very important - be very specific)")
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    career = models.CharField(
+        max_length=120, help_text="Career/Profession (teacher, musician, lawyer, etc.)"
+    )
+    applied_for_1 = models.CharField(
+        max_length=60, help_text="College/University you have applied to"
+    )
+    applied_for_2 = models.CharField(
+        max_length=60,
+        blank=True,
+        null=True,
+        help_text="College/University you have applied to",
+    )
+    applied_for_3 = models.CharField(
+        max_length=60,
+        blank=True,
+        null=True,
+        help_text="College/University you have applied to",
+    )
+    plan_to_attend = models.CharField(
+        max_length=60, help_text="College/University you plan to attend"
+    )
+    savings = models.IntegerField(
+        default=0, help_text="How much have you saved for college"
+    )
+    savings_by_guardian = models.IntegerField(
+        default=0,
+        help_text="How much have others (parents, grandparents, etc.) saved for your education",
+    )
+    financial_need = models.TextField(
+        help_text="Describe your financial need for scholarship funds (very important - be very specific)"
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     class Meta:
         verbose_name_plural = "College"
@@ -252,16 +293,35 @@ class College(models.Model):
 
 
 class Other(models.Model):
-    foster_care = models.BooleanField(default=False, help_text="Are you in the foster care system, or are you an emancipated minor? If so, please indicate yes (This answer does not impact the judging process. If this doesn't apply, please select no).")
-    challenges = models.TextField(null=True, blank=True, help_text="If you answered yes to the last question, please briefly describe the challenges you have faced in your educational journey because of your experiences in foster care or as an emancipated minor.")
-    other_scholarships = models.TextField(null=True, blank=True, help_text="Other scholarships you have applied for")
-    other_scholarships_awarded = models.TextField(null=True, blank=True, help_text="Scholarships/grants you have already been awarded (name, amount and period of time covered)")
-    plan_to_pay = models.TextField(help_text="If granted this award, how do you plan to pay for the rest of your educational costs?")
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
-    
+    foster_care = models.BooleanField(
+        default=False,
+        help_text="Are you in the foster care system, or are you an emancipated minor? If so, please indicate yes (This answer does not impact the judging process. If this doesn't apply, please select no).",
+    )
+    challenges = models.TextField(
+        null=True,
+        blank=True,
+        help_text="If you answered yes to the last question, please briefly describe the challenges you have faced in your educational journey because of your experiences in foster care or as an emancipated minor.",
+    )
+    other_scholarships = models.TextField(
+        null=True, blank=True, help_text="Other scholarships you have applied for"
+    )
+    other_scholarships_awarded = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Scholarships/grants you have already been awarded (name, amount and period of time covered)",
+    )
+    plan_to_pay = models.TextField(
+        help_text="If granted this award, how do you plan to pay for the rest of your educational costs?"
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
     class Meta:
         verbose_name_plural = "Other"
-    
+
     def __str__(self):
         return f"{self.user.email}"
 
@@ -282,14 +342,18 @@ class TemporaryStorage(models.Model):
 def get_user_file_path(instance, filename, field_name):
     return f"{instance.user.email}/{field_name}-{filename}"
 
+
 def get_user_file_path_for_reference_letter_1(instance, filename):
     return get_user_file_path(instance, filename, "reference-letter-1")
+
 
 def get_user_file_path_for_reference_letter_2(instance, filename):
     return get_user_file_path(instance, filename, "reference-letter-2")
 
+
 def get_user_file_path_for_high_school_transcript(instance, filename):
     return get_user_file_path(instance, filename, "high-school-transcript")
+
 
 def get_user_file_path_for_essay(instance, filename):
     return get_user_file_path(instance, filename, "essay")
@@ -314,11 +378,15 @@ class Attachments(models.Model):
         upload_to=get_user_file_path_for_essay,
         storage=PrivateMediaStorage(),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
-    
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
     class Meta:
         verbose_name_plural = "Attachments"
-    
+
     def __str__(self):
         return f"{self.user.email}"
 

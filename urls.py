@@ -23,29 +23,50 @@ from scholarship.forms import (
 
 
 urlpatterns = [
-    re_path(r'^robots\.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-    re_path(r'^sitemap\.xml$', sitemap),
-    path('scholarship-application/', ScholarshipView.as_view([
-        PersonalInformationForm,
-        HighSchoolForm,
-        AcademicCounselorForm,
-        CurrentEmploymentForm,
-        ParentForm,
-        HouseholdForm,
-        CollegeForm,
-        OtherForm,
-    ]), name="scholarship-application"),
-    path("scholarship-application/success/", TemplateView.as_view(template_name="scholarship/success.html"), name="scholarship-application-success"),
-    path("scholarship-application/attachments/", AttachmentView.as_view(), name="scholarship-application-attachments"),
-    path("attachments/success/", TemplateView.as_view(template_name="scholarship/success.html"), name="scholarship-application-attachments-success"),
+    re_path(
+        r"^robots\.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
+    re_path(r"^sitemap\.xml$", sitemap),
+    path(
+        "scholarship-application/",
+        ScholarshipView.as_view(
+            [
+                PersonalInformationForm,
+                HighSchoolForm,
+                AcademicCounselorForm,
+                CurrentEmploymentForm,
+                ParentForm,
+                HouseholdForm,
+                CollegeForm,
+                OtherForm,
+            ]
+        ),
+        name="scholarship-application",
+    ),
+    path(
+        "scholarship-application/success/",
+        TemplateView.as_view(template_name="scholarship/success.html"),
+        name="scholarship-application-success",
+    ),
+    path(
+        "scholarship-application/attachments/",
+        AttachmentView.as_view(),
+        name="scholarship-application-attachments",
+    ),
+    path(
+        "attachments/success/",
+        TemplateView.as_view(template_name="scholarship/success.html"),
+        name="scholarship-application-attachments-success",
+    ),
     path("__debug__/", include("debug_toolbar.urls")),
-    path('documents/', include(wagtaildocs_urls)),
-    path('', include('allauth.urls')),
+    path("documents/", include(wagtaildocs_urls)),
+    path("", include("allauth.urls")),
     # Override the Wagtail admin login URL
-    path('admin/login/', wagtail_admin_login),
-    path('django-admin/login/', wagtail_admin_login),
-    path('django-admin/', admin.site.urls),
-    path('admin/', include(wagtailadmin_urls)),
+    path("admin/login/", wagtail_admin_login),
+    path("django-admin/login/", wagtail_admin_login),
+    path("django-admin/", admin.site.urls),
+    path("admin/", include(wagtailadmin_urls)),
 ]
 
 
@@ -62,7 +83,6 @@ urlpatterns = urlpatterns + [
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     path("", include(wagtail_urls)),
-
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),

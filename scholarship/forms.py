@@ -49,15 +49,17 @@ class PersonalInformationForm(forms.ModelForm):
                 "type": "date",
             },
         ),
-        label="Date of Birth"
+        label="Date of Birth",
     )
     place_of_birth = forms.ChoiceField(
         choices=COUNTRY_CHOICES,
         initial="US",
-        widget=forms.Select(attrs={
-            "class": "form-control",
-        }),
-        label="Place of Birth"
+        widget=forms.Select(
+            attrs={
+                "class": "form-control",
+            }
+        ),
+        label="Place of Birth",
     )
 
     class Meta:
@@ -85,7 +87,7 @@ class HighSchoolForm(forms.ModelForm):
         ),
         label="High School GPA",
     )
-    
+
     class Meta:
         model = HighSchool
         exclude = ["user"]
@@ -93,7 +95,7 @@ class HighSchoolForm(forms.ModelForm):
 
 class AcademicCounselorForm(forms.ModelForm):
     title = "Academic Counselor Form"
-    
+
     class Meta:
         model = AcademicCounselor
         exclude = ["user"]
@@ -101,7 +103,7 @@ class AcademicCounselorForm(forms.ModelForm):
 
 class CurrentEmploymentForm(forms.ModelForm):
     title = "Current Employment Information"
-    
+
     class Meta:
         model = CurrentEmployment
         exclude = ["user"]
@@ -109,7 +111,7 @@ class CurrentEmploymentForm(forms.ModelForm):
 
 class ParentForm(forms.ModelForm):
     title = "Parent Form"
-    
+
     class Meta:
         model = Parent
         exclude = ["user"]
@@ -137,7 +139,7 @@ class HouseholdForm(forms.ModelForm):
         label="Number of siblings over 18",
         required=False,
     )
-    
+
     class Meta:
         model = Household
         exclude = ["user"]
@@ -145,7 +147,7 @@ class HouseholdForm(forms.ModelForm):
 
 class CollegeForm(forms.ModelForm):
     title = "College Information"
-    
+
     class Meta:
         model = College
         exclude = ["user"]
@@ -153,7 +155,7 @@ class CollegeForm(forms.ModelForm):
 
 class OtherForm(forms.ModelForm):
     title = "Other Information"
-    
+
     class Meta:
         model = Other
         exclude = ["user"]
