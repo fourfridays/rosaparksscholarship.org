@@ -14,7 +14,9 @@ from scholarship.models import (
     Household,
     College,
     Other,
+    Attachments,
 )
+from scholarship.validators import file_size, validate_document_file_extension
 from constants import (
     COUNTRY_CHOICES,
 )
@@ -153,4 +155,29 @@ class OtherForm(forms.ModelForm):
     
     class Meta:
         model = Other
+        exclude = ["user"]
+
+
+class AttachmentForm(forms.ModelForm):
+    title = "Attachments"
+    reference_letter_1 = forms.FileField(
+        validators=[file_size, validate_document_file_extension],
+        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
+    )
+    reference_letter_2 = forms.FileField(
+        validators=[file_size, validate_document_file_extension],
+        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
+        required=False,
+    )
+    high_school_transcript = forms.FileField(
+        validators=[file_size, validate_document_file_extension],
+        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
+    )
+    essay = forms.FileField(
+        validators=[file_size, validate_document_file_extension],
+        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
+    )
+
+    class Meta:
+        model = Attachments
         exclude = ["user"]

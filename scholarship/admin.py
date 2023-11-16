@@ -7,7 +7,8 @@ from scholarship.models import (
     CurrentEmployment,
     Parent,
     Household,
-    TemporaryStorage
+    TemporaryStorage,
+    Attachments,
 )
 
 admin.site.register(PersonalInformation)
@@ -17,3 +18,4 @@ admin.site.register(CurrentEmployment)
 admin.site.register(Parent)
 admin.site.register(Household)
 admin.site.register(TemporaryStorage)
+admin.site.register(Attachments)

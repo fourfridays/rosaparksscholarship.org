@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from django.views.generic.edit import CreateView
 
 from braces.views import LoginRequiredMixin
 
@@ -13,10 +14,10 @@ from scholarship.forms import (
     HouseholdForm,
     CollegeForm,
     OtherForm,
+    AttachmentForm,
 )
 from page.storage_backends import PrivateMediaStorage
-from scholarship.models import TemporaryStorage
-from users.models import User
+from scholarship.models import Attachments, TemporaryStorage
 
 
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
@@ -29,13 +30,13 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         HouseholdForm,
         CollegeForm,
         OtherForm,
+        AttachmentForm,
     ]
     template_name = "scholarship/index.html"
-    file_storage = PrivateMediaStorage()
 
     def get(self, request, *args, **kwargs):
         if self.request.user.has_submitted_application:
-            return redirect('scholarship-success')
+            return redirect('attachments')
         
         return super().get(request, *args, **kwargs)
 
@@ -132,3 +133,24 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
 
         # Redirect the user to a success page
         return HttpResponseRedirect('/scholarship-application/success/')
+
+
+class AttachmentView(LoginRequiredMixin, CreateView):
+    template_name = "scholarship/attachments.html"
+    model = Attachments
+    form_class = AttachmentForm
+    success_url = '/attachments/success/'
+    
+    def get(self, request, *args, **kwargs):
+        if (not self.request.user.has_submitted_application):
+            return redirect('scholarship-application')
+        elif (not self.request.user.has_submitted_attachments):
+            return super().get(request, *args, **kwargs)
+        else:
+            return redirect('scholarship-success')
+        
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        self.request.user.has_submitted_attachments = True
+        return super().form_valid(form)

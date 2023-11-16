@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
+from django.dispatch import receiver
 
 from users.models import User
 from page.storage_backends import PrivateMediaStorage
@@ -9,11 +10,6 @@ from constants import (
     CONTIGUOUS_STATES_CHOICES,
     COUNTRY_CHOICES,
 )
-
-
-# This will return the user email for folder name in S3
-def get_user_file_path(instance, filename):
-    return f"{instance.user.email}/{filename}"
 
 
 class PersonalInformation(models.Model):
@@ -106,26 +102,6 @@ class CurrentEmployment(models.Model):
 
     def __str__(self):
         return f"{self.user.email}"
-
-        """    reference_letter_1 = models.FileField(
-        upload_to=get_user_file_path,
-        storage=PrivateMediaStorage(),
-    )
-    reference_letter_2 = models.FileField(
-        upload_to=get_user_file_path,
-        storage=PrivateMediaStorage(),
-        blank=True,
-        null=True,
-    )
-
-        Returns:
-            _type_: _description_
-        """
-# Delete reference attachments from AWS S3 upon deletion of scholarship application
-# @receiver(models.signals.post_delete, sender=EmploymentHistory)
-# def remove_file_from_s3(sender, instance, using, **kwargs):
-#     instance.reference_letter_1.delete(save=False)
-#     instance.reference_letter_2.delete(save=False)
 
 
 class Parent(models.Model):
@@ -300,3 +276,57 @@ class TemporaryStorage(models.Model):
 
     def __str__(self):
         return f"{self.user.email}, Step {int(self.step)+1}"
+
+
+# This will return the user email for folder name in S3
+def get_user_file_path(instance, filename, field_name):
+    return f"{instance.user.email}/{field_name}-{filename}"
+
+def get_user_file_path_for_reference_letter_1(instance, filename):
+    return get_user_file_path(instance, filename, "reference-letter-1")
+
+def get_user_file_path_for_reference_letter_2(instance, filename):
+    return get_user_file_path(instance, filename, "reference-letter-2")
+
+def get_user_file_path_for_high_school_transcript(instance, filename):
+    return get_user_file_path(instance, filename, "high-school-transcript")
+
+def get_user_file_path_for_essay(instance, filename):
+    return get_user_file_path(instance, filename, "essay")
+
+
+class Attachments(models.Model):
+    reference_letter_1 = models.FileField(
+        upload_to=get_user_file_path_for_reference_letter_1,
+        storage=PrivateMediaStorage(),
+    )
+    reference_letter_2 = models.FileField(
+        upload_to=get_user_file_path_for_reference_letter_2,
+        storage=PrivateMediaStorage(),
+        blank=True,
+        null=True,
+    )
+    high_school_transcript = models.FileField(
+        upload_to=get_user_file_path_for_high_school_transcript,
+        storage=PrivateMediaStorage(),
+    )
+    essay = models.FileField(
+        upload_to=get_user_file_path_for_essay,
+        storage=PrivateMediaStorage(),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
+    
+    class Meta:
+        verbose_name_plural = "Attachments"
+    
+    def __str__(self):
+        return f"{self.user.email}"
+
+
+# Delete reference attachments from AWS S3 upon deletion of scholarship application
+@receiver(models.signals.post_delete, sender=Attachments)
+def remove_file_from_s3(sender, instance, using, **kwargs):
+    instance.reference_letter_1.delete(save=False)
+    instance.reference_letter_2.delete(save=False)
+    instance.high_school_transcript.delete(save=False)
+    instance.essay.delete(save=False)
