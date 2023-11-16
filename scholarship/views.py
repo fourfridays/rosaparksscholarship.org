@@ -36,7 +36,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.has_submitted_application:
-            return redirect('attachments')
+            return redirect("scholarship-application-attachments")
         
         return super().get(request, *args, **kwargs)
 
@@ -132,22 +132,22 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         TemporaryStorage.objects.filter(user=self.request.user).delete()
 
         # Redirect the user to a success page
-        return HttpResponseRedirect('/scholarship-application/success/')
+        return HttpResponseRedirect("/scholarship-application/success/")
 
 
 class AttachmentView(LoginRequiredMixin, CreateView):
     template_name = "scholarship/attachments.html"
     model = Attachments
     form_class = AttachmentForm
-    success_url = '/attachments/success/'
+    success_url = "/scholarship-application/attachments/success/"
     
     def get(self, request, *args, **kwargs):
         if (not self.request.user.has_submitted_application):
-            return redirect('scholarship-application')
+            return redirect("scholarship-application")
         elif (not self.request.user.has_submitted_attachments):
             return super().get(request, *args, **kwargs)
         else:
-            return redirect('scholarship-success')
+            return redirect("scholarship-application-success")
         
 
     def form_valid(self, form):
