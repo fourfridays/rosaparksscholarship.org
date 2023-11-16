@@ -29,13 +29,14 @@ def date_minus_18_years():
 
 
 class PersonalInformationForm(forms.ModelForm):
-    title = "Personal Information Form"
+    title = "Personal Information"
     state = forms.CharField(
+        initial="MI",
         widget=forms.TextInput(
             attrs={
                 "class": "form-control",
                 "placeholder": "MI",
-                "disabled": True,
+                "readonly": True,
             },
         ),
         label="State (Applications are restricted to Michigan residents only)",
