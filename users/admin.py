@@ -64,4 +64,5 @@ class CustomUserAdmin(UserAdmin):
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
 
+
 admin.site.register(User, CustomUserAdmin)

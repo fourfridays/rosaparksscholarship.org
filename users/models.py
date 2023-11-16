@@ -18,14 +18,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True, blank=False)
     is_active = models.BooleanField(default=True)
     has_submitted_application = models.BooleanField(
-        'has submitted application',
-        default=False
+        "has submitted application", default=False
     )
     has_submitted_attachments = models.BooleanField(
-        'has submitted attachments',
-        default=False
+        "has submitted attachments", default=False
     )
-    is_judge = models.BooleanField('is judge', default=False)
+    is_judge = models.BooleanField("is judge", default=False)
     is_staff = models.BooleanField(
         default=False,
         help_text=_(
