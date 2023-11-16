@@ -15,12 +15,14 @@ class CustomUserAdmin(UserAdmin):
         "last_name",
         "is_active",
         "has_submitted_application",
+        "has_submitted_attachments",
         "is_judge",
         "is_staff",
     ]
     list_filter = (
         "is_active",
         "has_submitted_application",
+        "has_submitted_attachments",
         "is_judge",
         "is_staff",
     )
@@ -50,6 +52,7 @@ class CustomUserAdmin(UserAdmin):
                 "fields": (
                     "is_active",
                     "has_submitted_application",
+                    "has_submitted_attachments",
                     "is_judge",
                     "is_staff",
                     "is_superuser",
