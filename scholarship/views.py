@@ -139,7 +139,7 @@ class AttachmentView(LoginRequiredMixin, CreateView):
     template_name = "scholarship/attachments.html"
     model = Attachments
     form_class = AttachmentForm
-    success_url = "/scholarship-application/attachments/success/"
+    success_url = "/scholarship-application/success/"
 
     def get(self, request, *args, **kwargs):
         if not self.request.user.has_submitted_application:
