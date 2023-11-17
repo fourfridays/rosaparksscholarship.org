@@ -166,37 +166,34 @@ class AttachmentForm(forms.ModelForm):
     reference_letter_1 = forms.FileField(
         label="Employer Reference Letter 1",
         validators=[file_size, validate_document_file_extension],
-        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
     )
     reference_letter_2 = forms.FileField(
         label="Employer Reference Letter 2",
         validators=[file_size, validate_document_file_extension],
-        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
         required=False,
     )
     high_school_transcript = forms.FileField(
         label="High School Transcript",
         validators=[file_size, validate_document_file_extension],
-        help_text="Only PDF or DOC formats. Maximum file size is 2MiB.",
     )
     honors_awards = forms.FileField(
         label="Honors and Awards",
         validators=[file_size, validate_document_file_extension],
-        help_text="Tell us about the honors and awards you received. Indicate whether they were on a local (school, county, or district), state or national level. These awards may be outside of school activities but should not be duplicated in any other section. Honor/Award, Year Received, Brief Description. Only PDF or DOC formats. Maximum file size is 2MiB.",
+        help_text="Tell us about the honors and awards you received. Indicate whether they were on a local (school, county, or district), state or national level. These awards may be outside of school activities but should not be duplicated in any other section. Honor/Award, Year Received, Brief Description.",
     )
     extracurricular_activities = forms.FileField(
         label="Extracurricular Activities",
         validators=[file_size, validate_document_file_extension],
-        help_text="Extracurricular Activities (school, clubs, athletics). Indicate position(s), club(s) and/or athletics you participated in. Be sure to distinguish the grade year (9-12) and approximate hours you participated. Activity, Year Participated, Hours per Week, Brief Description. Only PDF or DOC formats. Maximum file size is 2MiB.",
+        help_text="Extracurricular Activities (school, clubs, athletics). Indicate position(s), club(s) and/or athletics you participated in. Be sure to distinguish the grade year (9-12) and approximate hours you participated. Activity, Year Participated, Hours per Week, Brief Description.",
     )
     community_service_volunteer_activities = forms.FileField(
         label="Community Service/Volunteer Activities",
         validators=[file_size, validate_document_file_extension],
-        help_text="Community Service/Volunteer Activities (church, home, etc.).  List community organizations you actively participated in during each grade year (9-12).  Also, indicate hours of volunteer service for each activity.  These can be school-related but are not to be duplicated any in responses you made in any previous section of the application. Organization, Year Participated, Hours per Week, Brief Description. Only PDF or DOC formats. Maximum file size is 2MiB.",
+        help_text="Community Service/Volunteer Activities (church, home, etc.). List community organizations you actively participated in during each grade year (9-12). Also, indicate hours of volunteer service for each activity. These can be school-related but are not to be duplicated any in responses you made in any previous section of the application. Organization, Year Participated, Hours per Week, Brief Description.",
     )
     essay = forms.FileField(
         validators=[file_size, validate_document_file_extension],
-        help_text="Segregation was the defining social issue when Rosa Parks took her historic stand. Describe a social issue that you think should be addressed today. How will YOU use the principles of Rosa Parks to address it? Only PDF or DOC formats. Maximum file size is 2MiB.",
+        help_text="Segregation was the defining social issue when Rosa Parks took her historic stand. Describe a social issue that you think should be addressed today. How will YOU use the principles of Rosa Parks to address it?",
     )
 
     class Meta:
