@@ -8,6 +8,8 @@
         <div class="row">
             <div class="col-12">
                 <h2>Upload Attachments</h2>
+                <p>All required attachments need to be uploaded before clicking upload below.</p>
+                <p>* required fields</p>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}

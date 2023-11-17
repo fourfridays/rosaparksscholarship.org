@@ -354,6 +354,14 @@ def get_user_file_path_for_reference_letter_2(instance, filename):
 def get_user_file_path_for_high_school_transcript(instance, filename):
     return get_user_file_path(instance, filename, "high-school-transcript")
 
+def get_user_file_path_honors_awards(instance, filename):
+    return get_user_file_path(instance, filename, "honors-awards")
+
+def get_user_file_path_extracurricular_activities(instance, filename):
+    return get_user_file_path(instance, filename, "extracurricular-activities")
+
+def get_user_file_path_community_service_activities(instance, filename):
+    return get_user_file_path(instance, filename, "community-service-activities")
 
 def get_user_file_path_for_essay(instance, filename):
     return get_user_file_path(instance, filename, "essay")
@@ -372,6 +380,18 @@ class Attachments(models.Model):
     )
     high_school_transcript = models.FileField(
         upload_to=get_user_file_path_for_high_school_transcript,
+        storage=PrivateMediaStorage(),
+    )
+    honors_awards = models.FileField(
+        upload_to=get_user_file_path_honors_awards,
+        storage=PrivateMediaStorage(),
+    )
+    extracurricular_activities = models.FileField(
+        upload_to=get_user_file_path_extracurricular_activities,
+        storage=PrivateMediaStorage(),
+    )
+    community_service_volunteer_activities = models.FileField(
+        upload_to=get_user_file_path_community_service_activities,
         storage=PrivateMediaStorage(),
     )
     essay = models.FileField(
@@ -397,4 +417,7 @@ def remove_file_from_s3(sender, instance, using, **kwargs):
     instance.reference_letter_1.delete(save=False)
     instance.reference_letter_2.delete(save=False)
     instance.high_school_transcript.delete(save=False)
+    instance.honors_awards.delete(save=False)
+    instance.extracurricular_activities.delete(save=False)
+    instance.community_service_volunteer_activities.delete(save=False)
     instance.essay.delete(save=False)
