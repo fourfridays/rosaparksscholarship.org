@@ -54,11 +54,6 @@ urlpatterns = [
         AttachmentView.as_view(),
         name="scholarship-application-attachments",
     ),
-    path(
-        "attachments/success/",
-        TemplateView.as_view(template_name="scholarship/success.html"),
-        name="scholarship-application-attachments-success",
-    ),
     path("__debug__/", include("debug_toolbar.urls")),
     path("documents/", include(wagtaildocs_urls)),
     path("", include("allauth.urls")),
