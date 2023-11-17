@@ -132,7 +132,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         TemporaryStorage.objects.filter(user=self.request.user).delete()
 
         # Redirect the user to a success page
-        return HttpResponseRedirect("/scholarship-application/success/")
+        return HttpResponseRedirect("/scholarship-application/attachments/")
 
 
 class AttachmentView(LoginRequiredMixin, CreateView):
