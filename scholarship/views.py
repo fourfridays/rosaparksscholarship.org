@@ -131,14 +131,14 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         TemporaryStorage.objects.filter(user=self.request.user).delete()
 
         # Redirect the user to a success page
-        return HttpResponseRedirect("/scholarship-application/attachments/")
+        return HttpResponseRedirect("/scholarship/application/attachments/")
 
 
 class AttachmentView(LoginRequiredMixin, CreateView):
     template_name = "scholarship/attachments.html"
     model = Attachments
     form_class = AttachmentForm
-    success_url = "/scholarship-application/success/"
+    success_url = "/scholarship/application/success/"
 
     def get(self, request, *args, **kwargs):
         if not self.request.user.has_submitted_application:

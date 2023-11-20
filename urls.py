@@ -29,7 +29,7 @@ urlpatterns = [
     ),
     re_path(r"^sitemap\.xml$", sitemap),
     path(
-        "scholarship-application/",
+        "scholarship/application/",
         ScholarshipView.as_view(
             [
                 PersonalInformationForm,
@@ -45,12 +45,12 @@ urlpatterns = [
         name="scholarship-application",
     ),
     path(
-        "scholarship-application/success/",
+        "scholarship/application/success/",
         TemplateView.as_view(template_name="scholarship/success.html"),
         name="scholarship-application-success",
     ),
     path(
-        "scholarship-application/attachments/",
+        "scholarship/application/attachments/",
         AttachmentView.as_view(),
         name="scholarship-application-attachments",
     ),
