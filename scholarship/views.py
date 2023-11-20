@@ -16,7 +16,6 @@ from scholarship.forms import (
     OtherForm,
     AttachmentForm,
 )
-from page.storage_backends import PrivateMediaStorage
 from scholarship.models import Attachments, TemporaryStorage
 
 
