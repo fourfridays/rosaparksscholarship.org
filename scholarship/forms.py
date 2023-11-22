@@ -102,7 +102,7 @@ class AcademicCounselorForm(forms.ModelForm):
 
 
 class CurrentEmploymentForm(forms.ModelForm):
-    title = "Current Employment Information"
+    title = "Current Student Employment Information"
 
     class Meta:
         model = CurrentEmployment

@@ -111,10 +111,22 @@ class AcademicCounselor(models.Model):
 
 
 class CurrentEmployment(models.Model):
-    employer_name = models.CharField("Employer Name", max_length=120)
-    job_title = models.CharField("Job Title", max_length=40)
+    employer_name = models.CharField(
+        "Employer Name",
+        max_length=120,
+        null=True,
+        blank=True,
+    )
+    job_title = models.CharField(
+        "Job Title",
+        max_length=40,
+        null=True,
+        blank=True,
+    )
     hours_per_week = models.PositiveSmallIntegerField(
         "Hours Per Week",
+        null=True,
+        blank=True,
     )
     user = models.OneToOneField(
         User,
@@ -160,8 +172,8 @@ class Parent(models.Model):
     parent_1_place_of_employment = models.CharField(
         "Parent 1 Place of Employment",
         max_length=120,
-        blank=True,
         null=True,
+        blank=True,
     )
     parent_1_job_title = models.CharField("Parent 1 Job Title", max_length=40)
 
@@ -354,14 +366,18 @@ def get_user_file_path_for_reference_letter_2(instance, filename):
 def get_user_file_path_for_high_school_transcript(instance, filename):
     return get_user_file_path(instance, filename, "high-school-transcript")
 
+
 def get_user_file_path_honors_awards(instance, filename):
     return get_user_file_path(instance, filename, "honors-awards")
+
 
 def get_user_file_path_extracurricular_activities(instance, filename):
     return get_user_file_path(instance, filename, "extracurricular-activities")
 
+
 def get_user_file_path_community_service_activities(instance, filename):
     return get_user_file_path(instance, filename, "community-service-activities")
+
 
 def get_user_file_path_for_essay(instance, filename):
     return get_user_file_path(instance, filename, "essay")
