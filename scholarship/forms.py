@@ -147,6 +147,35 @@ class HouseholdForm(forms.ModelForm):
 
 class CollegeForm(forms.ModelForm):
     title = "College Information"
+    applied_for_1 = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "College Name",
+            },
+        ),
+        label="College Applied For #1",
+    )
+    applied_for_2 = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "College Name",
+            },
+        ),
+        label="College Applied For #2",
+        required=False,
+    )
+    applied_for_3 = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "College Name",
+            },
+        ),
+        label="College Applied For #3",
+        required=False,
+    )
 
     class Meta:
         model = College
