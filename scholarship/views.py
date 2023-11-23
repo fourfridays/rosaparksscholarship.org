@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 
 from braces.views import LoginRequiredMixin
 from openpyxl import Workbook
-from .mixins import JudgesMixin, ModeratorsMixin
+from .mixins import ModeratorsMixin
 
 from formtools.wizard.views import SessionWizardView
 from scholarship.forms import (
@@ -189,7 +189,7 @@ class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
         return queryset
 
 
-class DownloadExcelView(LoginRequiredMixin, JudgesMixin, ModeratorsMixin, View):
+class DownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")
         users = get_user_model().objects.filter(id__in=user_ids)
