@@ -9,7 +9,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.contrib.sitemaps.views import sitemap
 
 from page.views import wagtail_admin_login
-from scholarship.views import AttachmentView, ScholarshipView
+from scholarship.views import (
+    AttachmentView,
+    ScholarshipView,
+    UserScholarshipListView,
+    DownloadExcelView,
+)
 from scholarship.forms import (
     PersonalInformationForm,
     HighSchoolForm,
@@ -45,6 +50,9 @@ urlpatterns = [
         name="scholarship-application",
     ),
     path(
+        "scholarship/list/", UserScholarshipListView.as_view(), name="scholarship-list"
+    ),
+    path(
         "scholarship/application/success/",
         TemplateView.as_view(template_name="scholarship/success.html"),
         name="scholarship-application-success",
@@ -54,6 +62,7 @@ urlpatterns = [
         AttachmentView.as_view(),
         name="scholarship-application-attachments",
     ),
+    path("download_excel/", DownloadExcelView.as_view(), name="download_excel"),
     path("__debug__/", include("debug_toolbar.urls")),
     path("documents/", include(wagtaildocs_urls)),
     path("", include("allauth.urls")),

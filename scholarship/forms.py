@@ -1,6 +1,7 @@
 import datetime
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from dateutil.relativedelta import relativedelta
@@ -228,3 +229,20 @@ class AttachmentForm(forms.ModelForm):
     class Meta:
         model = Attachments
         exclude = ["user"]
+
+
+class UserFilterForm(forms.Form):
+    APPLICATION_CHOICES = [
+        ("", "All"),
+        ("true", "True"),
+        ("false", "False"),
+    ]
+    has_submitted_application = forms.ChoiceField(
+        choices=APPLICATION_CHOICES, required=False, label="Submitted Application"
+    )
+    has_submitted_attachments = forms.ChoiceField(
+        choices=APPLICATION_CHOICES, required=False, label="Submitted Attachments"
+    )
+    completed_application = forms.ChoiceField(
+        choices=APPLICATION_CHOICES, required=False
+    )
