@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
+from django_ratelimit.decorators import ratelimit
 from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
@@ -25,6 +27,9 @@ from scholarship.forms import (
 from scholarship.models import Attachments, TemporaryStorage
 
 
+@method_decorator(
+    ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
+)
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     form_list = [
         PersonalInformationForm,
@@ -140,6 +145,9 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         return HttpResponseRedirect("/scholarship/application/attachments/")
 
 
+@method_decorator(
+    ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
+)
 class AttachmentView(LoginRequiredMixin, CreateView):
     template_name = "scholarship/attachments.html"
     model = Attachments
@@ -161,6 +169,9 @@ class AttachmentView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(
+    ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
+)
 class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
     model = get_user_model()
     template_name = "scholarship/user_scholarship_list.html"
@@ -189,6 +200,9 @@ class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
         return queryset
 
 
+@method_decorator(
+    ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
+)
 class DownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")

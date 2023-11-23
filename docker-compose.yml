@@ -40,3 +40,8 @@ services:
       POSTGRES_HOST_AUTH_METHOD: "trust"
     volumes:
       - ".:/app:rw"
+
+  redis:
+    image: redis:7.2.3-alpine
+    expose:
+      - '6379'

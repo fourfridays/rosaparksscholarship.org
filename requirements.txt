@@ -53,6 +53,7 @@ django==4.2.7
     #   django-permissionedforms
     #   django-phonenumber-field
     #   django-recaptcha
+    #   django-redis
     #   django-storages
     #   django-taggit
     #   django-treebeard
@@ -82,7 +83,11 @@ django-phonenumber-field[phonenumberslite]==7.1.0
     # via
     #   -r requirements.in
     #   django-phonenumber-field
+django-ratelimit==4.1.0
+    # via -r requirements.in
 django-recaptcha==3.0.0
+    # via -r requirements.in
+django-redis==5.4.0
     # via -r requirements.in
 django-storages==1.13.2
     # via -r requirements.in
@@ -150,6 +155,8 @@ pytz==2023.3
     #   django-modelcluster
     #   djangorestframework
     #   l18n
+redis==5.0.1
+    # via django-redis
 requests==2.30.0
     # via
     #   django-allauth
