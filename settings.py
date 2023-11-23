@@ -135,7 +135,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-if DEBUG is True:
+""" if DEBUG is True:
     CACHES = {
         'default': {
             'BACKEND': 'django_redis.cache.RedisCache',
@@ -154,7 +154,7 @@ else:
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             }
         }
-    }
+    } """
 
 # SESSION DB
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
