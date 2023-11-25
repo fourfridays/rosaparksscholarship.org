@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.auth import get_user_model
+from django.core.files.storage import get_storage_class
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django_ratelimit.decorators import ratelimit
@@ -12,6 +13,8 @@ from django.views.generic.edit import CreateView
 
 from braces.views import LoginRequiredMixin
 from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.hyperlink import Hyperlink
 from .mixins import ModeratorsMixin
 
 from formtools.wizard.views import SessionWizardView
@@ -223,6 +226,7 @@ class DownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")
         users = get_user_model().objects.filter(id__in=user_ids)
+        storage = get_storage_class("page.storage_backends.PrivateMediaStorage")()
 
         wb = Workbook()
         ws = wb.active
@@ -287,6 +291,13 @@ class DownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
                 "Other Scholarships Applied For",
                 "Other Scholarships Awarded",
                 "Plan to Pay",
+                "Reference Letter 1",
+                "Reference Letter 2",
+                "High School Transcript",
+                "Honors and Awards",
+                "Extracurricular Activities",
+                "Community Service and Volunteer Activities",
+                "Essay",
             ]
         )
         for user in users:
@@ -463,8 +474,66 @@ class DownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
                     getattr(user.other, "plan_to_pay", "")
                     if hasattr(user, "other")
                     else "",
+                    storage.url(user.attachments.reference_letter_1.file.name)
+                    if hasattr(user, "attachments") and user.attachments.reference_letter_1
+                    else "",
+                    storage.url(user.attachments.reference_letter_2.file.name)
+                    if hasattr(user, "attachments") and user.attachments.reference_letter_2
+                    else "",
+                    storage.url(user.attachments.high_school_transcript.file.name)
+                    if hasattr(user, "attachments") and user.attachments.high_school_transcript
+                    else "",
+                    storage.url(user.attachments.honors_awards.file.name)
+                    if hasattr(user, "attachments") and user.attachments.honors_awards
+                    else "",
+                    storage.url(user.attachments.extracurricular_activities.file.name)
+                    if hasattr(user, "attachments") and user.attachments.extracurricular_activities
+                    else "",
+                    storage.url(user.attachments.community_service_volunteer_activities.file.name)
+                    if hasattr(user, "attachments") and user.attachments.community_service_volunteer_activities
+                    else "",
+                    storage.url(user.attachments.essay.file.name)
+                    if hasattr(user, "attachments") and user.attachments.essay
+                    else "",
                 ]
             )
+            
+            # Get the cell with the URL and set it as a hyperlink
+            url_reference_letter_1_cell = ws["{}{}".format(get_column_letter(60), ws.max_row)]
+            url_reference_letter_2_cell = ws["{}{}".format(get_column_letter(61), ws.max_row)]
+            url_high_school_transcript_cell = ws["{}{}".format(get_column_letter(62), ws.max_row)]  
+            url_honors_awards_cell = ws["{}{}".format(get_column_letter(63), ws.max_row)]
+            url_extracurricular_activities_cell = ws["{}{}".format(get_column_letter(64), ws.max_row)]
+            url_community_service_volunteer_activities_cell = ws["{}{}".format(get_column_letter(65), ws.max_row)]
+            url_essay_cell = ws["{}{}".format(get_column_letter(66), ws.max_row)]
+            
+            if hasattr(user, "attachments") and user.attachments.reference_letter_1:
+                url_reference_letter_1_cell.hyperlink = storage.url(user.attachments.reference_letter_1.file.name)
+                url_reference_letter_1_cell.style = "Hyperlink"
+            
+            if hasattr(user, "attachments") and user.attachments.reference_letter_2:
+                url_reference_letter_2_cell.hyperlink = storage.url(user.attachments.reference_letter_2.file.name)
+                url_reference_letter_2_cell.style = "Hyperlink"
+            
+            if hasattr(user, "attachments") and user.attachments.high_school_transcript:
+                url_high_school_transcript_cell.hyperlink = storage.url(user.attachments.high_school_transcript.file.name)
+                url_high_school_transcript_cell.style = "Hyperlink"
+            
+            if hasattr(user, "attachments") and user.attachments.honors_awards:
+                url_honors_awards_cell.hyperlink = storage.url(user.attachments.honors_awards.file.name)
+                url_honors_awards_cell.style = "Hyperlink"
+            
+            if hasattr(user, "attachments") and user.attachments.extracurricular_activities:
+                url_extracurricular_activities_cell.hyperlink = storage.url(user.attachments.extracurricular_activities.file.name)
+                url_extracurricular_activities_cell.style = "Hyperlink"
+            
+            if hasattr(user, "attachments") and user.attachments.community_service_volunteer_activities:
+                url_community_service_volunteer_activities_cell.hyperlink = storage.url(user.attachments.community_service_volunteer_activities.file.name)
+                url_community_service_volunteer_activities_cell.style = "Hyperlink"
+            
+            if hasattr(user, "attachments") and user.attachments.essay:
+                url_essay_cell.hyperlink = storage.url(user.attachments.essay.file.name)
+                url_essay_cell.style = "Hyperlink"
 
         response = HttpResponse(
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
