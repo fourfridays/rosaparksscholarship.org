@@ -17,4 +17,4 @@ class PrivateMediaStorage(S3Boto3Storage):
     default_acl = 'private'
     file_overwrite = False
     custom_domain = False
-    querystring_expire = 60
+    querystring_expire = 2592000    # expires in a month
