@@ -180,7 +180,12 @@ class Parent(models.Model):
         null=True,
         blank=True,
     )
-    parent_1_job_title = models.CharField("Parent 1 Job Title", max_length=40)
+    parent_1_job_title = models.CharField(
+        "Parent 1 Job Title",
+        max_length=40,
+        null=True,
+        blank=True,
+    )
 
     parent_2_full_name = models.CharField(
         "Parent 2 Full Name (if applicable)", max_length=40, null=True, blank=True
