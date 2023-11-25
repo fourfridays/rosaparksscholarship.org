@@ -143,7 +143,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
 
         # Delete the TemporaryStorage records for the current user
         TemporaryStorage.objects.filter(user=self.request.user).delete()
-        
+
         from_email = os.getenv("DEFAULT_FROM_EMAIL", default="")
 
         default_from_email = f"Rosa Parks Scholarship Foundation {from_email}"
