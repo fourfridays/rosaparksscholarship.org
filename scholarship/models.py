@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
 from django.dispatch import receiver
+from django.utils import timezone
 
 from users.models import User
 from page.storage_backends import PrivateMediaStorage
@@ -41,6 +42,7 @@ class PersonalInformation(models.Model):
         default="United States of America",
         choices=COUNTRY_CHOICES,
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -69,6 +71,7 @@ class HighSchool(models.Model):
         decimal_places=2,
         validators=[MaxValueValidator(5)],
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -97,6 +100,7 @@ class AcademicCounselor(models.Model):
         "Academic Counselor Email Address",
         help_text="Enter email address of counselor who can verify academic information",
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -128,6 +132,7 @@ class CurrentEmployment(models.Model):
         null=True,
         blank=True,
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -224,6 +229,7 @@ class Parent(models.Model):
     parent_2_job_title = models.CharField(
         "Parent 2 Job Title (if applicable)", max_length=120, null=True, blank=True
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -244,6 +250,7 @@ class Household(models.Model):
     siblings_over_18 = models.PositiveSmallIntegerField(
         default=0, blank=True, null=True
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -291,6 +298,7 @@ class College(models.Model):
     financial_need = models.TextField(
         help_text="Describe your financial need for scholarship funds (very important - be very specific)"
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -325,6 +333,7 @@ class Other(models.Model):
     plan_to_pay = models.TextField(
         help_text="If granted this award, how do you plan to pay for the rest of your educational costs?"
     )
+    submission_time = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -342,6 +351,7 @@ class TemporaryStorage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     step = models.CharField(max_length=50)
     data = models.JSONField()
+    submission_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = "Temporary Storage"
