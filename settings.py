@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     "page",
     "phonenumber_field",
     "scholarship",
-    "fontawesomefree",
     "sponsor",
     "users",
     "wagtailcodeblock",
