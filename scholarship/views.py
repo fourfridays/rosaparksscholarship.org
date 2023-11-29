@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth import get_user_model
 from django.core.files.storage import get_storage_class
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
 from django_ratelimit.decorators import ratelimit
 from django.shortcuts import redirect
@@ -147,19 +147,6 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         # Delete the TemporaryStorage records for the current user
         TemporaryStorage.objects.filter(user=self.request.user).delete()
 
-        default_from_email = os.getenv("DEFAULT_FROM_EMAIL", default="")
-
-        from_email = f"Rosa Parks Scholarship Foundation <{default_from_email}>"
-
-        # Send confirmation email
-        send_mail(
-            "Scholarship Application Confirmation",
-            "Your scholarship application has been received.",
-            from_email,
-            [self.request.user.email],
-            fail_silently=False,
-        )
-
         # Redirect the user to a success page
         return HttpResponseRedirect("/scholarship/application/attachments/")
 
@@ -185,6 +172,22 @@ class AttachmentView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         self.request.user.has_submitted_attachments = True
         self.request.user.save()
+
+        default_from_email = os.getenv("DEFAULT_FROM_EMAIL", default="")
+
+        # Send confirmation email
+        message = EmailMessage(
+            subject="Thank You for Your Application to the Rosa Parks Scholarship Foundation",
+            from_email=f"Rosa Parks Scholarship Foundation <{default_from_email}>",
+            to=[self.request.user.email],
+        )
+        message.template_id = "scholarship form confirmation"
+        message.merge_global_data = {
+            "first_name": self.request.user.first_name,
+            "last_name": self.request.user.last_name,
+        }
+        message.send()
+
         return super().form_valid(form)
 
 
