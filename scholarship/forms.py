@@ -200,7 +200,6 @@ class AttachmentForm(forms.ModelForm):
     reference_letter_2 = forms.FileField(
         label="Reference letter 2 of 2 from personal, counselor, employer, religious, etc.",
         validators=[file_size, validate_document_file_extension],
-        required=False,
     )
     high_school_transcript = forms.FileField(
         label="High School Transcript",

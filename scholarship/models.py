@@ -406,8 +406,6 @@ class Attachments(models.Model):
     reference_letter_2 = models.FileField(
         upload_to=get_user_file_path_for_reference_letter_2,
         storage=PrivateMediaStorage(),
-        blank=True,
-        null=True,
     )
     high_school_transcript = models.FileField(
         upload_to=get_user_file_path_for_high_school_transcript,
