@@ -194,11 +194,11 @@ class OtherForm(forms.ModelForm):
 class AttachmentForm(forms.ModelForm):
     title = "Attachments"
     reference_letter_1 = forms.FileField(
-        label="Reference letter 1 of 2 from personal, counselor, employer, religious, etc.",
+        label="Reference letter 1 of 2 from personal, counselor, employer, religious, etc. Reference letters must be attached, we cannot add them later. If that is your schools' policy you will need to request a reference letter from another source.",
         validators=[file_size, validate_document_file_extension],
     )
     reference_letter_2 = forms.FileField(
-        label="Reference letter 2 of 2 from personal, counselor, employer, religious, etc.",
+        label="Reference letter 2 of 2 from personal, counselor, employer, religious, etc. Reference letters must be attached, we cannot add them later. If that is your schools' policy you will need to request a reference letter from another source.",
         validators=[file_size, validate_document_file_extension],
     )
     high_school_transcript = forms.FileField(
