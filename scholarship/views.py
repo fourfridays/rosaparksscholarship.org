@@ -3,9 +3,11 @@ import os
 from django.contrib.auth import get_user_model
 from django.core.files.storage import get_storage_class
 from django.core.mail import EmailMessage
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django_ratelimit.decorators import ratelimit
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView
@@ -220,6 +222,15 @@ class ScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
                 queryset = queryset.filter(has_submitted_attachments=True)
             elif form.cleaned_data["has_submitted_attachments"] == "false":
                 queryset = queryset.filter(has_submitted_attachments=False)
+
+        # Get the search query
+        search_query = self.request.GET.get('search', '')
+
+        # Filter the queryset based on the search query
+        queryset = queryset.filter(
+            Q(email__icontains=search_query)
+        )
+
         return queryset
 
 
@@ -546,3 +557,63 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
         wb.save(response)
 
         return response
+
+
+@method_decorator(
+    ratelimit(key="user_or_ip", rate="10/m", method="GET", block=True), name="dispatch"
+)
+class ScholarshipDeleteView(LoginRequiredMixin, ModeratorsMixin, ListView):
+    model = get_user_model()
+    template_name = "scholarship/delete.html"
+    paginate_by = 25
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(
+            has_submitted_application=True, has_submitted_attachments=True
+        )
+
+        # Get the search query
+        search_query = self.request.GET.get('search', '')
+
+        # Filter the queryset based on the search query
+        queryset = queryset.filter(
+            Q(email__icontains=search_query)
+        )
+
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+        # Get the IDs of the selected submissions
+        user_ids = request.POST.getlist('user_ids')
+        users = get_user_model().objects.filter(id__in=user_ids)
+        
+        for user in users:            
+            # Delete the user's application
+            if hasattr(user, "personalinformation"):
+                user.personalinformation.delete()
+            if hasattr(user, "highschool"):
+                user.highschool.delete()
+            if hasattr(user, "academiccounselor"):
+                user.academiccounselor.delete()
+            if hasattr(user, "currentemployment"):
+                user.currentemployment.delete()
+            if hasattr(user, "parent"):
+                user.parent.delete()
+            if hasattr(user, "household"):
+                user.household.delete()
+            if hasattr(user, "college"):
+                user.college.delete()
+            if hasattr(user, "other"):
+                user.other.delete()
+
+            # Delete the user's attachments
+            if hasattr(user, "attachments"):
+                user.attachments.delete()
+            
+            user.has_submitted_application = False
+            user.has_submitted_attachments = False
+            user.save()
+
+        # Return to scholarship delete page
+        return redirect(reverse("scholarship-application-delete"))

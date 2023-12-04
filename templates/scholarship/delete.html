@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}User Scholarship Delete Application{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>User Scholarship Delete Applications</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-10">
+            <p>Select the applications you would like to delete and click the "Delete Applications" button.</p>
+            <form method="get" action="{% url 'scholarship-application-delete' %}">
+                <input type="text" name="search" placeholder="Search">
+                <input class="btn btn-primary btn-sm" type="submit" value="Search">
+            </form>
+            <a href="{% url 'scholarship-application-delete' %}">Clear Search</a>
+        </div>
+        <div class="col-12 text-center mt-4">
+            <form method="post" action="{% url 'scholarship-application-delete' %}">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <th>Select</th>
+                        <th>Email</th>
+                        <th>Completed Application (Application/Attachments Submitted)</th>
+                        <th>Submitted Attachments</th>
+                    </tr>
+                    {% for user in object_list %}
+                    {% if user.is_active %}
+                    <tr>
+                        <td><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
+                        <td>{{ user.email }}</td>
+
+                        {% if user.has_submitted_application and user.has_submitted_attachments %}
+                        <td class="text-success">True</td>
+                        {% else %}
+                        <td class="text-danger">False</td>
+                        {% endif %}
+
+                        {% if user.has_submitted_attachments %}
+                        <td class="text-success">True</td>
+                        {% else %}
+                        <td class="text-danger">False</td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+                <input class="btn btn-primary btn-sm" type="submit" value="Delete Applications">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center mt-4">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+</div>
+{% endblock %}

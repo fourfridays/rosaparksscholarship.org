@@ -14,6 +14,7 @@ from scholarship.views import (
     ScholarshipView,
     ScholarshipListView,
     ScholarshipDownloadExcelView,
+    ScholarshipDeleteView,
 )
 from scholarship.forms import (
     PersonalInformationForm,
@@ -52,6 +53,8 @@ urlpatterns = [
     path(
         "scholarship/application/list/", ScholarshipListView.as_view(), name="scholarship-application-list"
     ),
+    path(
+        "scholarship/application/delete/", ScholarshipDeleteView.as_view(),name="scholarship-application-delete"
     ),
     path(
         "scholarship/application/success/",
