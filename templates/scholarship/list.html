@@ -1,32 +1,41 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}User Scholarship Applications{% endblock %}
+{% block title %}Scholarship Applications List{% endblock %}
 
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>User Scholarship Applications</h1>
+            <h1>Scholarship Applications List</h1>
         </div>
     </div>
     <div class="row">
+        <div class="col-12 col-lg-10">
+            <form method="get" action="{% url 'scholarship-application-list' %}">
+                <input type="text" name="search" placeholder="Search">
+                <input class="btn btn-primary btn-sm" type="submit" value="Search">
+            </form>
+            <a href="{% url 'scholarship-application-list' %}">Clear Search</a>
+        </div>
         <div class="col-12 col-lg-10 text-center mt-4">
-            <form method="post" action="{% url 'download_excel' %}">
+            <form method="post" action="{% url 'scholarship-application-download-excel' %}">
                 {% csrf_token %}
                 <table class="table">
-                    <tr>
-                        <th>Select</th>
-                        <th>Email</th>
-                        <th>Completed Application (Application/Attachments Submitted)</th>
-                        <th>Started Application</th>
-                        <th>Submitted Attachments</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all"></th>
+                            <th>Email</th>
+                            <th>Completed Application (Application/Attachments Submitted)</th>
+                            <th>Started Application</th>
+                            <th>Submitted Attachments</th>
+                        </tr>
+                    </thead>
                     {% for user in object_list %}
                     {% if user.is_active %}
                     <tr>
-                        <td><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
+                        <td><input type="checkbox" class="item-checkbox" name="user_ids" value="{{ user.id }}"></td>
                         <td>{{ user.email }}</td>
 
                         {% if user.has_submitted_application and user.has_submitted_attachments %}
@@ -65,9 +74,20 @@
             <form method="get" id="filterForm">
                 {{ filter_form|crispy }}
                 <input type="submit" value="Filter" class="btn btn-primary btn-sm">
-                <a href="{% url 'scholarship-list' %}" class="btn btn-default">Clear</a>
+                <a href="{% url 'scholarship-application-list' %}" class="btn btn-default">Clear</a>
             </form>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        document.getElementById('select-all').addEventListener('change', function(e) {
+            var itemCheckboxes = document.getElementsByClassName('item-checkbox');
+            for (var i = 0; i < itemCheckboxes.length; i++) {
+                itemCheckboxes[i].checked = e.target.checked;
+            }
+        });
+    </script>
 {% endblock %}

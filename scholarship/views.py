@@ -147,14 +147,14 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
         # Delete the TemporaryStorage records for the current user
         TemporaryStorage.objects.filter(user=self.request.user).delete()
 
-        # Redirect the user to a success page
-        return HttpResponseRedirect("/scholarship/application/attachments/")
+        # Redirect the user to attachments page
+        return redirect("scholarship-application-attachments")
 
 
 @method_decorator(
     ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
 )
-class AttachmentView(LoginRequiredMixin, CreateView):
+class ScholarshipAttachmentView(LoginRequiredMixin, CreateView):
     template_name = "scholarship/attachments.html"
     model = Attachments
     form_class = AttachmentForm
@@ -194,9 +194,9 @@ class AttachmentView(LoginRequiredMixin, CreateView):
 @method_decorator(
     ratelimit(key="user_or_ip", rate="10/m", method="GET", block=True), name="dispatch"
 )
-class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
+class ScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
     model = get_user_model()
-    template_name = "scholarship/user_scholarship_list.html"
+    template_name = "scholarship/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -226,7 +226,7 @@ class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
 @method_decorator(
     ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
 )
-class DownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
+class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")
         users = get_user_model().objects.filter(id__in=user_ids)
