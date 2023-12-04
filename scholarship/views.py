@@ -192,7 +192,7 @@ class AttachmentView(LoginRequiredMixin, CreateView):
 
 
 @method_decorator(
-    ratelimit(key="user_or_ip", rate="5/m", method="GET", block=True), name="dispatch"
+    ratelimit(key="user_or_ip", rate="10/m", method="GET", block=True), name="dispatch"
 )
 class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
     model = get_user_model()
