@@ -206,19 +206,20 @@ class UserScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         form = UserFilterForm(self.request.GET)
+
         if form.is_valid():
-            if form.cleaned_data["has_submitted_application"] == "true":
-                queryset = queryset.filter(has_submitted_application=True)
-            elif form.cleaned_data["has_submitted_application"] == "false":
-                queryset = queryset.filter(has_submitted_application=False)
-            if form.cleaned_data["has_submitted_attachments"] == "true":
-                queryset = queryset.filter(has_submitted_attachments=True)
-            elif form.cleaned_data["has_submitted_attachments"] == "false":
-                queryset = queryset.filter(has_submitted_attachments=False)
             if form.cleaned_data["completed_application"] == "true":
                 queryset = queryset.filter(
                     has_submitted_application=True, has_submitted_attachments=True
                 )
+            elif form.cleaned_data["completed_application"] == "false":
+                queryset = queryset.filter(
+                    has_submitted_application=False, has_submitted_attachments=False
+                )
+            if form.cleaned_data["has_submitted_attachments"] == "true":
+                queryset = queryset.filter(has_submitted_attachments=True)
+            elif form.cleaned_data["has_submitted_attachments"] == "false":
+                queryset = queryset.filter(has_submitted_attachments=False)
         return queryset
 
 

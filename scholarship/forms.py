@@ -236,12 +236,9 @@ class UserFilterForm(forms.Form):
         ("true", "True"),
         ("false", "False"),
     ]
-    has_submitted_application = forms.ChoiceField(
-        choices=APPLICATION_CHOICES, required=False, label="Submitted Application"
+    completed_application = forms.ChoiceField(
+        choices=APPLICATION_CHOICES, required=False, label="Completed Applications"
     )
     has_submitted_attachments = forms.ChoiceField(
         choices=APPLICATION_CHOICES, required=False, label="Submitted Attachments"
-    )
-    completed_application = forms.ChoiceField(
-        choices=APPLICATION_CHOICES, required=False
     )
