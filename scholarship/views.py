@@ -542,7 +542,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
         response = HttpResponse(
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-        response["Content-Disposition"] = "attachment; filename=users.xlsx"
+        response["Content-Disposition"] = "attachment; filename=scholarship-submissions.xlsx"
         wb.save(response)
 
         return response
