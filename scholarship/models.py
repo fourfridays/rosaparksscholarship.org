@@ -320,7 +320,7 @@ class College(models.Model):
 class Other(models.Model):
     foster_care = models.BooleanField(
         default=False,
-        help_text="Are you in the foster care system, or are you an emancipated minor? If so, please indicate yes (This answer does not impact the judging process. If this doesn't apply, please select no).",
+        help_text="Are you in the foster care system, or are you an emancipated minor? If so, please indicate yes (This answer does not impact the judging process).",
     )
     challenges = models.TextField(
         null=True,
