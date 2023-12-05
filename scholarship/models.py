@@ -328,11 +328,9 @@ class Other(models.Model):
         help_text="If you answered yes to the last question, please briefly describe the challenges you have faced in your educational journey because of your experiences in foster care or as an emancipated minor.",
     )
     other_scholarships = models.TextField(
-        null=True, blank=True, help_text="Other scholarships you have applied for"
+        help_text="Other scholarships you have applied for"
     )
     other_scholarships_awarded = models.TextField(
-        null=True,
-        blank=True,
         help_text="Scholarships/grants you have already been awarded (name, amount and period of time covered)",
     )
     plan_to_pay = models.TextField(
