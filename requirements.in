@@ -21,7 +21,6 @@ django-allauth==0.58.2
 django-braces==1.15.0
 django-formtools==2.4.1
 django-phonenumber-field[phonenumberslite]==7.1.0
-django-ratelimit==4.1.0
 django-recaptcha==3.0.0
 django-redis==5.4.0
 wagtailcodeblock==1.29.0.1

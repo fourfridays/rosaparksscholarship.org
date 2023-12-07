@@ -83,8 +83,6 @@ django-phonenumber-field[phonenumberslite]==7.1.0
     # via
     #   -r requirements.in
     #   django-phonenumber-field
-django-ratelimit==4.1.0
-    # via -r requirements.in
 django-recaptcha==3.0.0
     # via -r requirements.in
 django-redis==5.4.0
