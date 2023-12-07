@@ -28,3 +28,11 @@
         {% endif %}
     </li>
 {% endfor %}
+
+{% if request.user.is_authenticated %}
+    <li class="nav-item">
+        <a class="btn btn-sm btn-primary mt-1" href="{% url 'account_logout' %}" role="menuitem">
+            {{ request.user.first_name }} | Logout
+        </a>
+    </li>
+{% endif %}
