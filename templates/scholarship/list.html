@@ -29,6 +29,7 @@
                             <th>Email</th>
                             <th>Completed Application (Application/Attachments Submitted)</th>
                             <th>Started Application</th>
+                            <th>Submitted Application</th>
                             <th>Submitted Attachments</th>
                         </tr>
                     </thead>
@@ -56,6 +57,12 @@
                         </td>
                         {% else %}
                         <td class="text-danger">---</td>
+                        {% endif %}
+
+                        {% if user.has_submitted_application %}
+                        <td class="text-success">True</td>
+                        {% else %}
+                        <td class="text-danger">False</td>
                         {% endif %}
 
                         {% if user.has_submitted_attachments %}

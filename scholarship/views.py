@@ -207,6 +207,10 @@ class ScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
                 queryset = queryset.filter(
                     has_submitted_application=False, has_submitted_attachments=False
                 )
+            if form.cleaned_data["has_submitted_application"] == "true":
+                queryset = queryset.filter(has_submitted_application=True)
+            elif form.cleaned_data["has_submitted_application"] == "false":
+                queryset = queryset.filter(has_submitted_application=False)
             if form.cleaned_data["has_submitted_attachments"] == "true":
                 queryset = queryset.filter(has_submitted_attachments=True)
             elif form.cleaned_data["has_submitted_attachments"] == "false":
