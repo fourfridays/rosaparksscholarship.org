@@ -1,7 +1,10 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.dispatch import receiver
-from django.utils import timezone
+
+from wagtail.snippets.models import register_snippet
+from wagtail.admin.panels import FieldPanel
 
 from users.models import User
 from page.storage_backends import PrivateMediaStorage
@@ -348,6 +351,30 @@ class Other(models.Model):
 
     def __str__(self):
         return f"{self.user.email}"
+
+
+@register_snippet
+class ApplicationState(models.Model):
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    panels = [
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
+    ]
+
+    class Meta:
+        verbose_name_plural = "Application State"
+    
+    def __str__(self):
+        return f"Application Open from {self.start_date} to {self.end_date}"
+ 
+    def save(self, *args, **kwargs):
+        if not self.pk and ApplicationState.objects.exists():
+            # if you'll not check for self.pk 
+            # then error will also raised in update of exists model
+            raise ValidationError('There can be only one Application State instance')
+        return super(ApplicationState, self).save(*args, **kwargs)
 
 
 class TemporaryStorage(models.Model):

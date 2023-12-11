@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
@@ -30,7 +31,7 @@ from scholarship.forms import (
     AttachmentForm,
     UserFilterForm,
 )
-from scholarship.models import Attachments, TemporaryStorage
+from scholarship.models import ApplicationState, Attachments, TemporaryStorage
 
 
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
@@ -48,10 +49,15 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
     template_name = "scholarship/index.html"
 
     def get(self, request, *args, **kwargs):
-        if self.request.user.has_submitted_application:
-            return redirect("scholarship-application-attachments")
-
-        return super().get(request, *args, **kwargs)
+        application_state = ApplicationState.objects.first()
+        
+        if application_state.start_date <= timezone.now().date() <= application_state.end_date:
+            if self.request.user.has_submitted_application:
+                return redirect("scholarship-application-attachments")
+            
+            return super().get(request, *args, **kwargs)
+        else:
+            return redirect("scholarship-application-closed")
 
     def get_form(self, step=None, data=None, files=None):
         if step is None:

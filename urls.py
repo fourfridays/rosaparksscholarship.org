@@ -50,6 +50,7 @@ urlpatterns = [
         ),
         name="scholarship-application",
     ),
+    path("scholarship/application/closed/", TemplateView.as_view(template_name="scholarship/closed.html"), name="scholarship-application-closed"),
     path(
         "scholarship/application/list/", ScholarshipListView.as_view(), name="scholarship-application-list"
     ),
