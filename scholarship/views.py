@@ -1,4 +1,4 @@
-import os
+import os, pytz
 
 from django.contrib.auth import get_user_model
 from django.core.files.storage import get_storage_class
@@ -50,8 +50,10 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
 
     def get(self, request, *args, **kwargs):
         application_state = ApplicationState.objects.first()
+        michigan_tz = pytz.timezone('America/Detroit')
+        michigan_time = timezone.now().astimezone(michigan_tz)
         
-        if application_state.start_date <= timezone.now().date() <= application_state.end_date:
+        if application_state.start_date <= michigan_time.date() <= application_state.end_date:
             if self.request.user.has_submitted_application:
                 return redirect("scholarship-application-attachments")
             
