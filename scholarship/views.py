@@ -206,6 +206,9 @@ class ScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(is_active=True)
+        queryset = queryset.filter(
+            Q(temporarystorage__isnull=False) | Q(has_submitted_application=True)
+        )
         form = UserFilterForm(self.request.GET)
 
         if form.is_valid():
