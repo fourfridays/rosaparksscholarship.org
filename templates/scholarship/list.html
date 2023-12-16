@@ -34,7 +34,6 @@
                         </tr>
                     </thead>
                     {% for user in object_list %}
-                    {% if user.is_active %}
                     <tr>
                         <td><input type="checkbox" class="item-checkbox" name="user_ids" value="{{ user.id }}"></td>
                         <td>{{ user.email }}</td>
@@ -71,7 +70,6 @@
                         <td class="text-danger">False</td>
                         {% endif %}
                     </tr>
-                    {% endif %}
                     {% endfor %}
                 </table>
                 <input class="btn btn-primary btn-sm" type="submit" value="Download Excel">
