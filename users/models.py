@@ -31,6 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(default=timezone.now)
+    application_submitted_at = models.DateField(null=True, blank=True)
     objects = UserManager()
 
     def __str__(self):

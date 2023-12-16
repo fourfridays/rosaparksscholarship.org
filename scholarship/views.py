@@ -147,6 +147,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
 
         # Set the has_submitted_form flag in the user model to True
         self.request.user.has_submitted_application = True
+        self.request.user.application_submitted_at = timezone.now()
         self.request.user.save()
 
         # Delete the TemporaryStorage records for the current user
