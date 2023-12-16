@@ -19,6 +19,11 @@
             </form>
             <a href="{% url 'scholarship-application-list' %}">Clear Search</a>
         </div>
+        <div class="col-4">
+            <p>{{ object_list|length }} results</p>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12 col-lg-10 text-center mt-4">
             <form method="post" action="{% url 'scholarship-application-download-excel' %}">
                 {% csrf_token %}
