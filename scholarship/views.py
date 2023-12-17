@@ -72,7 +72,7 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
                 step=step, user=self.request.user
             )
             temp_data = temp_storage.data
-            print(temp_data, data)
+
             # Merge the POST data and the TemporaryStorage data
             if data is not None:
                 data = data
