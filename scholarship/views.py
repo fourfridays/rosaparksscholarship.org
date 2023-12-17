@@ -32,6 +32,7 @@ from scholarship.forms import (
     UserFilterForm,
 )
 from scholarship.models import ApplicationState, Attachments, TemporaryStorage
+from scholarship.forms import get_current_year
 
 
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
@@ -204,40 +205,47 @@ class ScholarshipListView(LoginRequiredMixin, ModeratorsMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(is_active=True)
-        queryset = queryset.filter(
-            Q(temporarystorage__isnull=False) | Q(has_submitted_application=True)
-        )
         form = UserFilterForm(self.request.GET)
 
         if form.is_valid():
+            queryset = super().get_queryset()
+            queryset = queryset.filter(is_active=True)
+            
+            if form.cleaned_data["submission_year"] == "":
+                queryset = queryset.filter(
+                    Q(temporarystorage__isnull=False, temporarystorage__submission_time__year=get_current_year()) | Q(has_submitted_application=True, application_submitted_at__year=get_current_year())
+                ).distinct()
+            else:
+                queryset = queryset.filter(
+                    Q(temporarystorage__isnull=False, temporarystorage__submission_time__year=form.cleaned_data["submission_year"]) | Q(has_submitted_application=True, application_submitted_at__year=form.cleaned_data["submission_year"])
+                ).distinct()
+
             if form.cleaned_data["completed_application"] == "true":
                 queryset = queryset.filter(
                     has_submitted_application=True, has_submitted_attachments=True
-                )
+                ).filter(application_submitted_at__year=form.cleaned_data["submission_year"])
             elif form.cleaned_data["completed_application"] == "false":
                 queryset = queryset.filter(
                     has_submitted_application=False, has_submitted_attachments=False
-                )
+                ).filter(temporarystorage__submission_time__year=form.cleaned_data["submission_year"]).distinct()
             if form.cleaned_data["has_submitted_application"] == "true":
-                queryset = queryset.filter(has_submitted_application=True)
+                queryset = queryset.filter(has_submitted_application=True).filter(application_submitted_at__year=form.cleaned_data["submission_year"])
             elif form.cleaned_data["has_submitted_application"] == "false":
-                queryset = queryset.filter(has_submitted_application=False)
+                queryset = queryset.filter(has_submitted_application=False).filter(temporarystorage__submission_time__year=form.cleaned_data["submission_year"]).distinct()
             if form.cleaned_data["has_submitted_attachments"] == "true":
-                queryset = queryset.filter(has_submitted_attachments=True)
+                queryset = queryset.filter(has_submitted_attachments=True).filter(application_submitted_at__year=form.cleaned_data["submission_year"])
             elif form.cleaned_data["has_submitted_attachments"] == "false":
-                queryset = queryset.filter(has_submitted_attachments=False)
+                queryset = queryset.filter(has_submitted_attachments=False).filter(application_submitted_at__year=form.cleaned_data["submission_year"])
 
-        # Get the search query
-        search_query = self.request.GET.get('search', '')
+            # Get the search query
+            search_query = self.request.GET.get('search', '')
 
-        # Filter the queryset based on the search query
-        queryset = queryset.filter(
-            Q(email__icontains=search_query)
-        )
+            # Filter the queryset based on the search query
+            queryset = queryset.filter(
+                Q(email__icontains=search_query)
+            )
 
-        return queryset
+            return queryset
 
 
 class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):

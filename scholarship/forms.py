@@ -1,8 +1,7 @@
-import datetime
+import datetime, pytz
 
 from django import forms
-from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
 
@@ -22,6 +21,12 @@ from constants import (
     COUNTRY_CHOICES,
 )
 
+
+def get_current_year():
+    """Return the current year in Michigan time"""
+    michigan_tz = pytz.timezone('America/Detroit')
+    current_year = timezone.now().astimezone(michigan_tz).year
+    return current_year
 
 def date_minus_18_years():
     """Return 18 years from today"""
@@ -236,6 +241,20 @@ class UserFilterForm(forms.Form):
         ("true", "True"),
         ("false", "False"),
     ]
+    YEAR_CHOICES = [
+        (get_current_year(), get_current_year()),
+        (get_current_year() - 1, get_current_year() - 1),
+        (get_current_year() - 2, get_current_year() - 2),
+        (get_current_year() - 3, get_current_year() - 3),
+        (get_current_year() - 4, get_current_year() - 4),
+        (get_current_year() - 5, get_current_year() - 5),
+    ]
+    submission_year = forms.ChoiceField(
+        choices=YEAR_CHOICES,
+        initial=get_current_year(),
+        required=False,
+        label="Year",
+    )
     completed_application = forms.ChoiceField(
         choices=APPLICATION_CHOICES, required=False, label="Completed Applications"
     )
