@@ -32,9 +32,6 @@
                         <button name="wizard_goto_step" class="btn btn-secondary btn-sm" type="submit" value="{{ wizard.steps.first }}" formnovalidate>First Page</button>
                         <button name="wizard_goto_step" class="btn btn-secondary btn-sm" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>Previous Page</button>
                     {% endif %}
-                    {% if wizard.steps.next %}
-                        <button class="btn btn-sm btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.next }}" formnovalidate>Next Page</button>
-                    {% endif %}
                     {% if wizard.steps.step1 == wizard.steps.count %}
                         <p class="mt-4">Once you click <strong>"Submit"</strong> below your application is final - you cannot go back and review/edit, and we cannot edit it for you.  Suggest that you first go back to "first page" and review and perhaps print (right click in space next to data and select print).  Continue this through all eight pages.  Once you submit your application you will then be required to attach required documents:  two reference letters, transcripts, honors and awards, extracurricular activity, community service and an essay.</p>
                         <button class="btn btn-sm btn-primary" type="submit" value="submit">Submit Form</button>
