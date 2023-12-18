@@ -163,6 +163,23 @@ class CollegeForm(forms.ModelForm):
         ),
         label="Educational Goal",
     )
+    major = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+            },
+        ),
+        label="College Major",
+    )
+    career = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Teacher, musician, lawyer, etc.",
+            },
+        ),
+        label="Career/Profession",
+    )
     applied_for_1 = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -191,6 +208,40 @@ class CollegeForm(forms.ModelForm):
         ),
         label="College Applied For #3",
         required=False,
+    )
+    plan_to_attend = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "College Name",
+            },
+        ),
+        label="College/University you plan to attend?",
+    )
+    savings = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control",
+            },
+        ),
+        label="How much have you saved for college?",
+    )
+    savings_by_guardian = forms.IntegerField(
+        widget=forms.NumberInput(
+            attrs={
+                "class": "form-control",
+            },
+        ),
+        label="How much have others (parents, grandparents, etc.) saved for your education?",
+    )
+    financial_need = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 3,
+            },
+        ),
+        label="Describe your financial need for scholarship funds (very important - be very specific)",
     )
 
     class Meta:
