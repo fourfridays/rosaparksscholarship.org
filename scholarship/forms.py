@@ -153,6 +153,16 @@ class HouseholdForm(forms.ModelForm):
 
 class CollegeForm(forms.ModelForm):
     title = "College Information"
+    goal = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": "What are your educational goals?",
+                "rows": 3,
+            },
+        ),
+        label="Educational Goal",
+    )
     applied_for_1 = forms.CharField(
         widget=forms.TextInput(
             attrs={
