@@ -97,6 +97,19 @@ class ScholarshipView(LoginRequiredMixin, SessionWizardView):
 
         return super().process_step(form)
 
+    def post(self, request, *args, **kwargs):
+        if "last_step_save" in request.POST:
+            # get the form for the current step
+            form = self.get_form(data=self.request.POST, files=self.request.FILES)
+
+            if form.is_valid():
+                # if the form is valid, store the cleaned data and files.
+                self.storage.set_step_data(self.steps.current, self.process_step(form))
+                self.storage.set_step_files(self.steps.current, self.process_step_files(form))
+                return self.render_goto_step(self.steps.current)
+        else:
+            return super().post(request, *args, **kwargs)
+
     def done(self, form_list, **kwargs):
         personal_information_form = form_list[0]
         if personal_information_form.cleaned_data:
