@@ -251,6 +251,52 @@ class CollegeForm(forms.ModelForm):
 
 class OtherForm(forms.ModelForm):
     title = "Other Information"
+    foster_care = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-check-input",
+            },
+        ),
+        label="Are you in the foster care system, or are you an emancipated minor? If so, please check this box (This answer does not impact the judging process)",
+        required=False,
+    )
+    challenges = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 3,
+            },
+        ),
+        label="If you checked the box above, please briefly describe the challenges you have faced in your educational journey because of your experiences in foster care or as an emancipated minor.",
+        required=False,
+    )
+    other_scholarships = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 3,
+            },
+        ),
+        label="Other scholarships you have applied for",
+    )
+    other_scholarships_awarded = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 3,
+            },
+        ),
+        label="Scholarships/grants you have already been awarded (name, amount and period of time covered)",
+    )
+    plan_to_pay = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 3,
+            },
+        ),
+        label="If granted this award, how do you plan to pay for the rest of your educational costs?",
+    )
 
     class Meta:
         model = Other
