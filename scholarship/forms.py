@@ -318,23 +318,20 @@ class AttachmentForm(forms.ModelForm):
         validators=[file_size, validate_document_file_extension],
     )
     honors_awards = forms.FileField(
-        label="Honors and Awards",
+        label="Tell us about the honors and awards you received. Indicate whether they were on a local (school, county, or district), state or national level. These awards may be outside of school activities but should not be duplicated in any other section. Honor/Award, Year Received, Brief Description.",
         validators=[file_size, validate_document_file_extension],
-        help_text="Tell us about the honors and awards you received. Indicate whether they were on a local (school, county, or district), state or national level. These awards may be outside of school activities but should not be duplicated in any other section. Honor/Award, Year Received, Brief Description.",
     )
     extracurricular_activities = forms.FileField(
-        label="Extracurricular Activities",
+        label="Extracurricular Activities (school, clubs, athletics). Indicate position(s), club(s) and/or athletics you participated in. Be sure to distinguish the grade year (9-12) and approximate hours you participated. Activity, Year Participated, Hours per Week, Brief Description.",
         validators=[file_size, validate_document_file_extension],
-        help_text="Extracurricular Activities (school, clubs, athletics). Indicate position(s), club(s) and/or athletics you participated in. Be sure to distinguish the grade year (9-12) and approximate hours you participated. Activity, Year Participated, Hours per Week, Brief Description.",
     )
     community_service_volunteer_activities = forms.FileField(
-        label="Community Service/Volunteer Activities",
+        label="Community Service/Volunteer Activities (church, home, etc.). List community organizations you actively participated in during each grade year (9-12). Also, indicate hours of volunteer service for each activity. These can be school-related but are not to be duplicated any in responses you made in any previous section of the application. Organization, Year Participated, Hours per Week, Brief Description.",
         validators=[file_size, validate_document_file_extension],
-        help_text="Community Service/Volunteer Activities (church, home, etc.). List community organizations you actively participated in during each grade year (9-12). Also, indicate hours of volunteer service for each activity. These can be school-related but are not to be duplicated any in responses you made in any previous section of the application. Organization, Year Participated, Hours per Week, Brief Description.",
     )
     essay = forms.FileField(
+        label="Segregation was the defining social issue when Rosa Parks took her historic stand. Describe a social issue that you think should be addressed today. How will YOU use the principles of Rosa Parks to address it?",
         validators=[file_size, validate_document_file_extension],
-        help_text="Segregation was the defining social issue when Rosa Parks took her historic stand. Describe a social issue that you think should be addressed today. How will YOU use the principles of Rosa Parks to address it?",
     )
 
     class Meta:
