@@ -1,4 +1,4 @@
-import os, pytz
+import logging, os, pytz
 
 from django.contrib.auth import get_user_model
 from django.core.files.storage import get_storage_class
@@ -33,6 +33,9 @@ from scholarship.forms import (
 )
 from scholarship.models import ApplicationState, Attachments, TemporaryStorage
 from scholarship.forms import get_current_year
+
+
+logger = logging.getLogger(__name__)
 
 
 class ScholarshipView(LoginRequiredMixin, SessionWizardView):
@@ -608,6 +611,10 @@ class ScholarshipDeleteView(LoginRequiredMixin, ModeratorsMixin, ListView):
         # Get the IDs of the selected submissions
         user_ids = request.POST.getlist('user_ids')
         users = get_user_model().objects.filter(id__in=user_ids)
+        
+        logger.info(
+            f"User {request.user.username} deleted scholarship application of users {users}"
+        )
         
         for user in users:            
             # Delete the user's application
