@@ -1,3 +1,4 @@
+import logging
 import os
 import dj_database_url
 
@@ -70,9 +71,12 @@ sentry_dsn = os.environ.get("SENTRY_DSN", "")
 if sentry_dsn:
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
-    from sentry_sdk import set_level
+    from sentry_sdk.integrations.logging import LoggingIntegration
     
-    set_level("info")
+    # The SDK will honor the level set by the logging library, which is WARNING by default.
+    # If we want to capture records with lower severity, we need to configure
+    # the logger level first.
+    logging.basicConfig(level=logging.INFO)
 
     def ignore_disallowedhost(event, hint):
         if event.get("logger", None) == "django.security.DisallowedHost":
@@ -82,7 +86,13 @@ if sentry_dsn:
     sentry_sdk.init(
         dsn=sentry_dsn,
         before_send=ignore_disallowedhost,
-        integrations=[DjangoIntegration()],
+        integrations=[
+            LoggingIntegration(
+                level=logging.INFO,        # Capture info and above as breadcrumbs
+                event_level=logging.INFO   # Send records as events
+            ),
+            DjangoIntegration(),
+        ],
         traces_sample_rate=0.2,
         send_default_pii=True,
     )
