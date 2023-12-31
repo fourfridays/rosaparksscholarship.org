@@ -81,6 +81,7 @@ if sentry_dsn:
         before_send=ignore_disallowedhost,
         integrations=[DjangoIntegration()],
         traces_sample_rate=0.2,
+        send_default_pii=True,
     )
 
 ROOT_URLCONF = "urls"
