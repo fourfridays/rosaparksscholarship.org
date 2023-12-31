@@ -613,7 +613,7 @@ class ScholarshipDeleteView(LoginRequiredMixin, ModeratorsMixin, ListView):
         users = get_user_model().objects.filter(id__in=user_ids)
         
         logger.info(
-            f"User {request.user.username} deleted scholarship application of users {users}"
+            f"User {request.user.email} deleted scholarship application of users {users}"
         )
         
         for user in users:            
