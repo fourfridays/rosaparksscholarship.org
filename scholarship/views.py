@@ -343,6 +343,11 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
             ]
         )
         for user in users:
+            if hasattr(user, "parent"):
+                if user.parent.parent_2_phone_number:
+                    parent2_phone_number = user.parent.parent_2_phone_number.as_national
+                else:
+                    parent2_phone_number = ""
             ws.append(
                 [
                     user.first_name,
@@ -363,7 +368,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
                     getattr(user.personalinformation, "zip_code", "")
                     if hasattr(user, "personalinformation")
                     else "",
-                    getattr(user.personalinformation, "phone_number.raw_input", "")
+                    user.personalinformation.phone_number.as_national
                     if hasattr(user, "personalinformation")
                     else "",
                     getattr(user.personalinformation, "dob", "")
@@ -387,7 +392,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
                     getattr(user.academiccounselor, "name", "")
                     if hasattr(user, "academiccounselor")
                     else "",
-                    getattr(user.academiccounselor, "phone_number.raw_input", "")
+                    user.academiccounselor.phone_number.as_national
                     if hasattr(user, "academiccounselor")
                     else "",
                     getattr(user.academiccounselor, "email", "")
@@ -423,7 +428,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
                     getattr(user.parent, "parent_1_zip_code", "")
                     if hasattr(user, "parent")
                     else "",
-                    getattr(user.parent, "parent_1_phone_number.raw_input", "")
+                    user.parent.parent_1_phone_number.as_national
                     if hasattr(user, "parent")
                     else "",
                     getattr(user.parent, "parent_1_place_of_employment", "")
@@ -453,7 +458,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
                     getattr(user.parent, "parent_2_zip_code", "")
                     if hasattr(user, "parent")
                     else "",
-                    getattr(user.parent, "parent_2_phone_number.raw_input", "")
+                    parent2_phone_number
                     if hasattr(user, "parent")
                     else "",
                     getattr(user.parent, "parent_2_place_of_employment", "")
