@@ -112,3 +112,17 @@ nav {
         }
     }
 }
+
+.home-video-embed {
+    .caption {
+        z-index: 999;
+        width: 100%;
+    }
+}
+@include media-breakpoint-up(xl) {
+    .home-video-embed {
+        .caption {
+            width: 50%;
+        }
+    }
+}

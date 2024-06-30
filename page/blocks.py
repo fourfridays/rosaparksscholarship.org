@@ -95,6 +95,17 @@ class HeroImageBlock(StructBlock):
         template = "blocks/hero_image_block.html"
 
 
+class HeroYouTubeEmbedBlock(StructBlock):
+    youtube_property_id = CharBlock(required=True, max_length=11)
+    hero_message = CharBlock(
+        required=False, max_length=48, help_text="48 character limit."
+    )
+
+    class Meta:
+        icon = "media"
+        template = "blocks/hero_video_block.html"
+
+
 class PersonDateBlock(StructBlock):
     date = DateBlock(required=False)
     people = StreamBlock(

@@ -10,17 +10,25 @@ from page.blocks import (
     ThreeColumnBlock,
     FourColumnBlock,
     HeroImageBlock,
+    HeroYouTubeEmbedBlock,
 )
 
 
 class HomePage(Page):
-    pass
-
     # Restricting the creation of this page type in settings
     is_creatable = settings.WAGTAIL_PAGES_IS_CREATABLE
 
     # Restricting the page from being created anywhere other than root
     parent_page_types = ["wagtailcore.Page"]
+    
+    body = StreamField(
+        [
+            ("hero_youtube_embed", HeroYouTubeEmbedBlock(icon="media")),
+        ]
+    )
+    content_panels = Page.content_panels + [
+        FieldPanel("body"),
+    ]
 
 
 class StandardPage(Page):

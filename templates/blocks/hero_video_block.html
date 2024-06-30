@@ -1,0 +1,49 @@
+{% block extra_head %}
+    <style>
+        .home-video-embed {
+            position: relative;
+            /* falls back to 16/9, but otherwise uses ratio from HTML */
+            padding-bottom: calc(var(--aspect-ratio, .5625) * 100%); 
+            padding-top: 25px;
+            
+            /* below attempts to hide the bar on hover over */
+            /* See https://stackoverflow.com/questions/18342536/how-to-hide-the-bar-at-the-top-of-youtube-even-when-mouse-hovers-over-it */
+            overflow: hidden;
+            width: 100%;
+            /* Keep it the right aspect-ratio */
+            aspect-ratio: 16/9;
+            /* No clicking/hover effects */
+            pointer-events: none;
+        }
+
+        .home-video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            /* below attempts to hide the bar on hover over */
+            /* See https://stackoverflow.com/questions/18342536/how-to-hide-the-bar-at-the-top-of-youtube-even-when-mouse-hovers-over-it */
+            /* Extend it beyond the viewport... */
+            width: 300%;
+            height: 100%;
+            /* ...and bring it back again */
+            margin-left: -100%;
+        }
+
+        .home-video-embed .video-opacity {
+            background-color: #000000;
+            opacity: 0.88;
+            transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+        }
+    </style>
+{% endblock %}
+
+<div class="home-video-embed">
+    <div class="caption text-center position-absolute top-50 start-50 translate-middle">
+        <h2 class="display-5 fw-bold text-white">{{ self.hero_message }}</h2>
+    </div>
+
+    <div class="video-opacity">
+        <iframe width="560" height="315" title="{{ self.hero_message }}" src="//www.youtube.com/embed/{{ self.youtube_property_id }}?autoplay=1&loop=1&mute=1&playsinline=1&enablejsapi=1&playlist={{ self.youtube_property_id }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>

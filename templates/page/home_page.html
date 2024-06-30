@@ -3,65 +3,13 @@
 
 {% block body_class %}{{ self.slug }} style="overflow-x: hidden;"{% endblock %}
 
-{% block extra_head %}
-    <style>
-        .home-video-embed {
-            position: relative;
-            /* falls back to 16/9, but otherwise uses ratio from HTML */
-            padding-bottom: calc(var(--aspect-ratio, .5625) * 100%); 
-            padding-top: 25px;
-            
-            /* below attempts to hide the bar on hover over */
-            /* See https://stackoverflow.com/questions/18342536/how-to-hide-the-bar-at-the-top-of-youtube-even-when-mouse-hovers-over-it */
-            overflow: hidden;
-            width: 100%;
-            /* Keep it the right aspect-ratio */
-            aspect-ratio: 16/9;
-            /* No clicking/hover effects */
-            pointer-events: none;
-        }
-
-        .home-video-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-
-            /* below attempts to hide the bar on hover over */
-            /* See https://stackoverflow.com/questions/18342536/how-to-hide-the-bar-at-the-top-of-youtube-even-when-mouse-hovers-over-it */
-            /* Extend it beyond the viewport... */
-            width: 300%;
-            height: 100%;
-            /* ...and bring it back again */
-            margin-left: -100%;
-        }
-
-        .home-video-embed .caption {
-            position: absolute;
-            width: 100%;
-            left: 0;
-            top: 50%;
-            text-align: center;
-            z-index: 999;
-        }
-
-        .home-video-embed .video-opacity {
-            background-color: #000000;
-            opacity: 0.88;
-            transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
-        }
-    </style>
-{% endblock %}
 
 {% block content %}
-    <div class="home-video-embed">
-        <div class="caption">
-            <h2 class="display-5 fw-bold text-white">Inspiring Youth to Reach<br/>their Highest Potential</h2>
-        </div>
+    <!-- BODY -->
+    {% for block in page.body %}
+        {{ block }}
+    {% endfor %}
 
-        <div class="video-opacity">
-            <iframe width="560" height="315" title="Inspiring Youth to Reach Their Highest Potential video" src="//www.youtube.com/embed/vaEp5bvYxGw?autoplay=1&loop=1&mute=1&playsinline=1&enablejsapi=1&playlist=vaEp5bvYxGw" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
 
     <div class="container">
         <div class="row my-4 bg-light d-flex align-items-center p-3">
