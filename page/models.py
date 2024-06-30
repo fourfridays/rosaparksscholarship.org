@@ -4,6 +4,7 @@ from wagtail.fields import StreamField
 from wagtail.models import Page
 
 from page.blocks import (
+    CallToActionBlock,
     ImageGridBlock,
     SingleColumnBlock,
     TwoColumnBlock,
@@ -24,8 +25,14 @@ class HomePage(Page):
     body = StreamField(
         [
             ("hero_youtube_embed", HeroYouTubeEmbedBlock(icon="media")),
+            ("cta_block", CallToActionBlock(icon="placeholder")),
+            ("single_column", SingleColumnBlock(group="COLUMNS")),
+            ("two_columns", TwoColumnBlock(group="COLUMNS")),
+            ("three_columns", ThreeColumnBlock(group="COLUMNS")),
+            ("four_columns", FourColumnBlock(group="COLUMNS")),
         ]
     )
+    
     content_panels = Page.content_panels + [
         FieldPanel("body"),
     ]

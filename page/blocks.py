@@ -63,6 +63,17 @@ class ButtonBlock(StructBlock):
         template = "blocks/button_block.html"
 
 
+class CallToActionBlock(StructBlock):
+    cta_text = CharBlock(max_length=244, help_text="244 character limit.")
+    button_text = CharBlock(max_length=25, help_text="25 character limit.")
+    internal_link = PageChooserBlock(required=False)
+    external_link = URLBlock(required=False)
+
+    class Meta:
+        icon = "pick"
+        template = "blocks/call_to_action_block.html"
+
+
 class CodeBlock(StructBlock):
     code = CodeBlock(label="Code")
 
