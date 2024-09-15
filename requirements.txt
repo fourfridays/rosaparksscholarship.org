@@ -10,11 +10,10 @@ asgiref==3.8.1
     # via django
 beautifulsoup4==4.11.2
     # via wagtail
-boto3==1.34.122
+boto3==1.34.158
     # via -r requirements.in
-botocore==1.34.122
+botocore==1.34.162
     # via
-    #   -r requirements.in
     #   boto3
     #   s3transfer
 certifi==2023.5.7
@@ -29,7 +28,7 @@ defusedxml==0.7.1
     # via willow
 dj-database-url==2.2.0
     # via -r requirements.in
-django==5.0.6
+django==5.0.9
     # via
     #   -r requirements.in
     #   crispy-bootstrap5
@@ -52,17 +51,15 @@ django==5.0.6
     #   djangorestframework
     #   laces
     #   wagtail
-django-allauth==0.63.3
+django-allauth==0.63.6
     # via -r requirements.in
-django-anymail[mailgun]==10.3
-    # via
-    #   -r requirements.in
-    #   django-anymail
+django-anymail[mailgun]==12.0
+    # via -r requirements.in
 django-braces==1.15.0
     # via -r requirements.in
 django-crispy-forms==2.0
     # via crispy-bootstrap5
-django-debug-toolbar==4.4.2
+django-debug-toolbar==4.4.6
     # via -r requirements.in
 django-filter==23.3
     # via wagtail
@@ -73,18 +70,16 @@ django-modelcluster==6.3
 django-permissionedforms==0.1
     # via wagtail
 django-phonenumber-field[phonenumberslite]==7.3.0
-    # via
-    #   -r requirements.in
-    #   django-phonenumber-field
+    # via -r requirements.in
 django-redis==5.4.0
     # via -r requirements.in
-django-storage-url==0.12.0
+django-storage-url==0.12.1
     # via -r requirements.in
-django-storages==1.14.3
+django-storages==1.14.4
     # via
     #   -r requirements.in
     #   django-storage-url
-django-taggit==4.0.0
+django-taggit==5.0.1
     # via wagtail
 django-treebeard==4.7
     # via wagtail
@@ -96,7 +91,7 @@ et-xmlfile==1.1.0
     # via openpyxl
 filetype==1.2.0
     # via willow
-fontawesomefree==6.5.1
+fontawesomefree==6.6.0
     # via -r requirements.in
 furl==2.1.3
     # via django-storage-url
@@ -124,14 +119,14 @@ packaging==23.1
     # via gunicorn
 phonenumberslite==8.13.21
     # via django-phonenumber-field
-pillow==10.3.0
+pillow==10.4.0
     # via
     #   -r requirements.in
     #   pillow-heif
     #   wagtail
 pillow-heif==0.12.0
     # via willow
-psycopg==3.1.19
+psycopg==3.2.1
     # via -r requirements.in
 python-dateutil==2.8.2
     # via botocore
@@ -147,7 +142,7 @@ requests==2.30.0
     #   wagtail
 s3transfer==0.10.1
     # via boto3
-sentry-sdk==2.5.1
+sentry-sdk==2.14.0
     # via -r requirements.in
 six==1.16.0
     # via
@@ -163,8 +158,9 @@ sqlparse==0.4.4
     #   django-debug-toolbar
 telepath==0.3.1
     # via wagtail
-typing-extensions==4.5.0
+typing-extensions==4.12.2
     # via
+    #   -r requirements.in
     #   dj-database-url
     #   psycopg
 urllib3==1.26.15
@@ -173,13 +169,13 @@ urllib3==1.26.15
     #   django-anymail
     #   requests
     #   sentry-sdk
-wagtail==6.1.2
+wagtail==6.2.1
     # via
     #   -r requirements.in
     #   wagtailcodeblock
 wagtailcodeblock==1.29.0.2
     # via -r requirements.in
-whitenoise==6.6.0
+whitenoise==6.7.0
     # via -r requirements.in
 willow[heif]==1.8.0
     # via
