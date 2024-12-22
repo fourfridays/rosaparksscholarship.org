@@ -318,15 +318,15 @@ class AttachmentForm(forms.ModelForm):
         validators=[file_size, validate_document_file_extension],
     )
     honors_awards = forms.FileField(
-        label="Tell us about the honors and awards you received. Indicate whether they were on a local (school, county, or district), state or national level. These awards may be outside of school activities but should not be duplicated in any other section. Honor/Award, Year Received, Brief Description.",
+        label="Tell us about the honors and awards you received. Indicate whether they were on a local (school, county, or district), state or national level. These awards may be outside of school activities but should not be duplicated in any other section. Include: Honor/Award, Year Received, Brief Description. This must be a separate document, do not combine with other attachments.",
         validators=[file_size, validate_document_file_extension],
     )
     extracurricular_activities = forms.FileField(
-        label="Extracurricular Activities (school, clubs, athletics). Indicate position(s), club(s) and/or athletics you participated in. Be sure to distinguish the grade year (9-12) and approximate hours you participated. Activity, Year Participated, Hours per Week, Brief Description.",
+        label="Extracurricular Activities (school, clubs, athletics). Indicate position(s), club(s) and/or athletics you participated in. Be sure to distinguish the grade year (9-12) and approximate hours you participated. Include: Activity, Year Participated, Hours per Week, Brief Description. This must be a separate document, do not combine with other attachments.",
         validators=[file_size, validate_document_file_extension],
     )
     community_service_volunteer_activities = forms.FileField(
-        label="Community Service/Volunteer Activities (church, home, etc.). List community organizations you actively participated in during each grade year (9-12). Also, indicate hours of volunteer service for each activity. These can be school-related but are not to be duplicated any in responses you made in any previous section of the application. Organization, Year Participated, Hours per Week, Brief Description.",
+        label="Community Service/Volunteer Activities (church, home, etc.). List community organizations you actively participated in during each grade year (9-12). Also, indicate hours of volunteer service for each activity. These can be school-related but are not to be duplicated any in responses you made in any previous section of the application. Include: Organization, Year Participated, Hours per Week, Brief Description. This must be a separate document, do not combine with other attachments.",
         validators=[file_size, validate_document_file_extension],
     )
     essay = forms.FileField(
