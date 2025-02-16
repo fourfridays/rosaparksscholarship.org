@@ -129,7 +129,7 @@ class ImageBlock(StructBlock):
 class ImageGridBlock(StreamBlock):
     grid = StructBlock(
         [
-            ("image", ImageChooserBlock(required=True, help_text="size: 400X225px")),
+            ("image", ImageChooserBlock(required=True, help_text="Image size set to max : 400X225px")),
             ("caption", CharBlock(max_length=26, help_text="26 characters limit")),
             (
                 "description",

@@ -12,8 +12,8 @@
                         {% elif child.value.external_link %}
                             <a class="text-black" href="{{ child.value.external_link }}">
                         {% endif %}
-                        {% image child.value.image fill-400x225-c100 format-webp as webp_image_grid %}
-                        {% image child.value.image fill-400x225-c100 as image_grid %}
+                        {% image child.value.image max-400x225 format-webp as webp_image_grid %}
+                        {% image child.value.image max-400x225 as image_grid %}
                         <picture>
                             <source srcset="{{ webp_image_grid.url }}" type="image/webp">
                             <img class="card-img-top img-fluid" {{ image_grid.attrs }} loading="lazy">
