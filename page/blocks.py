@@ -26,6 +26,9 @@ COLOR_WARNING = "warning"
 COLOR_INFO = "info"
 COLOR_LIGHT = "light"
 COLOR_DARK = "dark"
+IMAGE_BORDER_THUMBNAIL = "thumbnail"
+IMAGE_BORDER_ROUNDED_CIRCLE = "rounded-circle"
+IMAGE_BORDER_NONE = "none"
 
 COLOR_CHOICES = (
     (COLOR_PRIMARY, "Primary"),
@@ -39,6 +42,11 @@ COLOR_CHOICES = (
     (COLOR_DARK, "Dark"),
 )
 
+IMAGE_BORDER_CHOICES = [
+    (IMAGE_BORDER_NONE, "None"),
+    (IMAGE_BORDER_THUMBNAIL, "Thumbnail"),
+    (IMAGE_BORDER_ROUNDED_CIRCLE, "Rounded Circle"),
+]
 
 class AlignmentBlock(ChoiceBlock):
     choices = [("start", "Left"), ("center", "Center"), ("end", "Right")]
@@ -119,8 +127,12 @@ class ImageBlock(StructBlock):
     caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
     alignment = AlignmentBlock(default="start", required=False)
-    border = BooleanBlock(required=False, help_text="Adds border around image")
-
+    border = ChoiceBlock(
+        choices=(IMAGE_BORDER_CHOICES),
+        label="Image Border",
+        default=IMAGE_BORDER_NONE,
+        help_text="Select the image border style",
+    )
     class Meta:
         icon = "image"
         template = "blocks/image_block.html"

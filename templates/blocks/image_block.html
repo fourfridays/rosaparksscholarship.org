@@ -5,7 +5,7 @@
     {% image self.image width-900 as theimage %}
         <picture>
             <source srcset="{{ webp_theimage.url }}" type="image/webp">
-            <img class="img-fluid {% if self.border == True %}img-thumbnail{% endif %}{% if self.alignment != 'center' %} float-{{ self.alignment }}{% else %} mx-auto d-block{% endif %}" {{ theimage.attrs }} loading="lazy" />
+            <img class="img-fluid {% if self.border == 'thumbnail' %}img-{{ self.border }} {% elif self.border == 'rounded-circle' %}{{ self.border }} {% endif %}{% if self.alignment != 'center' %} float-{{ self.alignment }}{% else %} mx-auto d-block{% endif %}" {{ theimage.attrs }} loading="lazy" />
         </picture>
     {% if self.caption or self.attribution %}
         <figcaption><strong>{{ self.caption }} {{ self.attribution }}</strong></figcaption>
