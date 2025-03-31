@@ -241,3 +241,23 @@ class SponsorBlock(StructBlock):
     class Meta:
         label = "Sponsor Block"
         template = "blocks/sponsor_block.html"
+
+
+class VideoBlock(StructBlock):
+    video = CharBlock(
+        max_length=100,
+        help_text=(
+            "This is a very specialized block that is used to embed cached videos "
+            "hosted on Amazon Cloudfront. To update the video, you need to contact "
+            "the developer to upload the video and give you a link to insert here."
+        ),
+    )
+    caption = CharBlock(
+        max_length=100,
+        help_text="100 characters limit",
+    )
+
+    class Meta:
+        icon = "media"
+        label = "Video Block"
+        template = "blocks/video_block.html"

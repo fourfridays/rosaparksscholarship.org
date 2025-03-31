@@ -10,11 +10,13 @@ from page.blocks import (
     ThreeColumnBlock,
     FourColumnBlock,
     HeroImageBlock,
+    VideoBlock,
 )
 
 
 class HomePage(Page):
     pass
+            ("video_block",VideoBlock(group="COLUMNS"),),
 
     # Restricting the creation of this page type in settings
     is_creatable = settings.WAGTAIL_PAGES_IS_CREATABLE
