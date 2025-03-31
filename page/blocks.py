@@ -1,3 +1,5 @@
+from django import forms
+
 from wagtail.admin.panels import FieldPanel
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -7,6 +9,7 @@ from wagtail.blocks import (
     CharBlock,
     ChoiceBlock,
     DateBlock,
+    FieldBlock,
     PageChooserBlock,
     RichTextBlock,
     StreamBlock,
@@ -44,8 +47,10 @@ IMAGE_BORDER_CHOICES = [
     (IMAGE_BORDER_ROUNDED_CIRCLE, "Rounded Circle"),
 ]
 
+
 class BackgroundColorBlock(FieldBlock):
     field = forms.ChoiceField(choices=COLOR_CHOICES, label="Background Color")
+
     class Meta:
         default = COLOR_NONE
         icon = "color-palette"
@@ -140,6 +145,7 @@ class ImageBlock(StructBlock):
         default=IMAGE_BORDER_NONE,
         help_text="Select the image border style",
     )
+
     class Meta:
         icon = "image"
         template = "blocks/image_block.html"
@@ -148,7 +154,12 @@ class ImageBlock(StructBlock):
 class ImageGridBlock(StreamBlock):
     grid = StructBlock(
         [
-            ("image", ImageChooserBlock(required=True, help_text="Image size set to max : 400X225px")),
+            (
+                "image",
+                ImageChooserBlock(
+                    required=True, help_text="Image size set to max : 400X225px"
+                ),
+            ),
             ("caption", CharBlock(max_length=26, help_text="26 characters limit")),
             (
                 "description",
@@ -171,6 +182,7 @@ class BaseStreamBlock(StreamBlock):
     """
     Define the custom blocks that `StreamField` will utilize
     """
+
     paragraph_block = RichTextBlock(
         features=[
             "h2",
