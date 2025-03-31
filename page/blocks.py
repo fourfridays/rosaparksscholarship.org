@@ -26,20 +26,16 @@ COLOR_WARNING = "warning"
 COLOR_INFO = "info"
 COLOR_LIGHT = "light"
 COLOR_DARK = "dark"
+COLOR_NONE = "none"
+
 IMAGE_BORDER_THUMBNAIL = "thumbnail"
 IMAGE_BORDER_ROUNDED_CIRCLE = "rounded-circle"
 IMAGE_BORDER_NONE = "none"
 
 COLOR_CHOICES = (
-    (COLOR_PRIMARY, "Primary"),
-    (COLOR_SECONDARY, "Secondary"),
-    (COLOR_TERTIARY, "Tertiary"),
-    (COLOR_SUCCESS, "Success"),
-    (COLOR_DANGER, "Danger"),
-    (COLOR_WARNING, "Warning"),
-    (COLOR_INFO, "Info"),
+    (COLOR_NONE, "None"),
     (COLOR_LIGHT, "Light"),
-    (COLOR_DARK, "Dark"),
+    (COLOR_SECONDARY, "Secondary"),
 )
 
 IMAGE_BORDER_CHOICES = [
@@ -47,6 +43,17 @@ IMAGE_BORDER_CHOICES = [
     (IMAGE_BORDER_THUMBNAIL, "Thumbnail"),
     (IMAGE_BORDER_ROUNDED_CIRCLE, "Rounded Circle"),
 ]
+
+class BackgroundColorBlock(FieldBlock):
+    field = forms.ChoiceField(choices=COLOR_CHOICES, label="Background Color")
+    class Meta:
+        default = COLOR_NONE
+        icon = "color-palette"
+        label = "Background Color"
+        help_text = "Select a background color for the block."
+        field_class = forms.ChoiceField
+        required = False
+
 
 class AlignmentBlock(ChoiceBlock):
     choices = [("start", "Left"), ("center", "Center"), ("end", "Right")]
@@ -212,6 +219,7 @@ class SingleColumnBlock(StructBlock):
 class TwoColumnBlock(StructBlock):
     left_column = BaseStreamBlock()
     right_column = BaseStreamBlock()
+    background_color = BackgroundColorBlock(required=False)
     alignment = AlignmentBlock(default="start", required=False)
     vertical_alignment = VerticalAlignmentBlock(required=False)
 
@@ -224,6 +232,7 @@ class ThreeColumnBlock(StructBlock):
     left_column = BaseStreamBlock()
     middle_column = BaseStreamBlock()
     right_column = BaseStreamBlock()
+    background_color = BackgroundColorBlock(required=False)
     alignment = AlignmentBlock(default="start", required=False)
     vertical_alignment = VerticalAlignmentBlock(required=False)
 
@@ -237,6 +246,7 @@ class FourColumnBlock(StructBlock):
     left_column_2 = BaseStreamBlock()
     right_column_1 = BaseStreamBlock()
     right_column_2 = BaseStreamBlock()
+    background_color = BackgroundColorBlock(required=False)
     alignment = AlignmentBlock(default="start", requirement=False)
     vertical_alignment = VerticalAlignmentBlock(required=False)
 
