@@ -17,7 +17,12 @@ from page.blocks import (
 class HomePage(Page):
     body = StreamField(
         [
-            ("single_column", SingleColumnBlock(group="COLUMNS",)),
+            (
+                "single_column",
+                SingleColumnBlock(
+                    group="COLUMNS",
+                ),
+            ),
             ("two_columns", TwoColumnBlock(group="COLUMNS")),
             ("three_columns", ThreeColumnBlock(group="COLUMNS")),
             ("four_columns", FourColumnBlock(group="COLUMNS")),
@@ -30,7 +35,10 @@ class HomePage(Page):
                     help_text="Minimum 2 blocks and a maximum of 4 blocks",
                 ),
             ),
-            ("video_block",VideoBlock(group="COLUMNS"),),
+            (
+                "video_block",
+                VideoBlock(group="COLUMNS"),
+            ),
         ],
         use_json_field=True,
         default="",
