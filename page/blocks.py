@@ -1,3 +1,5 @@
+from django import forms
+
 from wagtail.admin.panels import FieldPanel
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -7,6 +9,7 @@ from wagtail.blocks import (
     CharBlock,
     ChoiceBlock,
     DateBlock,
+    FieldBlock,
     PageChooserBlock,
     RichTextBlock,
     StreamBlock,
@@ -26,18 +29,35 @@ COLOR_WARNING = "warning"
 COLOR_INFO = "info"
 COLOR_LIGHT = "light"
 COLOR_DARK = "dark"
+COLOR_NONE = "none"
+
+IMAGE_BORDER_THUMBNAIL = "thumbnail"
+IMAGE_BORDER_ROUNDED_CIRCLE = "rounded-circle"
+IMAGE_BORDER_NONE = "none"
 
 COLOR_CHOICES = (
-    (COLOR_PRIMARY, "Primary"),
-    (COLOR_SECONDARY, "Secondary"),
-    (COLOR_TERTIARY, "Tertiary"),
-    (COLOR_SUCCESS, "Success"),
-    (COLOR_DANGER, "Danger"),
-    (COLOR_WARNING, "Warning"),
-    (COLOR_INFO, "Info"),
+    (COLOR_NONE, "None"),
     (COLOR_LIGHT, "Light"),
-    (COLOR_DARK, "Dark"),
+    (COLOR_SECONDARY, "Secondary"),
 )
+
+IMAGE_BORDER_CHOICES = [
+    (IMAGE_BORDER_NONE, "None"),
+    (IMAGE_BORDER_THUMBNAIL, "Thumbnail"),
+    (IMAGE_BORDER_ROUNDED_CIRCLE, "Rounded Circle"),
+]
+
+
+class BackgroundColorBlock(FieldBlock):
+    field = forms.ChoiceField(choices=COLOR_CHOICES, label="Background Color")
+
+    class Meta:
+        default = COLOR_NONE
+        icon = "color-palette"
+        label = "Background Color"
+        help_text = "Select a background color for the block."
+        field_class = forms.ChoiceField
+        required = False
 
 
 class AlignmentBlock(ChoiceBlock):
@@ -119,7 +139,12 @@ class ImageBlock(StructBlock):
     caption = CharBlock(required=False)
     attribution = CharBlock(required=False)
     alignment = AlignmentBlock(default="start", required=False)
-    border = BooleanBlock(required=False, help_text="Adds border around image")
+    border = ChoiceBlock(
+        choices=(IMAGE_BORDER_CHOICES),
+        label="Image Border",
+        default=IMAGE_BORDER_NONE,
+        help_text="Select the image border style",
+    )
 
     class Meta:
         icon = "image"
@@ -129,7 +154,12 @@ class ImageBlock(StructBlock):
 class ImageGridBlock(StreamBlock):
     grid = StructBlock(
         [
-            ("image", ImageChooserBlock(required=True, help_text="Image size set to max : 400X225px")),
+            (
+                "image",
+                ImageChooserBlock(
+                    required=True, help_text="Image size set to max : 400X225px"
+                ),
+            ),
             ("caption", CharBlock(max_length=26, help_text="26 characters limit")),
             (
                 "description",
@@ -152,6 +182,7 @@ class BaseStreamBlock(StreamBlock):
     """
     Define the custom blocks that `StreamField` will utilize
     """
+
     paragraph_block = RichTextBlock(
         features=[
             "h2",
@@ -200,6 +231,7 @@ class SingleColumnBlock(StructBlock):
 class TwoColumnBlock(StructBlock):
     left_column = BaseStreamBlock()
     right_column = BaseStreamBlock()
+    background_color = BackgroundColorBlock(required=False)
     alignment = AlignmentBlock(default="start", required=False)
     vertical_alignment = VerticalAlignmentBlock(required=False)
 
@@ -212,6 +244,7 @@ class ThreeColumnBlock(StructBlock):
     left_column = BaseStreamBlock()
     middle_column = BaseStreamBlock()
     right_column = BaseStreamBlock()
+    background_color = BackgroundColorBlock(required=False)
     alignment = AlignmentBlock(default="start", required=False)
     vertical_alignment = VerticalAlignmentBlock(required=False)
 
@@ -225,6 +258,7 @@ class FourColumnBlock(StructBlock):
     left_column_2 = BaseStreamBlock()
     right_column_1 = BaseStreamBlock()
     right_column_2 = BaseStreamBlock()
+    background_color = BackgroundColorBlock(required=False)
     alignment = AlignmentBlock(default="start", requirement=False)
     vertical_alignment = VerticalAlignmentBlock(required=False)
 
@@ -241,3 +275,23 @@ class SponsorBlock(StructBlock):
     class Meta:
         label = "Sponsor Block"
         template = "blocks/sponsor_block.html"
+
+
+class VideoBlock(StructBlock):
+    video = CharBlock(
+        max_length=100,
+        help_text=(
+            "This is a very specialized block that is used to embed cached videos "
+            "hosted on Amazon Cloudfront. To update the video, you need to contact "
+            "the developer to upload the video and give you a link to insert here."
+        ),
+    )
+    caption = CharBlock(
+        max_length=100,
+        help_text="100 characters limit",
+    )
+
+    class Meta:
+        icon = "media"
+        label = "Video Block"
+        template = "blocks/video_block.html"

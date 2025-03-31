@@ -50,12 +50,20 @@ urlpatterns = [
         ),
         name="scholarship-application",
     ),
-    path("scholarship/application/closed/", TemplateView.as_view(template_name="scholarship/closed.html"), name="scholarship-application-closed"),
     path(
-        "scholarship/application/list/", ScholarshipListView.as_view(), name="scholarship-application-list"
+        "scholarship/application/closed/",
+        TemplateView.as_view(template_name="scholarship/closed.html"),
+        name="scholarship-application-closed",
     ),
     path(
-        "scholarship/application/delete/", ScholarshipDeleteView.as_view(),name="scholarship-application-delete"
+        "scholarship/application/list/",
+        ScholarshipListView.as_view(),
+        name="scholarship-application-list",
+    ),
+    path(
+        "scholarship/application/delete/",
+        ScholarshipDeleteView.as_view(),
+        name="scholarship-application-delete",
     ),
     path(
         "scholarship/application/success/",
@@ -67,7 +75,11 @@ urlpatterns = [
         ScholarshipAttachmentView.as_view(),
         name="scholarship-application-attachments",
     ),
-    path("scholarship/application/download-excel/", ScholarshipDownloadExcelView.as_view(), name="scholarship-application-download-excel"),
+    path(
+        "scholarship/application/download-excel/",
+        ScholarshipDownloadExcelView.as_view(),
+        name="scholarship-application-download-excel",
+    ),
     path("__debug__/", include("debug_toolbar.urls")),
     path("documents/", include(wagtaildocs_urls)),
     path("", include("allauth.urls")),
