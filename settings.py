@@ -1,9 +1,13 @@
-import logging
 import os
 import dj_database_url
+import logging
+import sentry_sdk
 
 from distutils.util import strtobool
 from pathlib import Path
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import SentryLogsHandler
+from sentry_sdk.integrations.logging import LoggingIntegration
 from wagtail.embeds.oembed_providers import youtube
 
 
@@ -64,13 +68,12 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    # Custom middleware to set user IP in Sentry
+    "middleware.SentryUserIpMiddleware",
 ]
 
 sentry_dsn = os.environ.get("SENTRY_DSN", "")
 if sentry_dsn:
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-
     def ignore_disallowedhost(event, hint):
         if event.get("logger", None) == "django.security.DisallowedHost":
             return None
@@ -85,9 +88,17 @@ if sentry_dsn:
         integrations=[
             DjangoIntegration(),
         ],
-        traces_sample_rate=0.2,
+        traces_sample_rate=0.5,
         send_default_pii=True,
+        environment="development" if DEBUG else "production",
     )
+
+# To send the user context correctly to Sentry.
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Instead, configure the root logger to send INFO-level logs to Sentry
+logging.basicConfig(level=logging.INFO, handlers=[SentryLogsHandler(level=logging.INFO)])
 
 ROOT_URLCONF = "urls"
 
