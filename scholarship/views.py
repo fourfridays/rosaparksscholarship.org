@@ -1,7 +1,7 @@
 import logging, os, pytz
 
 from django.contrib.auth import get_user_model
-from django.core.files.storage import get_storage_class
+from django.core.files.storage import Storage
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpResponse
@@ -15,7 +15,6 @@ from django.views.generic.edit import CreateView
 from braces.views import LoginRequiredMixin
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
-from openpyxl.worksheet.hyperlink import Hyperlink
 from .mixins import ModeratorsMixin
 
 from formtools.wizard.views import SessionWizardView
@@ -268,7 +267,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")
         users = get_user_model().objects.filter(id__in=user_ids)
-        storage = get_storage_class("page.storage_backends.PrivateMediaStorage")()
+        storage = Storage("page.storage_backends.PrivateMediaStorage")()
 
         wb = Workbook()
         ws = wb.active

@@ -2,6 +2,8 @@ services:
   web:
     build: "."
     container_name: rpsf-web
+    depends_on:
+      - db
     links:
       - "db:postgres"
     ports:
@@ -13,7 +15,7 @@ services:
     env_file: .env-local
 
   db:
-    image: postgres:15.3-alpine
+    image: postgres:latest
     container_name: rpsf-db
     environment:
       POSTGRES_USER: "rpsf"
