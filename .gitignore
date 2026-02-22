@@ -23,4 +23,4 @@ Thumbs.db
 node_modules
 .sass-cache
 /gunicorn.conf.py
-/actions-runner
+/runner
