@@ -1,7 +1,7 @@
 import logging, os, pytz
 
 from django.contrib.auth import get_user_model
-from django.core.files.storage import Storage
+from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpResponse
@@ -267,7 +267,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")
         users = get_user_model().objects.filter(id__in=user_ids)
-        storage = Storage("page.storage_backends.PrivateMediaStorage")()
+        storage = FileSystemStorage("page.storage_backends.PrivateMediaStorage")
 
         wb = Workbook()
         ws = wb.active
