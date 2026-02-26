@@ -1,7 +1,6 @@
 import logging, os, pytz
 
 from django.contrib.auth import get_user_model
-from django.core.files.storage import FileSystemStorage
 from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.http import HttpResponse
@@ -18,6 +17,7 @@ from openpyxl.utils import get_column_letter
 from .mixins import ModeratorsMixin
 
 from formtools.wizard.views import SessionWizardView
+from page.storage_backends import PrivateMediaStorage
 from scholarship.forms import (
     PersonalInformationForm,
     HighSchoolForm,
@@ -267,7 +267,7 @@ class ScholarshipDownloadExcelView(LoginRequiredMixin, ModeratorsMixin, View):
     def post(self, request, *args, **kwargs):
         user_ids = request.POST.getlist("user_ids")
         users = get_user_model().objects.filter(id__in=user_ids)
-        storage = FileSystemStorage("page.storage_backends.PrivateMediaStorage")
+        storage = PrivateMediaStorage()
 
         wb = Workbook()
         ws = wb.active
